@@ -15,9 +15,6 @@ class Ship:
         self.health = self.health_max
         self.speed += self.speed*random.randint(-25, 25)/100
         self.is_player = is_player
-        
-        if is_player:
-            self.img = pg.transform.flip(self.img, 0, 1)
         self.mask = pg.mask.from_surface(self.img)
         
         self.weapons = [Weapon() for _ in range(self.slot_size)]

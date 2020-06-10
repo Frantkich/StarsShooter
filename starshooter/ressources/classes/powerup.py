@@ -8,34 +8,43 @@ class PowerUp:
     def __init__(self, x, y, powerup):
         self.x = x
         self.y = y
-        self.color, self.time, self.mod, self.var = ressources.powerup_list[powerup]
+        self.powerup = powerup
+        self.color, self.time, self.mod = ressources.powerup_list[powerup]
         self.speed = 10
         self.time *= settings.fps
-        self.save = None
+        self.save = ()
         self.surface = pg.Surface((50, 50))
         self.mask = pg.mask.from_surface(self.surface)
-        
 
-    def check_time(self, obj):
-        if 0 < self.time:
-            self.time -= 1
-        else:
-            exec(''.join(('obj.', self.var, ' = self.save')))
-            obj.powerups.remove(self)
-            
 
     def move(self):
         self.y += self.speed
 
 
-    def update(self, target):
+    def check_time(self, obj):
+        if 0 < self.time:
+            self.time -= 1
+        else:
+            self.effect(obj, 0)
+            obj.powerups.remove(self)
+            
+
+    def effect(self, obj, add):
+        if self.powerup == "speed":
+            if add:
+                self.save = (obj.speed)
+                obj.speed *= self.mod
+            else:
+                obj.speed = self.save
+
+
+    def update(self, obj):
         self.move()
         if settings.screen.get_height() < self.y:
             return self
-        if functions.collide(self, target):
-            target.powerups.append(self)
-            self.save = eval('target.' + self.var)
-            exec(''.join(('target.', self.var, ' = self.mod * ', 'target.', self.var)))
+        if functions.collide(self, obj):
+            obj.powerups.append(self)
+            self.effect(obj, 1)
             return self
 
     def draw(self, window):
