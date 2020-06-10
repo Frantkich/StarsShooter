@@ -10,16 +10,25 @@ class Enemy(Ship):
     def move(self):
         self.y += self.speed
 
-    def update(self, target):
-        if self.health <=0:
+    def update(self, targets):
+        target = None
+        try:
+            if targets[0].is_player:
+                target = targets[0]
+        except NameError:
+            pass
+
+        if self.health <= 0:
             return self
-        self.move()
-        self.move_lasers([target])
         if random.randrange(0, 2*60) == 1:
             self.shoot()
-        if self.y + self.get_height() > settings.screen.get_height():
-            target.health -= target.health_max/4
-            return self
-        if functions.collide(self, target):
-            target.health -= target.health_max/8
-            return self
+        
+        if target:
+            if self.y + self.get_height() > settings.screen.get_height():
+                target.health -= target.health_max/4
+                return self
+            if functions.collide(self, target):
+                target.health -= target.health_max/8
+                return self
+        self.move()
+        self.update_all(targets)

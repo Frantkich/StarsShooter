@@ -7,13 +7,6 @@ class Player(Ship):
     def __init__(self, x, y):
         super().__init__(x, y, 'player', 1)
 
-    def update(self, target):
-        if self.health <= 0:
-            self.health = 0 
-            return True
-        self.move()
-        self.move_lasers(target)
-
     def move(self):
         key = pg.key.get_pressed()
         if key[pg.K_q] and self.x - self.speed > 0:
@@ -26,6 +19,13 @@ class Player(Ship):
             self.y += self.speed
         if key[pg.K_SPACE]:
             self.shoot()
+
+    def update(self, targets):
+        if self.health <= 0:
+            self.health = 0 
+            return True
+        self.move()
+        self.update_all(targets)
 
     def weapon_switch(self, key):
         if 0 <= key < self.slot_size:

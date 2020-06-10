@@ -1,7 +1,11 @@
+#sd
 import pygame as pg
 import os
 import time
 import random
+
+pg.font.init()
+random.seed()
 
 from ressources import ressources
 from ressources import settings
@@ -11,16 +15,10 @@ from ressources.classes.enemy import Enemy
 from ressources.classes.weapon import Weapon
 from ressources.classes.powerup import PowerUp
 
-pg.font.init()
-random.seed()
-
 def main(window):
     clock = pg.time.Clock()
     settings.screen
     run = True
-
-    main_font = pg.font.SysFont('comicsans', 50)
-    lost_font = pg.font.SysFont('comicsans', 60)
 
     player = Player(window.get_width()/2-50, window.get_height()-window.get_height()/4)
     player.new_weapon(player.get_width()/2, 0, 0, 'blaster')
@@ -29,6 +27,7 @@ def main(window):
     player.new_weapon(player.get_width()/2, 0, 3, 'BFG')
 
     enemies = []
+    powerups = []
 
     wave_length = 0
     level = 0
@@ -38,7 +37,7 @@ def main(window):
     def redraw_window():
         window.blit(ressources.BG, (0, 0))
         
-        level_label = main_font.render(f'Level: {level}', 1, (255, 255, 255))
+        level_label = settings.main_font.render(f'Level: {level}', 1, (255, 255, 255))
         window.blit(level_label, (window.get_width() - level_label.get_width() - 10, 10))
 
         for enemy in enemies:
@@ -46,8 +45,11 @@ def main(window):
 
         player.draw(window)
 
+        for powerup in powerups:
+            powerup.draw(window)
+
         if lost:
-            lost_label = lost_font.render('You Lost!!', 1, (255, 255, 255))
+            lost_label = settings.lost_font.render('You Lost!!', 1, (255, 255, 255))
             window.blit(lost_label, (window.get_width()/2 - lost_label.get_width()/2, 350))
 
         pg.display.update()
@@ -65,6 +67,10 @@ def main(window):
                 enemy.new_weapon(enemy.get_width()/2, 10, 0, "blaster")
                 enemies.append(enemy)
 
+            for _ in range(int(wave_length/10)):
+                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), 'speed'))
+        
+        #update Player
         lost = player.update(enemies)
         if lost:
             lost_count += 1
@@ -72,12 +78,19 @@ def main(window):
                 run = False
             else:
                 continue
-
+        
+        #update Enemy
         for enemy in enemies[:]:
-            enemy_temp = enemy.update(player)
+            enemy_temp = enemy.update([player]) 
             if enemy_temp:
                 enemies.remove(enemy_temp)
         
+        #update Power-Up
+        for powerup in powerups[:]:
+            powerup_temp = powerup.update(player)
+            if powerup_temp:
+                powerups.remove(powerup_temp)
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 quit()
@@ -88,11 +101,10 @@ def main(window):
 
 def main_menu(window):
     pg.display.set_caption(settings.title)
-    title_font = pg.font.SysFont('comicsans', 70)
     run = True
     while run:
         window.blit(ressources.BG, (0, 0))
-        title_label = title_font.render('START', 1, (255, 255, 255))
+        title_label = settings.title_font.render('START', 1, (255, 255, 255))
         window.blit(title_label, (window.get_width()/2 - title_label.get_width()/2, 350))
         pg.display.update()
         for event in pg.event.get():

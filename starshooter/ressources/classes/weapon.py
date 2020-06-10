@@ -18,11 +18,11 @@ class Weapon:
                 self.cooldown += 1
 
 
-    def shoot(self, x, y, player):
+    def shoot(self, x, y, is_player):
         if self.weapon:
             if self.cooldown == self.cooldown_max:
                 self.cooldown = 0
-                return Laser(x + self.x, y + self.y, player, ressources.weapon_list[self.weapon][1])
+                return Laser(x + self.x, y + self.y, is_player, ressources.weapon_list[self.weapon][1])
         
     
     def cooldownbar(self, window):
