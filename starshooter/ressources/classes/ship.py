@@ -71,9 +71,11 @@ class Ship:
 
     def draw(self, window):
         window.blit(self.img, (self.x, self.y))
-        self.weapons[self.slot_active].draw(window)
         for laser in self.lasers:
             laser.draw(window)
+        if self.is_player:
+            window.blit(self.img, (self.x, self.y))
+        self.weapons[self.slot_active].draw(window)
 
 
     def get_width(self):

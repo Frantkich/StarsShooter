@@ -13,7 +13,7 @@ class PowerUp:
         self.speed = 5
         self.time *= settings.fps
         self.save = ()
-        self.surface = pg.Surface((50, 50))
+        self.surface = pg.Surface((100, 100))
         self.mask = pg.mask.from_surface(self.surface)
 
 
@@ -57,12 +57,13 @@ class PowerUp:
                 obj.sizeY_mod = int(obj.get_height()/2)
         if self.name == "cooldown":
             if add:
-                self.save = (obj.speed)
-                obj.speed *= self.mod
+                self.save = (obj.weapons[obj.slot_active].cooldown_max, obj.slot_active)
+                obj.weapons[obj.slot_active].cooldown_max = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
+                obj.weapons[obj.slot_active].cooldown = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
             else:
-                obj.speed = self.save
+                obj.weapons[self.save[1]].cooldown_max = self.save[0]
+                obj.weapons[self.save[1]].cooldown *= 0
         
-
 
     def update(self, obj):
         self.move()

@@ -1,4 +1,4 @@
-#sd
+#
 import pygame as pg
 import os
 import time
@@ -61,15 +61,15 @@ def main(window):
 
         if not(len(enemies)):
             level += 1
-            wave_length += 10
+            wave_length += 5
             for _ in range(wave_length):
                 enemy = Enemy(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), random.choice(['red', 'blue', 'green']))
-                enemy.new_weapon(enemy.get_width()/2, 10, 0, "blaster")
+                enemy.new_weapon(0, enemy.get_height(), 0, "blaster")
                 enemies.append(enemy)
 
-            for _ in range(int(wave_length/10)):
-                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), random.choice(['speed', 'damage', 'heal', 'size'])))
-        
+            for _ in range(level):
+                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), random.choice(['speed', 'damage', 'heal', 'size', 'cooldown'])))
+                
         #update Player
         lost = player.update(enemies)
         if lost:
@@ -90,6 +90,7 @@ def main(window):
             powerup_temp = powerup.update(player)
             if powerup_temp:
                 powerups.remove(powerup_temp)
+                
 
         for event in pg.event.get():
             if event.type == pg.QUIT:

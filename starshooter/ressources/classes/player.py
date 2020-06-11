@@ -2,10 +2,12 @@ import pygame as pg
 from .. import ressources
 from .ship import Ship
 from .. import settings
+# from .. import functions
 
 class Player(Ship):
     def __init__(self, x, y):
         super().__init__(x, y, 'player', 1)
+        # self.sprite = functions.makeSprite("../assets/ship_yellow.gif",4)
 
     def move(self):
         key = pg.key.get_pressed()
