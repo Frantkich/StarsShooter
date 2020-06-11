@@ -8,25 +8,26 @@ BG = pg.transform.scale(pg.image.load(os.path.join(dir_asset, 'background-black.
 
 weapon_list = {
 #              [cooldown, ((R, G, B), (size_x, size_y), speed, damage, penetration)]
-    'BFG':     [10,  ((0, 153, 51),    (20, 40), 500, 5, -1)],
+    'BFG':     [10,  ((0, 153, 51),    (20, 40), 500,  5, -1)],
     'laser':   [0,   ((0, 204, 255),   (5, 25),  5,    25, 0)],
     'sniper':  [1.5, ((255, 102, 0),   (8, 20),  150,  20, 2)],
-    'blaster': [0.5, ((255, 255, 102), (8, 10), 999,  20, 0)]
+    'blaster': [0.5, ((255, 255, 102), (8, 10),  999,  20, 0)]
 }
 
 powerup_list = {
 #            [(R, G, B), time, modifier]
-    'speed':    ((255, 255, 0), 10, 2),
-    'damage':   ((128, 255, 0), 10, 2),
-    'heal':     ((255, 0, 0), 0, 0),
+    'speed':    ((255, 255, 0),  10, 2),
+    'damage':   ((128, 255, 0),  10, 2),
+    'heal':     ((255, 0, 0),    0,  0),
     'size':     ((255, 128, 50), 10, 0.5),
-    'cooldown': ((0, 255, 255), 10, 0.25)
+    'cooldown': ((0, 255, 255),  10, 0.25)
 }
+
 
 spaceship_list = {
 #             (img, health, speed, weapon_slot_max)
-    'player': (pg.image.load(os.path.join(dir_asset, 'ship_yellow.png')), 50000, 5, 4),
-    'red':    (pg.image.load(os.path.join(dir_asset, 'ship_red_small.png')), 200, 1, 2),
-    'green':  (pg.image.load(os.path.join(dir_asset, 'ship_green_small.png')), 150, 2, 2),
-    'blue':   (pg.image.load(os.path.join(dir_asset, 'ship_blue_small.png')), 50, 4, 1)
+    'player': (os.path.join(dir_asset, 'ship_yellow.png'),      50000, 5, 4),
+    'red':    (os.path.join(dir_asset, 'ship_red_small.png'),   200,   1, 2),
+    'green':  (os.path.join(dir_asset, 'ship_green_small.png'), 150,   2, 2),
+    'blue':   (os.path.join(dir_asset, 'ship_blue_small.png'),  50,    4, 1)
 }

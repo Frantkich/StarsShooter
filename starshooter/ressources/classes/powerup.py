@@ -13,7 +13,7 @@ class PowerUp:
         self.speed = 5
         self.time *= settings.fps
         self.save = ()
-        self.surface = pg.Surface((100, 100))
+        self.surface = pg.Surface((50, 50))
         self.mask = pg.mask.from_surface(self.surface)
 
 
@@ -79,4 +79,4 @@ class PowerUp:
             return self
 
     def draw(self, window):
-        pg.draw.circle(window, self.color, (self.x, self.y), int(self.surface.get_height()/4))
+        pg.draw.circle(window, self.color, ((self.x + int(self.surface.get_width()/2), self.y + int(self.surface.get_height()/2))), int(self.surface.get_height()/2))

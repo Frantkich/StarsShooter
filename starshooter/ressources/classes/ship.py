@@ -11,10 +11,11 @@ class Ship:
         self.x = x
         self.y = y
         
-        self.img, self.health_max, self.speed, self.slot_size = ressources.spaceship_list[spaceship]
+        self.link, self.health_max, self.speed, self.slot_size = ressources.spaceship_list[spaceship]
         self.health = self.health_max
         self.speed += self.speed*random.randint(-25, 25)/100
         self.is_player = is_player
+        self.img = pg.image.load(self.link)
         self.mask = pg.mask.from_surface(self.img)
 
         self.weapons = [Weapon() for _ in range(self.slot_size)]
@@ -75,7 +76,7 @@ class Ship:
             laser.draw(window)
         if self.is_player:
             window.blit(self.img, (self.x, self.y))
-        self.weapons[self.slot_active].draw(window)
+        self.weapons[self.slot_active].draw(window)        
 
 
     def get_width(self):
