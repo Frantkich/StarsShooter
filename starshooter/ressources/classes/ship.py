@@ -16,13 +16,15 @@ class Ship:
         self.speed += self.speed*random.randint(-25, 25)/100
         self.is_player = is_player
         self.mask = pg.mask.from_surface(self.img)
-        
+
         self.weapons = [Weapon() for _ in range(self.slot_size)]
         self.slot_active = 0
         self.lasers = []
 
         self.powerups = []
-
+        self.damage_mod = 1
+        self.sizeX_mod = int(self.get_width()/2)
+        self.sizeY_mod = int(self.get_height()/2)
 
     def new_weapon(self, x, y, slot, weapon):
         self.weapons[slot] = Weapon(weapon, x, y)
@@ -30,7 +32,7 @@ class Ship:
 
 
     def shoot(self):
-        laser = self.weapons[self.slot_active].shoot(self.x, self.y, self.is_player)
+        laser = self.weapons[self.slot_active].shoot(self.x + self.sizeX_mod, self.y + self.sizeY_mod, self.is_player)
         if laser:
             self.lasers.append(laser)
 
@@ -52,7 +54,7 @@ class Ship:
                 self.lasers.remove(laser)
             for target in targets:
                 if functions.collide(laser, target) and not(target in laser.hit):
-                    target.health -= laser.damage
+                    target.health -= laser.damage * self.damage_mod
                     if laser in self.lasers:
                         if laser.penetration:
                             laser.penetration -= 1

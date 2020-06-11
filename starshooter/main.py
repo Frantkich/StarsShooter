@@ -21,10 +21,10 @@ def main(window):
     run = True
 
     player = Player(window.get_width()/2-50, window.get_height()-window.get_height()/4)
-    player.new_weapon(player.get_width()/2, 0, 0, 'blaster')
-    player.new_weapon(player.get_width()/2, 0, 1, 'sniper')
-    player.new_weapon(player.get_width()/2, 0, 2, 'laser')
-    player.new_weapon(player.get_width()/2, 0, 3, 'BFG')
+    player.new_weapon(0, 0, 0, 'blaster')
+    player.new_weapon(0, 0, 1, 'sniper')
+    player.new_weapon(0, 0, 2, 'laser')
+    player.new_weapon(0, 0, 3, 'BFG')
 
     enemies = []
     powerups = []
@@ -68,7 +68,7 @@ def main(window):
                 enemies.append(enemy)
 
             for _ in range(int(wave_length/10)):
-                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), 'speed'))
+                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), random.choice(['speed', 'damage', 'heal', 'size'])))
         
         #update Player
         lost = player.update(enemies)
@@ -79,7 +79,7 @@ def main(window):
             else:
                 continue
         
-        #update Enemy
+        #update Enemy 
         for enemy in enemies[:]:
             enemy_temp = enemy.update([player]) 
             if enemy_temp:

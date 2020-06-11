@@ -16,7 +16,10 @@ weapon_list = {
 
 powerup_list = {
 #            [(R, G, B), time, modifier]
-    'speed': ((255, 0, 255), 3, 2)
+    'speed': ((0, 255, 255), 10, 2),
+    'damage': ((255, 255, 0), 10, 2),
+    'heal': ((255, 0, 255), 0, 0),
+    'size': ((255, 100, 50), 10, 0.5)
 }
 
 spaceship_list = {
