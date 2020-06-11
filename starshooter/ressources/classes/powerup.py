@@ -10,7 +10,7 @@ class PowerUp:
         self.y = y
         self.name = name
         self.color, self.time, self.mod = ressources.powerup_list[name]
-        self.speed = 10
+        self.speed = 5
         self.time *= settings.fps
         self.save = ()
         self.surface = pg.Surface((50, 50))
