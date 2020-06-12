@@ -117,7 +117,7 @@ def menu(window,clock):
     labels.append(Label(window.get_width()/2, 600, "Settings", (255, 240, 200)))
     labels.append(Label(window.get_width()/2, 800, "Exit", (255, 240, 200)))
         
-    Label(window.get_width()/2, window.get_height()/2, "StarSShooterS", (255, 240, 200)).draw(window)
+    Label(window.get_width()/2, window.get_height()/2, "StarShooter", (255, 240, 200)).draw(window)
     pygame.display.update()
 
     stars = []

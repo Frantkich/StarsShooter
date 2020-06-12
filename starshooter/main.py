@@ -8,7 +8,7 @@ pg.font.init()
 random.seed()
 
 from ressources import ressources
-from ressources import settings
+from ressources.settings import *
 
 from ressources.classes.player import Player
 from ressources.classes.enemy import Enemy
@@ -16,15 +16,15 @@ from ressources.classes.weapon import Weapon
 from ressources.classes.powerup import PowerUp
 
 def main(window):
-    clock = pg.time.Clock()
-    settings.screen
+    screen
     run = True
 
-    player = Player(window.get_width()/2-50, window.get_height()-window.get_height()/4)
+    player = Player(0, window.get_height()-window.get_height()/4)
+    player.x = window.get_width()/2 - player.get_width()/2
     player.new_weapon(0, 0, 0, 'blaster')
     player.new_weapon(0, 0, 1, 'sniper')
-    player.new_weapon(0, 0, 2, 'laser')
-    player.new_weapon(0, 0, 3, 'BFG')
+    # player.new_weapon(0, 0, 2, 'laser')
+    # player.new_weapon(0, 0, 3, 'BFG')
 
     enemies = []
     powerups = []
@@ -37,7 +37,7 @@ def main(window):
     def redraw_window():
         window.blit(ressources.BG, (0, 0))
         
-        level_label = settings.main_font.render(f'Level: {level}', 1, (255, 255, 255))
+        level_label = main_font.render(f'Level: {level}', 1, (255, 255, 255))
         window.blit(level_label, (window.get_width() - level_label.get_width() - 10, 10))
 
         for enemy in enemies:
@@ -49,14 +49,14 @@ def main(window):
             powerup.draw(window)
 
         if lost:
-            lost_label = settings.lost_font.render('You Lost!!', 1, (255, 255, 255))
+            lost_label = lost_font.render('You Lost!!', 1, (255, 255, 255))
             window.blit(lost_label, (window.get_width()/2 - lost_label.get_width()/2, 350))
 
         pg.display.update()
 
     while run:
-        pg.display.set_caption(settings.title + str(" / FPS: {}".format(int(clock.get_fps()))))
-        clock.tick(settings.fps)
+        pg.display.set_caption(title + str(" / FPS: {}".format(int(clock.get_fps()))))
+        clock.tick(fps)
         redraw_window()
 
         if not(len(enemies)):
@@ -68,13 +68,13 @@ def main(window):
                 enemies.append(enemy)
 
             for _ in range(level):
-                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), random.choice(['speed', 'damage', 'heal', 'size', 'cooldown'])))
+                powerups.append(PowerUp(random.randrange(50, window.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
                 
         #update Player
         lost = player.update(enemies)
         if lost:
             lost_count += 1
-            if lost_count > settings.fps * 3:
+            if lost_count > fps * 3:
                 run = False
             else:
                 continue
@@ -101,11 +101,11 @@ def main(window):
                 pass
 
 def main_menu(window):
-    pg.display.set_caption(settings.title)
+    pg.display.set_caption(title)
     run = True
     while run:
         window.blit(ressources.BG, (0, 0))
-        title_label = settings.title_font.render('START', 1, (255, 255, 255))
+        title_label = title_font.render('START', 1, (255, 255, 255))
         window.blit(title_label, (window.get_width()/2 - title_label.get_width()/2, 350))
         pg.display.update()
         for event in pg.event.get():
@@ -115,4 +115,4 @@ def main_menu(window):
                 main(window)
     pg.quit()
 
-main_menu(settings.screen)
+main_menu(screen)

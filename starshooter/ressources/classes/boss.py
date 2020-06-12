@@ -3,27 +3,28 @@ from .ship import Ship
 from ..settings import *
 from ..functions import *
 
-class Enemy(Ship):
+
+class Boss(Ship):
     def __init__(self, x, y, model):
         super().__init__(x, y, model)
         self.speed *= random.uniform(1, 1.25)
+        self.maxHeight = random.randint(
+            screen.get_height()/4, screen.get_height()/3)
 
     def move(self):
-        self.y += self.speed
+        if self.y < self.maxHeight:
+            self.y += self.speed
+        else:
+            self.y -= self.speed
 
     def update(self, targets):
         target = targets[0]
-        
         if self.health <= 0:
             return self
         if random.randrange(0, 2*60) == 1:
             self.shoot()
-        
-        if self.y + self.get_height() > screen.get_height():
-            target.health -= target.health_max/4
-            return self
-        if collide(self, target):
-            target.health -= target.health_max/8
+        if functions.collide(self, target):
+            target.health -= 0
             return self
 
         self.move()

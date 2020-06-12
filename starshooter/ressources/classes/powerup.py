@@ -1,8 +1,8 @@
 import pygame as pg
 
 from .. import ressources
-from .. import settings
-from .. import functions
+from ..settings import *
+from ..functions import *
 
 class PowerUp:
     def __init__(self, x, y, name):
@@ -11,7 +11,7 @@ class PowerUp:
         self.name = name
         self.color, self.time, self.mod = ressources.powerup_list[name]
         self.speed = 5
-        self.time *= settings.fps
+        self.time *= fps
         self.save = ()
         self.surface = pg.Surface((50, 50))
         self.mask = pg.mask.from_surface(self.surface)
@@ -46,13 +46,12 @@ class PowerUp:
         if self.name == "size":
             if add:
                 self.save = (obj.img)
-                obj.img = pg.transform.scale(obj.img, (int(obj.img.get_width() * self.mod), int(obj.img.get_height() * self.mod)))
-                obj.mask = pg.mask.from_surface(obj.img)
+                obj.init_sprites(pg.transform.scale(obj.img, (int(obj.img.get_width() * self.mod), int(obj.img.get_height() * self.mod))))
                 obj.sizeX_mod = int(obj.get_width()/2)
                 obj.sizeY_mod = int(obj.get_height()/2)
             else:
                 obj.img = self.save
-                obj.mask = pg.mask.from_surface(obj.img)
+                obj.init_sprites(obj.img)
                 obj.sizeX_mod = int(obj.get_width()/2)
                 obj.sizeY_mod = int(obj.get_height()/2)
         if self.name == "cooldown":
@@ -67,9 +66,9 @@ class PowerUp:
 
     def update(self, obj):
         self.move()
-        if settings.screen.get_height() < self.y:
+        if screen.get_height() < self.y:
             return self
-        if functions.collide(self, obj):
+        if collide(self, obj):
             for powerup in obj.powerups:
                 if powerup.name == self.name:
                     powerup.time += self.time

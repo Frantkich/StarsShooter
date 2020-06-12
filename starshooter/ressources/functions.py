@@ -1,17 +1,6 @@
 import pygame, math, sys, os
 from .settings import *
 
-# pygame.mixer.pre_init(44100, -16, 2, 512)
-# pygame.init()
-# pygame.mixer.init()
-# spriteGroup = pygame.sprite.OrderedUpdates()
-# textboxGroup = pygame.sprite.OrderedUpdates()
-# gameClock = pygame.time.Clock()
-# musicPaused = False
-# hiddenSprites = pygame.sprite.OrderedUpdates()
-# screenRefresh = True
-# background = None
-
 keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "down": pygame.K_DOWN,
            "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "return": pygame.K_RETURN,
            "a": pygame.K_a,
@@ -52,20 +41,18 @@ keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "
            "0": pygame.K_0}
 
 
-def gif(filename, frames=1):
+def spritesheet(image, frames=1):
     images = []
-    img = pygame.image.load(filename).convert_alpha()
-    originalWidth = img.get_width() // frames
-    originalHeight = img.get_height()
+    originalWidth = image.get_width() // frames
+    originalHeight = image.get_height()
     frameSurf = pygame.Surface((originalWidth, originalHeight), pygame.SRCALPHA, 32)
     x = 0
     for _ in range(frames):
         frameSurf = pygame.Surface((originalWidth, originalHeight), pygame.SRCALPHA, 32)
-        frameSurf.blit(img, (x, 0))
+        frameSurf.blit(image, (x, 0))
         images.append(frameSurf.copy())
         x -= originalWidth
-    return  images
-
+    return images
 
 def keyPressed(keyCheck=""):
     global keydict
@@ -75,18 +62,13 @@ def keyPressed(keyCheck=""):
             return True
     return False
 
-def clock():
-    current_time = pygame.time.get_ticks()
-    return current_time
-
 def tick(fps):
     for event in pygame.event.get():
         if (event.type == pygame.KEYDOWN and event.key == keydict["esc"]) or event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    gameClock.tick(fps)
-    return gameClock.get_fps()
-
+    clock.tick(fps)
+    return clock.get_fps()
 
 def collide(obj1, obj2):
     offset_x = int(obj2.x - obj1.x)

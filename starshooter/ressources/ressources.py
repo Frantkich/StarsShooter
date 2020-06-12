@@ -11,12 +11,13 @@ weapon_list = {
     'BFG':     [10,  ((0, 153, 51),    (20, 40), 500,  5, -1)],
     'laser':   [0,   ((0, 204, 255),   (5, 25),  5,    25, 0)],
     'sniper':  [1.5, ((255, 102, 0),   (8, 20),  150,  20, 2)],
-    'blaster': [0.5, ((255, 255, 102), (8, 10),  999,  20, 0)]
+    'blaster': [0.5, ((255, 255, 102), (8, 10),  75,   20, 0)]
 }
+
 
 powerup_list = {
 #            [(R, G, B), time, modifier]
-    'speed':    ((255, 255, 0),  10, 2),
+    'speed':    ((255, 255, 0),  10, 1.25),
     'damage':   ((128, 255, 0),  10, 2),
     'heal':     ((255, 0, 0),    0,  0),
     'size':     ((255, 128, 50), 10, 0.5),
@@ -25,9 +26,9 @@ powerup_list = {
 
 
 spaceship_list = {
-#             (img, health, speed, weapon_slot_max)
-    'player': (os.path.join(dir_asset, 'ship_yellow.png'),      50000, 5, 4),
-    'red':    (os.path.join(dir_asset, 'ship_red_small.png'),   200,   1, 2),
-    'green':  (os.path.join(dir_asset, 'ship_green_small.png'), 150,   2, 2),
-    'blue':   (os.path.join(dir_asset, 'ship_blue_small.png'),  50,    4, 1)
+#             (img, nbframe, health, speed, weapon_slot_max)
+    'player': (os.path.join(dir_asset, 'ship_yellow.png'), 4, 500, 7.5, 4),
+    'red':    (os.path.join(dir_asset, 'ship_red.png'),    4, 200, 1,   4),
+    'green':  (os.path.join(dir_asset, 'ship_green.png'),  4, 150, 2,   2),
+    'blue':   (os.path.join(dir_asset, 'ship_blue.png'),   4, 50,  4,   1)
 }
