@@ -74,13 +74,14 @@ class Star:
         if not(self.acc):
             self.acc = 1.005
 
-    def move(self, surface):
+    def move(self):
         self.vel[0] *= self.acc
         self.vel[1] *= self.acc
         
         self.x += self.vel[0]
         self.y += self.vel[1]
-        
+    
+    def draw(self, surface):
         if 0 < self.x < surface.get_width() or 0 < self.y < surface.get_height():
             pygame.draw.line(surface, (255, 240, 200), (int(self.x - self.vel[0]), int(self.y - self.vel[1])), (int(self.x), int(self.y)), self.width)
             if self.width:
@@ -115,16 +116,18 @@ def menu(window,clock):
     labels.append(Label(window.get_width()/2, 400, "Load game", (255, 240, 200)))
     labels.append(Label(window.get_width()/2, 600, "Settings", (255, 240, 200)))
     labels.append(Label(window.get_width()/2, 800, "Exit", (255, 240, 200)))
-    
-    stars = []
+        
     Label(window.get_width()/2, window.get_height()/2, "StarSShooterS", (255, 240, 200)).draw(window)
     pygame.display.update()
+
+    stars = []
     for n in range(1000):
         stars.append(Star(WINCENTER, random.randint(0, 100)))
         for _ in range(500):
-            stars[n].move(window)
-            
-    pygame.time.delay(2000)
+            stars[n].move()
+
+    pygame.time.delay(1000)
+    
     previousKey = None
     print(len(stars))
     while run:
@@ -161,7 +164,8 @@ def menu(window,clock):
                 pass
 
         for star in stars:
-            if star.move(window):
+            star.move()
+            if star.draw(window):
                 stars.remove(star)
                 stars.append(Star(WINCENTER, star.width, 1))
 
