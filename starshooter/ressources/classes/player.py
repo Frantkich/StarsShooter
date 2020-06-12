@@ -7,7 +7,7 @@ from .. import functions
 class Player(Ship):
     def __init__(self, x, y):
         super().__init__(x, y, 'player', 1)
-        # self.sprite = functions.makeSprite(self.link ,4)
+        # self.sprites = makeSprite(self.link ,4)
 
     def move(self):
         key = pg.key.get_pressed()
