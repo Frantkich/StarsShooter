@@ -1,5 +1,5 @@
 import pygame, math, sys, os
-from .settings import *
+
 
 keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "down": pygame.K_DOWN,
            "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "return": pygame.K_RETURN,
@@ -62,13 +62,6 @@ def keyPressed(keyCheck=""):
             return True
     return False
 
-def tick(fps):
-    for event in pygame.event.get():
-        if (event.type == pygame.KEYDOWN and event.key == keydict["esc"]) or event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-    clock.tick(fps)
-    return clock.get_fps()
 
 def collide(obj1, obj2):
     offset_x = int(obj2.x - obj1.x)

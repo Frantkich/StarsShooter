@@ -1,7 +1,14 @@
 import pygame as pg
-import os
+import os, random
+
+pg.font.init()
+random.seed()
 
 dir_asset = os.path.join(os.path.dirname(__file__), 'assets') 
+
+main_font = pg.font.Font(os.path.join(dir_asset, "fonts/MachineStd.otf"), 50)
+hover_font = pg.font.Font(os.path.join(dir_asset, "fonts/MachineStd.otf"), 60)
+title_font = pg.font.Font(os.path.join(dir_asset, "fonts/MachineStd.otf"), 100)
 
 BG = pg.transform.scale(pg.image.load(os.path.join(dir_asset, 'background-black.png')), (650, 1000))
 
