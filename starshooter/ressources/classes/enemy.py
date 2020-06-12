@@ -16,7 +16,7 @@ class Enemy(Ship):
         
         if self.health <= 0:
             return self
-        if random.randrange(0, 2*60) == 1:
+        if random.randrange(0, 2*fps) == 1:
             self.shoot()
         
         if self.y + self.get_height() > screen.get_height():

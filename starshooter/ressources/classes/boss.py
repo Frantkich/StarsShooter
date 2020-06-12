@@ -7,25 +7,33 @@ from ..functions import *
 class Boss(Ship):
     def __init__(self, x, y, model):
         super().__init__(x, y, model)
-        self.speed *= random.uniform(1, 1.25)
-        self.maxHeight = random.randint(
-            screen.get_height()/4, screen.get_height()/3)
+        self.x = screen.get_width()/2 - self.get_width()/2
+        self.maxY = random.randint(0, int(screen.get_height()/2))
 
     def move(self):
-        if self.y < self.maxHeight:
+        if self.y < self.maxY:
             self.y += self.speed
-        else:
+        elif self.maxY < self.y:
             self.y -= self.speed
+        else:
+            self.maxY = random.randint(0, int(screen.get_height()/4))
+
+    def shoot(self):
+        for weapon in self.weapons:
+            laser = weapon.shoot(self.x + self.sizeX_mod, self.y + self.sizeY_mod, self.is_player)
+            if laser:
+                self.lasers.append(laser)
 
     def update(self, targets):
         target = targets[0]
         if self.health <= 0:
             return self
-        if random.randrange(0, 2*60) == 1:
+        if random.randrange(0, 100) < 75:
             self.shoot()
-        if functions.collide(self, target):
+        if collide(self, target):
             target.health -= 0
             return self
 
         self.move()
         self.update_all(targets)
+    

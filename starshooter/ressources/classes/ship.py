@@ -1,28 +1,35 @@
 import pygame as pg
 import random
 
-from .. import ressources
-from .weapon import Weapon
+from ..ressources import *
 from ..settings import *
 from ..functions import *
 
+from .weapon import Weapon
+
+
 class Ship:
     def __init__(self, x, y, spaceship, is_player=0):
+        #pos
         self.x = x
         self.y = y
         self.is_player = is_player
-
-        self.path, self.nbframe, self.health_max, self.speed, self.slot_size = ressources.spaceship_list[spaceship]
+        # basic stats
+        self.health_max, self.speed = spaceship_list[spaceship][1]
         self.health = self.health_max
+        #prites
+        self.path, self.nbframe = spaceship_list[spaceship][0]
         if not(is_player):
             self.img= pygame.transform.flip(pygame.image.load(self.path), 0, 1)
         else:
             self.img = pygame.image.load(self.path)
-
         self.init_sprites(self.img)
-        self.init_weapons(self.slot_size)
+        #weapons
+        self.weapons = [Weapon(pos) for pos in spaceship_list[spaceship][2]]
+        self.slot_active = 0
+        #lasers
         self.lasers = []
-
+        #powerups
         self.powerups = []
         self.damage_mod = 1
         self.sizeX_mod = int(self.get_width()/2)
@@ -34,22 +41,11 @@ class Ship:
         self.mask = pg.mask.from_surface(self.sprite)
         self.frame = 0
         self.nextFrame = 0
-    
-    def init_weapons(self, slot_size):
-        self.weapons = [Weapon() for _ in range(self.slot_size)]
-        self.slot_active = 0
-
-
-    def new_weapon(self, x, y, slot, weapon):
-        self.weapons[slot] = Weapon(weapon, x, y)
-        self.slot_active = slot
-
 
     def shoot(self):
         laser = self.weapons[self.slot_active].shoot(self.x + self.sizeX_mod, self.y + self.sizeY_mod, self.is_player)
         if laser:
             self.lasers.append(laser)
-
 
     def update_sprite(self):
         if self.nextFrame == 0:
@@ -88,13 +84,11 @@ class Ship:
         self.update_lasers(targets)
         self.update_powerups()
 
-
     def draw(self, window):
         window.blit(self.sprite, (self.x, self.y))
         for laser in self.lasers:
             laser.draw(window)
         self.weapons[self.slot_active].draw(window)        
-
 
     def get_width(self):
         return self.sprite.get_width()
