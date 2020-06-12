@@ -1,4 +1,4 @@
-import random, math, pygame
+import random, math, pygame, sys, os
 from pygame.locals import *
 
 random.seed()
@@ -98,7 +98,7 @@ class Label():
         self.y = y
         self.text = text
         self.color = color
-        self.font = pygame.font.Font(None, 70)
+        self.font = pygame.font.Font(os.path.join("assets", "fonts", 'MachineStd.otf'), 70)
 
     def draw(self, window, is_active = 0):
         if is_active:
