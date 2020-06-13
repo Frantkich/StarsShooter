@@ -17,3 +17,6 @@ class Label():
         else:
             label = pg.font.Font(self.font, self.fontSize).render(self.text, False, self.color)
         window.blit(label, (self.x - label.get_width()/2, self.y - label.get_height()/2))
+    
+    #def set_font_size(self, fontsize):
+    #    self.font = pg.font.Font(os.path.join(dir_asset, "fonts/MachineStd.otf"), fontsize)
