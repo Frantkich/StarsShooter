@@ -1,9 +1,9 @@
 import pygame as pg
 import random
 
-from ..ressources import *
-from ..settings import *
-from ..functions import *
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
 
 from .weapon import Weapon
 

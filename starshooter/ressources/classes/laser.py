@@ -1,6 +1,8 @@
 import pygame as pg
-from .. import ressources
-from .. import settings
+
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
 
 class Laser:
     def __init__(self, x, y, is_player, param):

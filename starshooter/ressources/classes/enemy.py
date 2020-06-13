@@ -1,7 +1,10 @@
 import random
+
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
+
 from .ship import Ship
-from ..settings import *
-from ..functions import *
 
 class Enemy(Ship):
     def __init__(self, x, y, model):

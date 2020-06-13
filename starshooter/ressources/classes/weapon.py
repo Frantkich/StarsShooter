@@ -1,8 +1,8 @@
 import pygame as pg
 
-from ..ressources import *
-from ..settings import *
-from ..functions import *
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
 
 from .laser import Laser
 

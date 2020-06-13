@@ -1,15 +1,16 @@
 import pygame as pg
 
-from .. import ressources
-from ..settings import *
-from ..functions import *
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
+
 
 class PowerUp:
     def __init__(self, x, y, name):
         self.x = x
         self.y = y
         self.name = name
-        self.color, self.time, self.mod = ressources.powerup_list[name]
+        self.color, self.time, self.mod = powerup_list[name]
         self.speed = 5
         self.time *= fps
         self.save = ()

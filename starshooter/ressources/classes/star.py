@@ -1,5 +1,10 @@
 import pygame as pg
 import random
+
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
+
 class Star:
     def __init__(self, pos, width, heritage=None):
         self.x, self.y = pos

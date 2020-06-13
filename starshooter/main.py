@@ -30,7 +30,7 @@ def main():
     powerups = []
 
     wave_length = 0
-    level = 4
+    level = 1
     lost = False
     lost_count = 0
 
@@ -63,10 +63,10 @@ def main():
             level += 1
             wave_length += 1
 
-            # for _ in range(wave_length):
-            #     enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(['red', 'blue', 'green']))
-            #     enemy.weapons[0].change_weapon('blaster')
-            #     enemies.append(enemy)
+            for _ in range(wave_length):
+                enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(['red', 'blue', 'green']))
+                enemy.weapons[0].change_weapon('blaster')
+                enemies.append(enemy)
 
             if not(level%5):
                 for _ in range(int(level/5)):
@@ -182,5 +182,5 @@ def menu():
         pg.draw.rect(screen, (0,0,0), ((0,0), screen.get_size()))
     pg.quit()
 
-menu()
-# main()
+# menu()
+main()

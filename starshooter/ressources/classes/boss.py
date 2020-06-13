@@ -1,8 +1,10 @@
 import random
-from .ship import Ship
-from ..settings import *
-from ..functions import *
 
+from ressources.ressources import *
+from ressources.settings import *
+from ressources.functions import *
+
+from .ship import Ship
 
 class Boss(Ship):
     def __init__(self, x, y, model):
