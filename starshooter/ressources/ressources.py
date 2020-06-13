@@ -45,5 +45,3 @@ spaceship_list = {
 }
 
 pg.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename="mixer", allowedchanges=0)
-
-default_music = pg.mixer.music.load(dir_asset + "/music/Space_Invaders_3.mp3")

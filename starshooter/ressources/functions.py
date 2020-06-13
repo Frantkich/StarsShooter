@@ -68,3 +68,10 @@ def collide(obj1, obj2):
     offset_y = int(obj2.y - obj1.y)
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
     
+
+def change_music(music_name):
+    pygame.mixer.fadeout(20000)
+    print("jai fais un fadeout")
+    pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name)
+    pygame.mixer.music.play(-1)
+    return os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name

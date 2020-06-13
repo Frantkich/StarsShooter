@@ -185,7 +185,8 @@ def menu():
 
 
 def settingsInterface():
-    pg.mixer.music.play(-1)
+    print(change_music("Space_Invaders_3.mp3"))
+    change_music("Space_Invaders_3.mp3")
     run = True
     previousKey = None
     #Initialisation
@@ -214,16 +215,13 @@ def settingsInterface():
                     previousKey = e
                     if keyPressed("d") and soundbarre.volumeLevel < 10:
                         soundbarre.up_volumeLevel()
-                        print(type (soundbarre.volumeLevel/10))
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
-                        #pg.mixer.Sound.set_volume(soundbarre.volumeLevel/10)
 
                     if keyPressed("q") and 0 < soundbarre.volumeLevel:
                         soundbarre.down_volumeLevel()
-                        print(soundbarre.volumeLevel)
-                        #pg.mixer.Sound.set_volume(soundbarre.volumeLevel/10)
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
-
+                    if keyPressed("s"):
+                        change_music("Space_Invaders_3.mp3")
             except KeyError:
                 pass        
 
