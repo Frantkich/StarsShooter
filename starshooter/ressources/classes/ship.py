@@ -32,8 +32,7 @@ class Ship:
         #powerups
         self.powerups = []
         self.damage_mod = 1
-        self.sizeX_mod = int(self.get_width()/2)
-        self.sizeY_mod = int(self.get_height()/2)
+        self.size_mod = 1
 
     def init_sprites(self, img):
         self.sprites = spritesheet(img, self.nbframe)
@@ -43,7 +42,7 @@ class Ship:
         self.nextFrame = 0
 
     def shoot(self):
-        laser = self.weapons[self.slot_active].shoot(self.x + self.sizeX_mod, self.y + self.sizeY_mod, self.is_player)
+        laser = self.weapons[self.slot_active].shoot(self.x + self.get_width()/2, self.y + self.get_height()/2, self.size_mod, self.is_player)
         if laser:
             self.lasers.append(laser)
 
@@ -85,9 +84,9 @@ class Ship:
         self.update_powerups()
 
     def draw(self, window):
-        window.blit(self.sprite, (self.x, self.y))
         for laser in self.lasers:
             laser.draw(window)
+        window.blit(self.sprite, (self.x, self.y))
         self.weapons[self.slot_active].draw(window)        
 
     def get_width(self):

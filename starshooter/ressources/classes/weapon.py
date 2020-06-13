@@ -8,7 +8,7 @@ from .laser import Laser
 
 class Weapon:
     def __init__(self, pos, weapon=None):
-        self.x, self.y = pos
+        self.pos = pos
         self.change_weapon(weapon)
 
     def change_weapon(self, weapon):
@@ -22,11 +22,13 @@ class Weapon:
             if self.cooldown < self.cooldown_max:
                 self.cooldown += 1
 
-    def shoot(self, shipX, shipY, is_player):
+    def shoot(self, shipX, shipY, sizeMod, is_player):
         if self.weapon:
             if self.cooldown == self.cooldown_max:
                 self.cooldown = 0
-                return Laser(shipX + self.x, shipY + self.y, is_player, weapon_list[self.weapon][1])
+                x = int(self.pos[0] * sizeMod)
+                y = int(self.pos[1] * sizeMod)
+                return Laser(shipX + x, shipY + y, is_player, weapon_list[self.weapon][1], )
     
     def cooldownbar(self, window):
         bar_height = 50

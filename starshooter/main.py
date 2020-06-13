@@ -63,15 +63,19 @@ def main():
             level += 1
             wave_length += 1
 
-            for _ in range(wave_length):
-                enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(['red', 'blue', 'green']))
-                enemy.weapons[0].change_weapon('blaster')
-                enemies.append(enemy)
+            # for _ in range(wave_length):
+            #     enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(['red', 'blue', 'green']))
+            #     enemy.weapons[0].change_weapon('blaster')
+            #     enemies.append(enemy)
+
             if not(level%5):
                 for _ in range(int(level/5)):
-                    boss = Boss(0, -1000, 'boss_1')
+                    boss = Boss(0, -500, 'boss_1')
                     boss.weapons[0].change_weapon('blaster')
-                    boss.weapons[1].change_weapon('blaster')
+                    boss.weapons[1].change_weapon('laser')
+                    boss.weapons[2].change_weapon('BFG')
+                    boss.weapons[3].change_weapon('laser')
+                    boss.weapons[4].change_weapon('blaster')
                     enemies.append(boss)
 
             for _ in range(level):
@@ -144,7 +148,7 @@ def menu():
                         label_active = 0
                     if keyPressed("space"):
                         if label_active == 0:
-                            main(screen)
+                            main()
                         elif label_active == 1:
                             pass
                             # Récuperation de sauvegarde
@@ -178,5 +182,5 @@ def menu():
         pg.draw.rect(screen, (0,0,0), ((0,0), screen.get_size()))
     pg.quit()
 
-# menu()
-main()
+menu()
+# main()

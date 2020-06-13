@@ -18,20 +18,15 @@ class Boss(Ship):
         else:
             self.maxY = random.randint(0, int(screen.get_height()/4))
 
-    def shoot(self):
-        for weapon in self.weapons:
-            laser = weapon.shoot(self.x + self.sizeX_mod, self.y + self.sizeY_mod, self.is_player)
-            if laser:
-                self.lasers.append(laser)
-
     def update(self, targets):
         target = targets[0]
         if self.health <= 0:
             return self
         if random.randrange(0, 100) < 75:
-            self.shoot()
+            for self.slot_active in range(len(self.weapons)):
+                self.shoot()
         if collide(self, target):
-            target.health -= 0
+            target.health = 0
             return self
 
         self.move()

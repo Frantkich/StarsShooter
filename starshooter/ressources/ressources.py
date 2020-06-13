@@ -38,7 +38,7 @@ powerup_list = {
 spaceship_list = {
 #             ((img, nbframe), health, speed, (weapons1_pos, ....))
     'player': ((os.path.join(dir_asset, 'ship_yellow.png'), 4), (500, 7.5), [(0, 0), (-17, 0), (17, 0)]),
-    'boss_1': ((os.path.join(dir_asset, 'ship_boss_1.png'), 1), (500, 1),   [(-15, 0), (15, 0)]),
+    'boss_1': ((os.path.join(dir_asset, 'ship_boss1.png'),  4), (500, 1),   [(-135, -100), (-55, 0), (0, 0), (55, 0), (135, -100)]),
     'red':    ((os.path.join(dir_asset, 'ship_red.png'),    4), (200, 1),   [(0, 0)]),
     'green':  ((os.path.join(dir_asset, 'ship_green.png'),  4), (150, 2),   [(0, 0)]),
     'blue':   ((os.path.join(dir_asset, 'ship_blue.png'),   4), (50,  3),   [(0, 0)])

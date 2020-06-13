@@ -47,13 +47,11 @@ class PowerUp:
             if add:
                 self.save = (obj.img)
                 obj.init_sprites(pg.transform.scale(obj.img, (int(obj.img.get_width() * self.mod), int(obj.img.get_height() * self.mod))))
-                obj.sizeX_mod = int(obj.get_width()/2)
-                obj.sizeY_mod = int(obj.get_height()/2)
+                obj.size_mod = self.mod 
             else:
                 obj.img = self.save
                 obj.init_sprites(obj.img)
-                obj.sizeX_mod = int(obj.get_width()/2)
-                obj.sizeY_mod = int(obj.get_height()/2)
+                obj.size = 1
         if self.name == "cooldown":
             if add:
                 self.save = (obj.weapons[obj.slot_active].cooldown_max, obj.slot_active)
