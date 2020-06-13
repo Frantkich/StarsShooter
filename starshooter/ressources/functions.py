@@ -70,8 +70,10 @@ def collide(obj1, obj2):
     
 
 def change_music(music_name):
-    pygame.mixer.fadeout(20000)
-    print("jai fais un fadeout")
+
+    if pygame.mixer.music.get_busy():
+        pygame.mixer.music.fadeout(3000)
+    
     pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name)
     pygame.mixer.music.play(-1)
-    return os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name
+    

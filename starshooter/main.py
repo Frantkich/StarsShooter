@@ -185,11 +185,10 @@ def menu():
 
 
 def settingsInterface():
-    print(change_music("Space_Invaders_3.mp3"))
     change_music("Space_Invaders_3.mp3")
     run = True
     previousKey = None
-    #Initialisation
+    
     labels = []
     controls = []
     labels.append(Label(screen.get_width()/2, screen.get_height()* 1.5/10, "Sound", (255, 240, 200), 60)) #Sound Label
@@ -200,7 +199,7 @@ def settingsInterface():
     labels.append(Label(screen.get_width()/2, screen.get_height()* 9/10, "Done", (255, 240, 200), 20))  #Esc 
     
     soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 3/10 , (4, 195, 225), screen)
-    print(soundbarre.volumeLevel)
+    
     while run:
         for label in labels:
             label.draw(screen)
@@ -216,12 +215,15 @@ def settingsInterface():
                     if keyPressed("d") and soundbarre.volumeLevel < 10:
                         soundbarre.up_volumeLevel()
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
-
+                        
                     if keyPressed("q") and 0 < soundbarre.volumeLevel:
                         soundbarre.down_volumeLevel()
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
-                    if keyPressed("s"):
-                        change_music("Space_Invaders_3.mp3")
+                    if keyPressed("f"):  #Test son
+                        pg.mixer.Sound(sound_list['test1']).play()
+                        change_music("Space_Invaders_1.mp3")
+                    if keyPressed("g"): #test son
+                        pg.mixer.Sound(sound_list['test2']).play()
             except KeyError:
                 pass        
 

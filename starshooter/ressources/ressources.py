@@ -44,4 +44,9 @@ spaceship_list = {
     'blue':   ((os.path.join(dir_asset, 'ship_blue.png'),   4), (50,  3),   [(0, 0)])
 }
 
+sound_list = {
+    'test1' : os.path.join(dir_asset, "sound", "test1.wav"),
+    'test2' : os.path.join(dir_asset, "sound", "test2.wav")
+}
+
 pg.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename="mixer", allowedchanges=0)
