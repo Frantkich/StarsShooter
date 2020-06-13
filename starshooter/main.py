@@ -16,6 +16,7 @@ from ressources.classes.weapon import Weapon
 from ressources.classes.powerup import PowerUp
 from ressources.classes.star import Star
 from ressources.classes.label import Label
+from ressources.classes.soundbarre import Soundbarre
 
 def main():
     screen
@@ -182,5 +183,55 @@ def menu():
         pg.draw.rect(screen, (0,0,0), ((0,0), screen.get_size()))
     pg.quit()
 
+
+def settingsInterface():
+    pg.mixer.music.play(-1)
+    run = True
+    previousKey = None
+    #Initialisation
+    labels = []
+    controls = []
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 1.5/10, "Sound", (255, 240, 200), 60)) #Sound Label
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 5/10 , "Controls", (255, 240, 200), 60))  #Controls
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 6/10 , "Z, Q, S, D : Movement", (255, 240, 200), 40))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "1, 2, 3, 4 : Switch weapons", (255, 240, 200), 40))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "Space : shoot / validate", (255, 240, 200), 40))
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 9/10, "Done", (255, 240, 200), 20))  #Esc 
+    
+    soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 3/10 , (4, 195, 225), screen)
+    print(soundbarre.volumeLevel)
+    while run:
+        for label in labels:
+            label.draw(screen)
+
+        for control in controls:
+            control.draw(screen)
+
+        soundbarre.draw(screen)
+        for e in pg.event.get():
+            try:
+                if previousKey != e.dict['unicode']:
+                    previousKey = e
+                    if keyPressed("d") and soundbarre.volumeLevel < 10:
+                        soundbarre.up_volumeLevel()
+                        print(type (soundbarre.volumeLevel/10))
+                        pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
+                        #pg.mixer.Sound.set_volume(soundbarre.volumeLevel/10)
+
+                    if keyPressed("q") and 0 < soundbarre.volumeLevel:
+                        soundbarre.down_volumeLevel()
+                        print(soundbarre.volumeLevel)
+                        #pg.mixer.Sound.set_volume(soundbarre.volumeLevel/10)
+                        pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
+
+            except KeyError:
+                pass        
+
+        pg.display.update()
+        clock.tick(60)
+        pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
+        pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
+
 # menu()
-main()
+# main()
+settingsInterface()
