@@ -16,6 +16,8 @@ from ressources.classes.powerup import PowerUp
 from ressources.classes.star import Star
 from ressources.classes.label import Label
 from ressources.classes.explosion import Explosion
+from ressources.classes.soundbarre import Soundbarre
+from ressources.classes.shop_section import Shop_section
 
 def main():
     screen
@@ -208,5 +210,83 @@ def menu():
         pg.draw.rect(screen, (0,0,0), ((0,0), screen.get_size()))
     pg.quit()
 
+
+def settings():
+    change_music("Space_Invaders_3.mp3")
+    run = True
+    previousKey = None
+    
+    labels = []
+    controls = []
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 1.5/10, "Sound", (255, 240, 200), 60)) #Sound Label
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 5/10 , "Controls", (255, 240, 200), 60))  #Controls
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 6/10 , "Z, Q, S, D : Movement", (255, 240, 200), 40))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "1, 2, 3, 4 : Switch weapons", (255, 240, 200), 40))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "Space : shoot / validate", (255, 240, 200), 40))
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 9/10, "Done", (255, 240, 200), 20))  #Esc 
+    
+    soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 3/10 , (4, 195, 225), screen)
+    
+    while run:
+        for label in labels:
+            label.draw(screen)
+
+        for control in controls:
+            control.draw(screen)
+
+        soundbarre.draw(screen)
+        for e in pg.event.get():
+            try:
+                if previousKey != e.dict['unicode']:
+                    previousKey = e
+                    if keyPressed("d") and soundbarre.volumeLevel < 10:
+                        soundbarre.up_volumeLevel()
+                        pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
+                        
+                    if keyPressed("q") and 0 < soundbarre.volumeLevel:
+                        soundbarre.down_volumeLevel()
+                        pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
+                    if keyPressed("f"):  #Test son
+                        pg.mixer.Sound(sound_list['test1']).play()
+                        change_music("Space_Invaders_1.mp3")
+                    if keyPressed("g"): #test son
+                        pg.mixer.Sound(sound_list['test2']).play()
+            except KeyError:
+                pass        
+
+        pg.display.update()
+        clock.tick(60)
+        pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
+        pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
+
+def shop():
+    #change_music("Space_Invaders_3.mp3")  ->music du shop
+    run = True
+    previousKey = None
+    
+    labels = []  #Label(self, x, y, text, color, fontSize, font=main_font)
+    shop_sections = []  #Shop_section(self, x, y, width, height)
+
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Power-ups", (255, 240, 200), 40)) #Power-ups
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 4/10 , "Weapons", (255, 240, 200), 40))  #Weapons
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Ships", (255, 240, 200), 40))  #Ships
+    
+    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 2/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 5/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 8/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+
+    while run:
+        for label in labels:
+            label.draw(screen)
+
+        for shop_s in shop_sections:
+            shop_s.draw(screen)
+
+        pg.display.update()
+        clock.tick(60)
+        pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
+        pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
 # menu()
-main()
+# main()
+#settings()
+shop()

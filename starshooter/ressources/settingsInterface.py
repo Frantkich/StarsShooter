@@ -2,7 +2,7 @@ import random, math, pygame, sys, os
 from pygame.locals import *
 
 from functions import *
-from classes.label import Label
+from ressources.classes.label import Label
 
 WINSIZE = (600, 1000)
 WINCENTER = (WINSIZE[0]/2, WINSIZE[1]/2)
@@ -72,7 +72,7 @@ def settingsInterface(window,clock):
         pygame.display.update()
         clock.tick(60)
         pygame.display.set_caption("FPS: {}".format(int(clock.get_fps())))
-        pygame.draw.rect(window, (0,0,0), ((0,0), WINSIZE))
+        pygame.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width, screen.get_height) ))
 
 def main(window):
     clock = pygame.time.Clock()

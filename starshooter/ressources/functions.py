@@ -58,58 +58,11 @@ def keyPressed(keyCheck=""):
     if sum(keys) > 0:
         if keyCheck == "" or keys[keydict[keyCheck.lower()]]:
             return True
-    return False
-
-    def homingHead(self, shipX, shipY, targets):
-        closestTarget = [screen.get_height(), targets[0]]
-        for target in targets:
-            dx = target.x + target.get_width()/2 - shipX
-            dy = target.y + target.get_height()/2 - shipY
-            if math.hypot(dx, dy) < closestTarget[0]:
-                closestTarget = (math.hypot(dx, dy), target)
-        return closestTarget[1]
 
 def collide(obj1, obj2):
     offset_x = int(obj2.x - obj1.x)
     offset_y = int(obj2.y - obj1.y)
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
-
-
-    def homingHead(self, shipX, shipY, targets):
-        closestTarget = [screen.get_height(), targets[0]]
-        for target in targets:
-            dx = target.x + target.get_width()/2 - shipX
-            dy = target.y + target.get_height()/2 - shipY
-            if math.hypot(dx, dy) < closestTarget[0]:
-                closestTarget = (math.hypot(dx, dy), target)
-        return closestTarget[1]
-
-    def homingHead(self, shipX, shipY, targets):
-        closestTarget = [screen.get_height(), targets[0]]
-        for target in targets:
-            dx = target.x + target.get_width()/2 - shipX
-            dy = target.y + target.get_height()/2 - shipY
-            if math.hypot(dx, dy) < closestTarget[0]:
-                closestTarget = (math.hypot(dx, dy), target)
-        return closestTarget[1]
-
-    def homingHead(self, shipX, shipY, targets):
-        closestTarget = [screen.get_height(), targets[0]]
-        for target in targets:
-            dx = target.x + target.get_width()/2 - shipX
-            dy = target.y + target.get_height()/2 - shipY
-            if math.hypot(dx, dy) < closestTarget[0]:
-                closestTarget = (math.hypot(dx, dy), target)
-        return closestTarget[1]
-
-    def homingHead(self, shipX, shipY, targets):
-        closestTarget = [screen.get_height(), targets[0]]
-        for target in targets:
-            dx = target.x + target.get_width()/2 - shipX
-            dy = target.y + target.get_height()/2 - shipY
-            if math.hypot(dx, dy) < closestTarget[0]:
-                closestTarget = (math.hypot(dx, dy), target)
-        return closestTarget[1]
 
 def homingHead(shipX, shipY, targets):
     closestTarget = [1080, targets[0]]
@@ -119,3 +72,11 @@ def homingHead(shipX, shipY, targets):
         if math.hypot(dx, dy) < closestTarget[0]:
             closestTarget = (math.hypot(dx, dy), target)
     return closestTarget[1]
+
+def change_music(music_name):
+    if pygame.mixer.music.get_busy():
+        pygame.mixer.music.fadeout(3000)
+    
+    pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name)
+    pygame.mixer.music.play(-1)
+    
