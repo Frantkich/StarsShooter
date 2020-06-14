@@ -17,7 +17,7 @@ from ressources.classes.powerup import PowerUp
 from ressources.classes.star import Star
 from ressources.classes.label import Label
 from ressources.classes.soundbarre import Soundbarre
-
+from ressources.classes.shop_section import Shop_section
 def main():
     screen
     run = True
@@ -184,7 +184,7 @@ def menu():
     pg.quit()
 
 
-def settingsInterface():
+def settings():
     change_music("Space_Invaders_3.mp3")
     run = True
     previousKey = None
@@ -232,6 +232,34 @@ def settingsInterface():
         pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
 
+def shop():
+    #change_music("Space_Invaders_3.mp3")  ->music du shop
+    run = True
+    previousKey = None
+    
+    labels = []  #Label(self, x, y, text, color, fontSize, font=main_font)
+    shop_sections = []  #Shop_section(self, x, y, width, height)
+
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Power-ups", (255, 240, 200), 40)) #Power-ups
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 4/10 , "Weapons", (255, 240, 200), 40))  #Weapons
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Ships", (255, 240, 200), 40))  #Ships
+    
+    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 2/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 5/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 8/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+
+    while run:
+        for label in labels:
+            label.draw(screen)
+
+        for shop_s in shop_sections:
+            shop_s.draw(screen)
+
+        pg.display.update()
+        clock.tick(60)
+        pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
+        pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
 # menu()
 # main()
-settingsInterface()
+#settings()
+shop()
