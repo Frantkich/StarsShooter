@@ -1,5 +1,6 @@
 import random
 
+
 from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
@@ -14,20 +15,21 @@ class Enemy(Ship):
     def move(self):
         self.y += self.speed
 
-    def update(self, targets):
-        target = targets[0]
-        
-        if self.health <= 0:
-            return self
+    def check_shoot(self):
         if random.randrange(0, 2*fps) == 1:
             self.shoot()
-        
+
+
+    def update(self, targets):
+        target = targets[0]
         if self.y + self.get_height() > screen.get_height():
             target.health -= target.health_max/4
             return self
         if collide(self, target):
             target.health -= target.health_max/8
             return self
-
+        if self.health <= 0:
+            return self
         self.move()
+        self.check_shoot()
         self.update_all(targets)

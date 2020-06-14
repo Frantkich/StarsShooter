@@ -1,14 +1,16 @@
 import pygame as pg
-from .ship import Ship
 
 from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
 
+from ressources.classes.ship import Ship
+
 class Player(Ship):
     def __init__(self, x, y):
         super().__init__(x, y, 'player', 1)
         self.x = screen.get_width()/2 - self.get_width()/2
+        self.screen_shake = 0
 
     def move(self):
         key = pg.key.get_pressed()
@@ -20,6 +22,9 @@ class Player(Ship):
             self.y -= self.speed
         if key[pg.K_s] and self.y + self.speed + self.get_height() + self.speed < screen.get_height():
             self.y += self.speed
+
+    def check_shoot(self):
+        key = pg.key.get_pressed()
         if key[pg.K_SPACE]:
             self.shoot()
 
@@ -30,6 +35,7 @@ class Player(Ship):
             self.health = 0 
             return True
         self.move()
+        self.check_shoot()
         self.update_all(targets)
 
     def weapon_switch(self, key):

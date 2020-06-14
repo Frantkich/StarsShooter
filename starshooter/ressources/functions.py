@@ -1,6 +1,5 @@
 import pygame, math, sys, os
 
-
 keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "down": pygame.K_DOWN,
            "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "return": pygame.K_RETURN,
            "a": pygame.K_a,
@@ -40,7 +39,6 @@ keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "
            "9": pygame.K_9,
            "0": pygame.K_0}
 
-
 def spritesheet(image, frames=1):
     images = []
     originalWidth = image.get_width() // frames
@@ -62,9 +60,62 @@ def keyPressed(keyCheck=""):
             return True
     return False
 
+    def homingHead(self, shipX, shipY, targets):
+        closestTarget = [screen.get_height(), targets[0]]
+        for target in targets:
+            dx = target.x + target.get_width()/2 - shipX
+            dy = target.y + target.get_height()/2 - shipY
+            if math.hypot(dx, dy) < closestTarget[0]:
+                closestTarget = (math.hypot(dx, dy), target)
+        return closestTarget[1]
 
 def collide(obj1, obj2):
     offset_x = int(obj2.x - obj1.x)
     offset_y = int(obj2.y - obj1.y)
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
-    
+
+
+    def homingHead(self, shipX, shipY, targets):
+        closestTarget = [screen.get_height(), targets[0]]
+        for target in targets:
+            dx = target.x + target.get_width()/2 - shipX
+            dy = target.y + target.get_height()/2 - shipY
+            if math.hypot(dx, dy) < closestTarget[0]:
+                closestTarget = (math.hypot(dx, dy), target)
+        return closestTarget[1]
+
+    def homingHead(self, shipX, shipY, targets):
+        closestTarget = [screen.get_height(), targets[0]]
+        for target in targets:
+            dx = target.x + target.get_width()/2 - shipX
+            dy = target.y + target.get_height()/2 - shipY
+            if math.hypot(dx, dy) < closestTarget[0]:
+                closestTarget = (math.hypot(dx, dy), target)
+        return closestTarget[1]
+
+    def homingHead(self, shipX, shipY, targets):
+        closestTarget = [screen.get_height(), targets[0]]
+        for target in targets:
+            dx = target.x + target.get_width()/2 - shipX
+            dy = target.y + target.get_height()/2 - shipY
+            if math.hypot(dx, dy) < closestTarget[0]:
+                closestTarget = (math.hypot(dx, dy), target)
+        return closestTarget[1]
+
+    def homingHead(self, shipX, shipY, targets):
+        closestTarget = [screen.get_height(), targets[0]]
+        for target in targets:
+            dx = target.x + target.get_width()/2 - shipX
+            dy = target.y + target.get_height()/2 - shipY
+            if math.hypot(dx, dy) < closestTarget[0]:
+                closestTarget = (math.hypot(dx, dy), target)
+        return closestTarget[1]
+
+def homingHead(shipX, shipY, targets):
+    closestTarget = [1080, targets[0]]
+    for target in targets:
+        dx = target.x + target.get_width()/2 - shipX
+        dy = target.y + target.get_height()/2 - shipY
+        if math.hypot(dx, dy) < closestTarget[0]:
+            closestTarget = (math.hypot(dx, dy), target)
+    return closestTarget[1]

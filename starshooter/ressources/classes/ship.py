@@ -5,7 +5,7 @@ from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
 
-from .weapon import Weapon
+from ressources.classes.weapon import Weapon
 
 
 class Ship:
@@ -14,6 +14,7 @@ class Ship:
         self.x = x
         self.y = y
         self.is_player = is_player
+        self.name = spaceship
         # basic stats
         self.health_max, self.speed = spaceship_list[spaceship][1]
         self.health = self.health_max
@@ -25,10 +26,10 @@ class Ship:
             self.img = pygame.image.load(self.path)
         self.init_sprites(self.img)
         #weapons
-        self.weapons = [Weapon(pos) for pos in spaceship_list[spaceship][2]]
+        self.weapons = [Weapon(pos, is_player) for pos in spaceship_list[spaceship][2]]
         self.slot_active = 0
-        #lasers
-        self.lasers = []
+        #projectiles
+        self.projectiles = []
         #powerups
         self.powerups = []
         self.damage_mod = 1
@@ -42,9 +43,10 @@ class Ship:
         self.nextFrame = 0
 
     def shoot(self):
-        laser = self.weapons[self.slot_active].shoot(self.x + self.get_width()/2, self.y + self.get_height()/2, self.size_mod, self.is_player)
-        if laser:
-            self.lasers.append(laser)
+        projectiles = self.weapons[self.slot_active].shoot(self.x + self.get_width()/2, self.y + self.get_height()/2, self.size_mod)
+        if projectiles:
+            for projectile in projectiles:
+                self.projectiles.append(projectile)
 
     def update_sprite(self):
         if self.nextFrame == 0:
@@ -62,30 +64,48 @@ class Ship:
         for powerup in self.powerups:
             powerup.check_time(self)
 
-    def update_lasers(self, targets):
-        for laser in self.lasers:
-            laser.move()
-            if laser.off_screen(screen.get_height()):
-                self.lasers.remove(laser)
+    def update_projectiles(self, targets):
+        for projectile in self.projectiles:
+            projectile.move()
+            if projectile.off_screen(screen.get_width(), screen.get_height()):
+                self.projectiles.remove(projectile)
             for target in targets:
-                if collide(laser, target) and not(target in laser.hit):
-                    target.health -= laser.damage * self.damage_mod
-                    if laser in self.lasers:
-                        if laser.penetration:
-                            laser.penetration -= 1
-                            laser.hit.append(target)
+                if collide(projectile, target) and not(target in projectile.hit):
+                    target.health -= projectile.damage * self.damage_mod
+                    if target.is_player:
+                        target.screen_shake = 30
+                    if projectile in self.projectiles:
+                        if projectile.penetration:
+                            projectile.penetration -= 1
+                            projectile.hit.append(target)
                         else:
-                            self.lasers.remove(laser)
+                            self.projectiles.remove(projectile)
+            
+            if projectile.name == 'missile':
+                if len(targets):
+                    if projectile.target:
+                        if projectile.target.health <= 0:
+                            projectile.target = None
+                    else:
+                        projectile.target = homingHead(self.x + self.get_width()/2, self.y + self.get_height()/2, targets)
+                else:
+                    projectile.target = None
+
+            if projectile.name == 'missile':
+                if len(targets):
+                    projectile.targets = targets
+                else:
+                    projectile.target = None
 
     def update_all(self, targets):
         self.update_sprite()
         self.update_weapons()
-        self.update_lasers(targets)
+        self.update_projectiles(targets)
         self.update_powerups()
 
     def draw(self, window):
-        for laser in self.lasers:
-            laser.draw(window)
+        for projectile in self.projectiles:
+            projectile.draw(window)
         window.blit(self.sprite, (self.x, self.y))
         self.weapons[self.slot_active].draw(window)        
 
