@@ -20,11 +20,11 @@ background = os.path.join(dir_asset, 'background-black.png')
 
 weapon_list = {
 #              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion))
-    'BFG':     (10,  ((0, 153, 51),    (20, 40),  500,  2,  -1, 0)),
-    'rayon':   (0,   ((0, 204, 255),   (5, 1),   500,  0,  0,  0)),
-    'sniper':  (1.5, ((255, 102, 0),   (8, 20),   150,  15, 2,  0)),
-    'blaster': (0.5, ((255, 255, 102), (8, 10),   75,   10, 0,  0)),
-    'missile': (2, ((255, 255, 102), (5, 5),    25,   25, 0,  1))
+    'BFG':     (10,   ((0,153,51),    (20, 40), 500, 2,  -1, 0)),
+    'rayon':   (0,    ((0,204,255),   (5, 1),   500, 0,  0,  0)),
+    'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0)),
+    'blaster': (0.15, ((255,255,102), (8, 10),  75,  10, 0,  0)),
+    'missile': (2,    ((205,133,63),  (5, 5),   25,  25, 0,  1))
 }
 
 
@@ -40,7 +40,7 @@ powerup_list = {
 
 
 parallaxe_list = {
-#             
+#              (img, nbframe, speed)  
     'planet1': (os.path.join(dir_asset, 'planet1.png'), 1, 0.5),
     'planet2': (os.path.join(dir_asset, 'planet2.png'), 1, 0.5)
 }

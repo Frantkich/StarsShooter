@@ -12,7 +12,7 @@ class Soundbarre():
         self.surface = pg.Surface((self.width, self.height))
         self.logo = pg.image.load(dir_asset + "/speaker.png")
         self.volumeMixer = pg.Surface((10, 30))
-        self.volumeLevel = 6
+        self.volumeLevel = 5
         
     def draw(self, screen):
         self.surface.fill(self.color)
@@ -22,7 +22,7 @@ class Soundbarre():
         screen.blit(self.volumeMixer, (int(self.x + self.width * self.volumeLevel / 10), self.y - self.volumeMixer.get_height()/2 + self.height/2))
     
     def up_volumeLevel(self):
-        self.volumeLevel += 2
+        self.volumeLevel += 1
     
     def down_volumeLevel(self):
-        self.volumeLevel -= 2
+        self.volumeLevel -= 1

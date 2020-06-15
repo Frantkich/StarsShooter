@@ -106,8 +106,7 @@ class Ship:
             projectile.draw(window)
         window.blit(self.sprite, (self.x, self.y))
         for explosion in self.explosions:
-            explosion.draw()
-        self.weapons[self.slot_active].draw(window)        
+            explosion.draw()     
 
     def get_width(self):
         return self.sprite.get_width()

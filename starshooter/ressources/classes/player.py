@@ -5,6 +5,7 @@ from ressources.settings import *
 from ressources.functions import *
 
 from ressources.classes.ship import Ship
+from ressources.classes.label import Label
 
 class Player(Ship):
     def __init__(self, x, y):
@@ -39,9 +40,20 @@ class Player(Ship):
             self.slot_active = key
 
     def healthbar(self, window):
-        pg.draw.rect(window, (255, 0, 0), (self.x, self.y + self.sprite.get_height() + 10, self.sprite.get_width(), 10))
-        pg.draw.rect(window, (0, 255, 0), (self.x, self.y + self.sprite.get_height() + 10, self.sprite.get_width() * (self.health/self.health_max), 10))
+        height = 50
+        width = 150
+        thickness = 5
+        offset = 10
+        color = (255, 240, 200)
+
+        ratio = self.health/self.health_max
+        pg.draw.rect(window, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
+        pg.draw.rect(window, (0, 255, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width*ratio, int(height/2)))
+        Label(screen.get_width() - (offset + width + thickness)/2, screen.get_height() - height, self.name, color, 20).draw(window)
+        pg.draw.rect(window, color, (screen.get_width() - offset - width, screen.get_height() - height - thickness - offset, width, height), thickness)
+        pg.draw.line(window, color, (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset), (screen.get_width() - offset, screen.get_height() - int(height/2) - thickness - offset), thickness)
 
     def draw(self, window):
         super().draw(window)
         self.healthbar(window)
+        self.weapons[self.slot_active].draw(window) 

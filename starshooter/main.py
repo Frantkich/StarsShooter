@@ -27,8 +27,8 @@ def main():
 
     player = Player(0, screen.get_height()-screen.get_height()/4)
     player.weapons[0].change_weapon('missile')
-    # player.weapons[1].change_weapon('blaster')
-    # player.weapons[2].change_weapon('blaster')
+    # player.weapons[1].change_weapon('sniper')
+    player.weapons[1].change_weapon('blaster')
 
     enemies = []
     powerups = []
@@ -41,6 +41,8 @@ def main():
     lost = False
     lost_count = 0
     background_offset = (0, 0)
+
+    DEBUG = True
 
     def redraw_window():
         screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), background_offset)
@@ -73,7 +75,7 @@ def main():
         clock.tick(fps)
         redraw_window()
 
-        if False: # not(len(enemies))
+        if not(len(enemies)) and not(DEBUG):
             level += 1
             wave_length += 5
 
@@ -83,27 +85,25 @@ def main():
                 enemies.append(enemy)
 
             if level == 5:
-                for _ in range(int(level/5)):
-                    boss = Boss(0, -500, 'boss_2')
-                    boss.weapons[0].change_weapon('sniper')
-                    boss.weapons[1].change_weapon('sniper')
-                    enemies.append(boss)
+                boss = Boss(0, -500, 'boss_2')
+                boss.weapons[0].change_weapon('sniper')
+                boss.weapons[1].change_weapon('sniper')
+                enemies.append(boss)
 
             if level == 10:
-                for _ in range(int(level/5)):
-                    boss = Boss(0, -500, 'boss_1')
-                    boss.weapons[0].change_weapon('blaster')
-                    boss.weapons[1].change_weapon('laser')
-                    boss.weapons[2].change_weapon('BFG')
-                    boss.weapons[3].change_weapon('laser')
-                    boss.weapons[4].change_weapon('blaster')
-                    enemies.append(boss)
+                boss = Boss(0, -500, 'boss_1')
+                boss.weapons[0].change_weapon('blaster')
+                boss.weapons[1].change_weapon('blaster')
+                boss.weapons[2].change_weapon('BFG')
+                boss.weapons[3].change_weapon('blaster')
+                boss.weapons[4].change_weapon('blaster')
+                enemies.append(boss)
 
             # for _ in range(level):
             #     powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
 
         
-        if random.randint(0, 1000) == 1:
+        if not(random.randint(0, fps*40)):
             parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
 
         for parallaxe in parallaxes:
@@ -146,12 +146,12 @@ def main():
                 player.weapon_switch(event.dict['key']-49)
             except KeyError:
                 pass
-            if event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.MOUSEBUTTONUP and DEBUG:
                 x, y = pygame.mouse.get_pos()
                 enemy = Enemy(x, y, random.choice(list(enemy_list)))
                 enemy.weapons[0].change_weapon('blaster')
                 enemies.append(enemy)
-
+        
 def menu():
     label_active = 0
     run = True
@@ -166,6 +166,8 @@ def menu():
     Label(300, 445, "TAR", (255, 240, 200), 100).draw(screen)
     Label(380, 520, "H.Otter", (255, 240, 200), 100).draw(screen)
     pg.display.update()
+
+    soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 3/10 , (4, 195, 225), screen)
 
     stars = []
     for n in range(1000):
@@ -197,10 +199,8 @@ def menu():
                             # Récuperation de sauvegarde
                             print("sauvegarde")
                         elif label_active == 2:
-                            settings()
+                            settings(soundbarre)
                         else:
-                            #quit
-                            print("quit")
                             run = False
                             break
             except KeyError:
@@ -224,7 +224,7 @@ def menu():
         pg.draw.rect(screen, (0,0,0), ((0,0), screen.get_size()))
     pg.quit()
 
-def settings():
+def settings(soundbarre):
     run = True
     previousKey = None
     
@@ -233,11 +233,9 @@ def settings():
     labels.append(Label(screen.get_width()/2, screen.get_height()* 1.5/10, "Sound", (255, 240, 200), 60)) #Sound Label
     labels.append(Label(screen.get_width()/2, screen.get_height()* 5/10 , "Controls", (255, 240, 200), 60))  #Controls
     controls.append(Label(screen.get_width()/2, screen.get_height()* 6/10 , "Z, Q, S, D : Movement", (255, 240, 200), 40))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "1, 2, 3, 4 : Switch weapons", (255, 240, 200), 40))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "Space : shoot / validate", (255, 240, 200), 40))
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 9/10, "Done", (255, 240, 200), 20))  #Esc 
-    
-    soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 3/10 , (4, 195, 225), screen)
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "1, 2, 3 ... : Switch weapons", (255, 240, 200), 40))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "Space : shoot", (255, 240, 200), 40))
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 9/10, "Escape : Done", (255, 240, 200), 40))  #Esc 
     
     while run:
         for label in labels:
@@ -254,7 +252,6 @@ def settings():
                     if keyPressed("d") and soundbarre.volumeLevel < 10:
                         soundbarre.up_volumeLevel()
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
-                        
                     if keyPressed("q") and 0 < soundbarre.volumeLevel:
                         soundbarre.down_volumeLevel()
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
@@ -263,6 +260,9 @@ def settings():
                         change_music("Space_Invaders_1.mp3")
                     if keyPressed("g"): #test son
                         pg.mixer.Sound(sound_list['test2']).play()
+                    if keyPressed('esc'):
+                            run = False
+
             except KeyError:
                 pass        
 
@@ -336,5 +336,5 @@ def shop():
 
 # menu()
 main()
-# settings()
+# settings(Soundbarre(screen.get_width()/4, screen.get_height()* 3/10 , (4, 195, 225), screen))
 # shop()
