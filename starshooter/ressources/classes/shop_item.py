@@ -10,7 +10,7 @@ class Shop_item():
         self.pos = [] #x and y
         self.item_stat = [item_name, item_price, item_img]
         self.labels = []
-        self.img = pg.transform.scale( pg.image.load(dir_asset + "/" + self.item_stat[2]), (200, 200))
+        self.img = pg.transform.scale( pg.image.load(dir_asset + "/" + self.item_stat[2]), (170, 170))
 
     def draw_item(self, screen, x, y, item_active):
         self.pos = [x, y]
@@ -18,11 +18,11 @@ class Shop_item():
         self.labels.append(Label(self.pos[0] + 25, self.pos[1] + 25, self.item_stat[1], (255, 240, 200), 25))
 
         if item_active:
-            self.img = pg.transform.scale( pg.image.load(dir_asset + "/" + self.item_stat[2]), (230, 230))
-            screen.blit(self.img, (self.pos[0] - 15, self.pos[1]))
-        else:
-            self.img = pg.transform.scale( pg.image.load(dir_asset + "/" + self.item_stat[2]), (200, 200))
+            self.img = pg.transform.scale( pg.image.load(dir_asset + "/" + self.item_stat[2]), (190, 190))
             screen.blit(self.img, (self.pos[0], self.pos[1]))
+        else:
+            self.img = pg.transform.scale( pg.image.load(dir_asset + "/" + self.item_stat[2]), (170, 170))
+            screen.blit(self.img, (self.pos[0]+ 15, self.pos[1]))
         
         
 
