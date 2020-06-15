@@ -261,25 +261,26 @@ def settings():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
 
 def shop():
-    #change_music("Space_Invaders_3.mp3")  ->music du shop
+    
     label_active = 0
-    item_active = 0
     run = True
     previousKey = None
     
     shop_section = []  #Shop_section(self, label_y, label_text, x, y, width, height)
 
     shop_section.append(Shop_section(screen.get_height()* 1/10, "Power-ups", screen.get_width()*1/3, screen.get_height()* 1.4/10))
-
     shop_section.append(Shop_section(screen.get_height()* 4/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 4.4/10))
-
     shop_section.append(Shop_section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7.4/10))
 
     shop_section[0].add_shop_item(Shop_item("item lo", "999", "ship_blue.png"))
     shop_section[0].add_shop_item(Shop_item("item lo", "999","ship_red.png"))
+    shop_section[0].add_shop_item(Shop_item("item lo", "999","ship_green.png"))
     shop_section[1].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
     shop_section[1].add_shop_item(Shop_item("item2", "999", "ship_red.png"))
+    shop_section[1].add_shop_item(Shop_item("item2", "999","ship_green.png"))
     shop_section[2].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
+    shop_section[2].add_shop_item(Shop_item("item2", "999","ship_red.png"))
+    shop_section[2].add_shop_item(Shop_item("item2", "999","ship_green.png"))
 
     while run:
         for n in range(len(shop_section)):
@@ -296,12 +297,23 @@ def shop():
                     previousKey = e
                     if keyPressed("s"):
                         label_active += 1
+
                     if keyPressed("z"):
                         label_active -= 1
+
                     if label_active < 0:
                         label_active = len(shop_section)-1
+
                     elif len(shop_section)-1 < label_active:
                         label_active = 0
+
+                    if keyPressed("d"):
+                        shop_section[label_active].item_count += 1
+
+                    if keyPressed("q"):
+                        shop_section[label_active].item_count -= 1
+
+
             except KeyError:
                 pass
 
