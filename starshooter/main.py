@@ -18,6 +18,8 @@ from ressources.classes.star import Star
 from ressources.classes.label import Label
 from ressources.classes.soundbarre import Soundbarre
 from ressources.classes.shop_section import Shop_section
+from ressources.classes.shop_item import Shop_item
+
 def main():
     screen
     run = True
@@ -234,26 +236,48 @@ def settings():
 
 def shop():
     #change_music("Space_Invaders_3.mp3")  ->music du shop
+    label_active = 0
+    item_active = 0
     run = True
     previousKey = None
     
-    labels = []  #Label(self, x, y, text, color, fontSize, font=main_font)
-    shop_sections = []  #Shop_section(self, x, y, width, height)
+    shop_section = []  #Shop_section(self, label_y, label_text, x, y, width, height)
 
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Power-ups", (255, 240, 200), 40)) #Power-ups
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 4/10 , "Weapons", (255, 240, 200), 40))  #Weapons
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Ships", (255, 240, 200), 40))  #Ships
-    
-    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 2/10, screen.get_width()* 2/3, screen.get_height* 2/10))
-    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 5/10, screen.get_width()* 2/3, screen.get_height* 2/10))
-    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 8/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+    shop_section.append(Shop_section(screen.get_height()* 1/10, "Power-ups", screen.get_width()*1/3, screen.get_height()* 1.4/10))
+
+    shop_section.append(Shop_section(screen.get_height()* 4/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 4.4/10))
+
+    shop_section.append(Shop_section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7.4/10))
+
+    shop_section[0].add_shop_item(Shop_item("item lo", "999", "ship_blue.png"))
+    shop_section[0].add_shop_item(Shop_item("item lo", "999","ship_red.png"))
+    shop_section[1].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
+    shop_section[1].add_shop_item(Shop_item("item2", "999", "ship_red.png"))
+    shop_section[2].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
 
     while run:
-        for label in labels:
-            label.draw(screen)
+        for n in range(len(shop_section)):
+            if n == label_active:
+                shop_section[n].label.draw(screen, 1)  #Display label
+                shop_section[n].draw(screen, 1)
+            else:
+                shop_section[n].label.draw(screen, 0)
+                shop_section[n].draw(screen, 0)
 
-        for shop_s in shop_sections:
-            shop_s.draw(screen)
+        for e in pg.event.get():
+            try:
+                if previousKey != e.dict['unicode']:
+                    previousKey = e
+                    if keyPressed("s"):
+                        label_active += 1
+                    if keyPressed("z"):
+                        label_active -= 1
+                    if label_active < 0:
+                        label_active = len(shop_section)-1
+                    elif len(shop_section)-1 < label_active:
+                        label_active = 0
+            except KeyError:
+                pass
 
         pg.display.update()
         clock.tick(60)
