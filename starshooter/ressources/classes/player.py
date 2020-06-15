@@ -13,24 +13,20 @@ class Player(Ship):
         self.screen_shake = 0
 
     def move(self):
-        key = pg.key.get_pressed()
-        if key[pg.K_q] and self.x - self.speed > 0:
+        if keyPressed("q") and self.x - self.speed > 0:
             self.x -= self.speed
-        if key[pg.K_d] and self.x + self.speed + self.get_width() < screen.get_width():
+        if keyPressed("d") and self.x + self.speed + self.get_width() < screen.get_width():
             self.x += self.speed
-        if key[pg.K_z] and self.y - self.speed > 0:
+        if keyPressed("z") and self.y - self.speed > 0:
             self.y -= self.speed
-        if key[pg.K_s] and self.y + self.speed + self.get_height() + self.speed < screen.get_height():
+        if keyPressed("s") and self.y + self.speed + self.get_height() + self.speed < screen.get_height():
             self.y += self.speed
 
     def check_shoot(self):
-        key = pg.key.get_pressed()
-        if key[pg.K_SPACE]:
+        if keyPressed("space"):
             self.shoot()
 
     def update(self, targets):
-        if keyPressed("return"):
-            return True
         if self.health <= 0:
             self.health = 0 
             return True

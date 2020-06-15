@@ -19,6 +19,7 @@ from ressources.classes.explosion import Explosion
 from ressources.classes.soundbarre import Soundbarre
 from ressources.classes.shop_section import Shop_section
 from ressources.classes.shop_item import Shop_item
+from ressources.classes.parallaxe import Parallaxe
 
 def main():
     screen
@@ -33,6 +34,8 @@ def main():
     powerups = []
 
     explosions = []
+    parallaxes = []
+
     wave_length = 0
     level = 0
     lost = False
@@ -41,8 +44,9 @@ def main():
 
     def redraw_window():
         screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), background_offset)
-        Label(screen.get_width()*0.85, 30, 'Level: {}'.format(level), (255, 240, 200), 30).draw(screen)
-        Label(screen.get_width()*0.2, 30, 'Enemies remain : {}'.format(len(enemies)), (255, 240, 200), 30).draw(screen)
+
+        for parallaxe in parallaxes:
+            parallaxe.draw()
 
         for enemy in enemies:
             enemy.draw(screen)
@@ -59,6 +63,8 @@ def main():
             pass
             Label(screen.get_width()/2, screen.get_height()/2, 'YOU DIED', (255, 240, 200), 100).draw(screen)
         
+        Label(screen.get_width()*0.85, 30, 'Level: {}'.format(level), (255, 240, 200), 30).draw(screen)
+        Label(screen.get_width()*0.2, 30, 'Enemies remain : {}'.format(len(enemies)), (255, 240, 200), 30).draw(screen)
         pg.display.update()
 
     while run:
@@ -95,6 +101,13 @@ def main():
 
             # for _ in range(level):
             #     powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
+
+        
+        if random.randint(0, 1000) == 1:
+            parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
+
+        for parallaxe in parallaxes:
+            parallaxe.move()
 
         #update Player
         lost = player.update(enemies)
@@ -211,7 +224,6 @@ def menu():
         pg.draw.rect(screen, (0,0,0), ((0,0), screen.get_size()))
     pg.quit()
 
-
 def settings():
     run = True
     previousKey = None
@@ -308,7 +320,9 @@ def shop():
         clock.tick(60)
         pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
-menu()
-# main()
+
+
+# menu()
+main()
 # settings()
 # shop()

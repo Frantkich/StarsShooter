@@ -38,6 +38,14 @@ powerup_list = {
 }
 
 
+
+parallaxe_list = {
+#             
+    'planet1': (os.path.join(dir_asset, 'planet1.png'), 1, 0.5),
+    'planet2': (os.path.join(dir_asset, 'planet2.png'), 1, 0.5)
+}
+
+
 enemy_list = ['red', 'blue', 'green', 'round', 'sneaky']
 boss_list = ['boss_1', 'boss_2']
 
