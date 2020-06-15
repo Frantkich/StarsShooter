@@ -6,6 +6,7 @@ from ressources.settings import *
 from ressources.functions import *
 
 from ressources.classes.weapon import Weapon
+from ressources.classes.explosion import Explosion
 
 
 class Ship:
@@ -30,6 +31,7 @@ class Ship:
         self.slot_active = 0
         #projectiles
         self.projectiles = []
+        self.explosions = []
         #powerups
         self.powerups = []
         self.damage_mod = 1
@@ -71,6 +73,8 @@ class Ship:
                 self.projectiles.remove(projectile)
             for target in targets:
                 if collide(projectile, target) and not(target in projectile.hit):
+                    if projectile.name == 'missile':
+                        self.explosions.append(Explosion((int(target.x + target.get_width()/2), int(target.y + target.get_height()/2)), 40))
                     target.health -= projectile.damage * self.damage_mod
                     if target.is_player:
                         target.screen_shake = 30
@@ -91,12 +95,6 @@ class Ship:
                 else:
                     projectile.target = None
 
-            if projectile.name == 'missile':
-                if len(targets):
-                    projectile.targets = targets
-                else:
-                    projectile.target = None
-
     def update_all(self, targets):
         self.update_sprite()
         self.update_weapons()
@@ -107,6 +105,8 @@ class Ship:
         for projectile in self.projectiles:
             projectile.draw(window)
         window.blit(self.sprite, (self.x, self.y))
+        for explosion in self.explosions:
+            explosion.draw()
         self.weapons[self.slot_active].draw(window)        
 
     def get_width(self):

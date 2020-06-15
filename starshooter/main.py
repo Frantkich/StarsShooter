@@ -24,7 +24,7 @@ def main():
     run = True
 
     player = Player(0, screen.get_height()-screen.get_height()/4)
-    player.weapons[0].change_weapon('rayon')
+    player.weapons[0].change_weapon('missile')
     # player.weapons[1].change_weapon('blaster')
     # player.weapons[2].change_weapon('blaster')
 
@@ -271,9 +271,9 @@ def shop():
     labels.append(Label(screen.get_width()/2, screen.get_height()* 4/10 , "Weapons", (255, 240, 200), 40))  #Weapons
     labels.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Ships", (255, 240, 200), 40))  #Ships
     
-    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 2/10, screen.get_width()* 2/3, screen.get_height* 2/10))
-    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 5/10, screen.get_width()* 2/3, screen.get_height* 2/10))
-    shop_sections.append(Shop_section(screen.get_width()/6, screen.get_height()* 8/10, screen.get_width()* 2/3, screen.get_height* 2/10))
+    # shop_sections.append(Shop_section(int(screen.get_width()/6), int(screen.get_height()*0.2), int(screen.get_width()*0.66), int(screen.get_height*0.2)))
+    # shop_sections.append(Shop_section(int(screen.get_width()/6), int(screen.get_height()*0.5), int(screen.get_width()*0.66), int(screen.get_height*0.2)))
+    # shop_sections.append(Shop_section(int(screen.get_width()/6), int(screen.get_height()*0.8), int(screen.get_width()*0.66), int(screen.get_height*0.2)))
 
     while run:
         for label in labels:
@@ -287,6 +287,6 @@ def shop():
         pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
 # menu()
-# main()
+main()
 #settings()
-shop()
+# shop()

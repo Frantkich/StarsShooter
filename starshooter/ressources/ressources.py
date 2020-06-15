@@ -23,7 +23,7 @@ weapon_list = {
     'rayon':   (0,   ((0, 204, 255),   (5, 1),   500,  0,  0,  0)),
     'sniper':  (1.5, ((255, 102, 0),   (8, 20),   150,  15, 2,  0)),
     'blaster': (0.5, ((255, 255, 102), (8, 10),   75,   10, 0,  0)),
-    'missile': (0.5, ((255, 255, 102), (5, 5),    10,   25, 0,  1))
+    'missile': (0.5, ((255, 255, 102), (5, 5),    25,   25, 0,  1))
 }
 
 
@@ -57,4 +57,4 @@ sound_list = {
     'test2' : os.path.join(dir_asset, "sound", "test2.wav")
 }
 
-pg.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename="mixer", allowedchanges=0)
+# pg.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename="mixer", allowedchanges=0)

@@ -3,7 +3,6 @@ import pygame as pg
 from ressources.ressources import *
 
 class Soundbarre():
-    
     def __init__(self, x, y, color, screen):
         self.x = x
         self.y = y
