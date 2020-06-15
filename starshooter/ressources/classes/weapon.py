@@ -4,12 +4,15 @@ from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
 
-from .laser import Laser
+from ressources.classes.laser import Laser
+from ressources.classes.missile import Missile
+from ressources.classes.rayon import Rayon
 
 class Weapon:
-    def __init__(self, pos, weapon=None):
-        self.pos = pos
+    def __init__(self, pos, is_player, weapon=None):
+        self.x, self.y = pos
         self.change_weapon(weapon)
+        self.is_player = is_player
 
     def change_weapon(self, weapon):
         self.weapon = weapon
@@ -22,14 +25,19 @@ class Weapon:
             if self.cooldown < self.cooldown_max:
                 self.cooldown += 1
 
-    def shoot(self, shipX, shipY, sizeMod, is_player):
+    def shoot(self, shipX, shipY, sizeMod):
         if self.weapon:
             if self.cooldown == self.cooldown_max:
                 self.cooldown = 0
-                x = int(self.pos[0] * sizeMod)
-                y = int(self.pos[1] * sizeMod)
-                return Laser(shipX + x, shipY + y, is_player, weapon_list[self.weapon][1], )
-    
+                x = int(self.x * sizeMod)
+                y = int(self.y * sizeMod)
+                if self.weapon == 'laser' or self.weapon == 'blaster':
+                    return [Laser(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1])]
+                if self.weapon == 'missile':
+                    return [Missile(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1]) for _ in range(10)] 
+                if self.weapon == 'rayon':
+                    return [Rayon(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1])] 
+                            
     def cooldownbar(self, window):
         bar_height = 50
         if self.cooldown_max:

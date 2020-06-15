@@ -4,7 +4,6 @@ import os
 import time
 import random
 
-
 from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
@@ -16,6 +15,7 @@ from ressources.classes.weapon import Weapon
 from ressources.classes.powerup import PowerUp
 from ressources.classes.star import Star
 from ressources.classes.label import Label
+from ressources.classes.explosion import Explosion
 from ressources.classes.soundbarre import Soundbarre
 from ressources.classes.shop_section import Shop_section
 from ressources.classes.shop_item import Shop_item
@@ -25,53 +25,65 @@ def main():
     run = True
 
     player = Player(0, screen.get_height()-screen.get_height()/4)
-    player.weapons[0].change_weapon('BFG')
-    player.weapons[1].change_weapon('laser')
-    player.weapons[2].change_weapon('blaster')
+    player.weapons[0].change_weapon('rayon')
+    # player.weapons[1].change_weapon('blaster')
+    # player.weapons[2].change_weapon('blaster')
 
     enemies = []
     powerups = []
 
+    explosions = []
     wave_length = 0
-    level = 1
+    level = 0
     lost = False
     lost_count = 0
+    background_offset = (0, 0)
 
     def redraw_window():
-        screen.blit(BG, (0, 0))
-        
+        screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), background_offset)
         Label(screen.get_width()*0.85, 30, 'Level: {}'.format(level), (255, 240, 200), 30).draw(screen)
         Label(screen.get_width()*0.2, 30, 'Enemies remain : {}'.format(len(enemies)), (255, 240, 200), 30).draw(screen)
 
         for enemy in enemies:
             enemy.draw(screen)
 
-        player.draw(screen)
-
         for powerup in powerups:
             powerup.draw(screen)
+
+        for explosion in explosions:
+            explosion.draw()
+
+        player.draw(screen)
 
         if lost:
             pass
             Label(screen.get_width()/2, screen.get_height()/2, 'YOU DIED', (255, 240, 200), 100).draw(screen)
-
+        
         pg.display.update()
 
     while run:
+                
         pg.display.set_caption(title + str(" / FPS: {}".format(int(clock.get_fps()))))
         clock.tick(fps)
         redraw_window()
 
-        if not(len(enemies)):
+        if False: # not(len(enemies))
             level += 1
-            wave_length += 1
+            wave_length += 5
 
             for _ in range(wave_length):
-                enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(['red', 'blue', 'green']))
+                enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(list(enemy_list)))
                 enemy.weapons[0].change_weapon('blaster')
                 enemies.append(enemy)
 
-            if not(level%5):
+            if level == 5:
+                for _ in range(int(level/5)):
+                    boss = Boss(0, -500, 'boss_2')
+                    boss.weapons[0].change_weapon('sniper')
+                    boss.weapons[1].change_weapon('sniper')
+                    enemies.append(boss)
+
+            if level == 10:
                 for _ in range(int(level/5)):
                     boss = Boss(0, -500, 'boss_1')
                     boss.weapons[0].change_weapon('blaster')
@@ -81,8 +93,8 @@ def main():
                     boss.weapons[4].change_weapon('blaster')
                     enemies.append(boss)
 
-            for _ in range(level):
-                powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
+            # for _ in range(level):
+            #     powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
 
         #update Player
         lost = player.update(enemies)
@@ -97,6 +109,7 @@ def main():
         for enemy in enemies[:]:
             enemy_temp = enemy.update([player]) 
             if enemy_temp:
+                explosions.append(Explosion((int(enemy.x + enemy.get_width()/2), int(enemy.y + enemy.get_height()/2)), 70))
                 enemies.remove(enemy_temp)
         
         #update Power-Up
@@ -105,6 +118,13 @@ def main():
             if powerup_temp:
                 powerups.remove(powerup_temp)
                 
+        if player.screen_shake:
+            player.screen_shake -= 1
+            intensity = 10
+            background_offset = (random.randint(-intensity, intensity), random.randint(-intensity, intensity))
+        else:
+            background_offset = (0, 0)
+        
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -113,7 +133,12 @@ def main():
                 player.weapon_switch(event.dict['key']-49)
             except KeyError:
                 pass
-            
+            if event.type == pygame.MOUSEBUTTONUP:
+                x, y = pygame.mouse.get_pos()
+                enemy = Enemy(x, y, random.choice(list(enemy_list)))
+                enemy.weapons[0].change_weapon('blaster')
+                enemies.append(enemy)
+
 def menu():
     label_active = 0
     run = True
@@ -136,6 +161,7 @@ def menu():
             stars[n].move()
 
     pg.time.delay(2500)
+    
     while run:
         for e in pg.event.get():
             try:

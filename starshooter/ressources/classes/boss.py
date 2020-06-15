@@ -4,7 +4,7 @@ from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
 
-from .ship import Ship
+from ressources.classes.ship import Ship
 
 class Boss(Ship):
     def __init__(self, x, y, model):
