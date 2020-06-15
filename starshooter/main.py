@@ -25,7 +25,7 @@ def main():
     run = True
 
     player = Player(0, screen.get_height()-screen.get_height()/4)
-    player.weapons[0].change_weapon('rayon')
+    player.weapons[0].change_weapon('missile')
     # player.weapons[1].change_weapon('blaster')
     # player.weapons[2].change_weapon('blaster')
 
@@ -161,6 +161,7 @@ def menu():
             stars[n].move()
 
     pg.time.delay(2500)
+    change_music("Space_Invaders_3.mp3")
     
     while run:
         for e in pg.event.get():
@@ -183,8 +184,7 @@ def menu():
                             # Récuperation de sauvegarde
                             print("sauvegarde")
                         elif label_active == 2:
-                            #Settings
-                            print("settings")
+                            settings()
                         else:
                             #quit
                             print("quit")
@@ -213,7 +213,6 @@ def menu():
 
 
 def settings():
-    change_music("Space_Invaders_3.mp3")
     run = True
     previousKey = None
     
@@ -321,7 +320,7 @@ def shop():
         clock.tick(60)
         pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
-# menu()
+menu()
 # main()
-#settings()
-shop()
+# settings()
+# shop()

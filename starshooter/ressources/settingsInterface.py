@@ -76,7 +76,6 @@ def settingsInterface(window,clock):
 
 def main(window):
     clock = pygame.time.Clock()
-    pygame.init()
     settingsInterface(window, clock)
 
 if __name__ == '__main__':

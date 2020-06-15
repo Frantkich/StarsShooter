@@ -10,6 +10,7 @@ from ressources.classes.projectile import Projectile
 class Missile(Projectile):
     def __init__(self, x, y, is_player, param, target=None):
         super().__init__(x, y, is_player, 'missile', param)
+        self.dirX = random.uniform(-self.dispertion, self.dispertion)
         self.target = target
 
     def move(self):
@@ -20,9 +21,9 @@ class Missile(Projectile):
         else:
             self.distX = self.dirX
             self.distY = self.dirY
-            dist = math.hypot(self.distX, self.distY) 
-        self.dirX = (self.dirX + (self.distX / dist / 6))/2
-        self.dirY = (self.dirY + (self.distY / dist / 6))/2
+            dist = math.hypot(self.distX, self.distY)
+        self.dirX = (23*self.dirX + (self.distX / dist))/25
+        self.dirY = (23*self.dirY + (self.distY / dist))/25
         self.x += self.dirX * self.speed
         self.y += self.dirY * self.speed
 
