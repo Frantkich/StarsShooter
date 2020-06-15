@@ -15,16 +15,15 @@ class Shop_section():
 
     def draw(self, screen, item_active):
             pos = self.item_count % (len(self.shop_item_list))
-            self.shop_item_list[pos].draw_item(screen, self.x , self.y, item_active)
-            print(len(self.shop_item_list)-1, pos)
+            self.shop_item_list[pos].draw_item(screen, self.x , self.y + 60, item_active)
             if pos-1 < 0:
-                self.shop_item_list[len(self.shop_item_list)-1].draw_item(screen, self.x -200 , self.y + 50, 0)
+                self.shop_item_list[len(self.shop_item_list)-1].draw_item(screen, self.x -200 , self.y + 60, 0)
             else:
-                self.shop_item_list[pos-1].draw_item(screen, self.x -200 , self.y + 50, 0) 
+                self.shop_item_list[pos-1].draw_item(screen, self.x -200 , self.y + 60, 0) 
             if len(self.shop_item_list) == pos+1:
-                self.shop_item_list[0].draw_item(screen, self.x + 200 , self.y + 50, 0)
+                self.shop_item_list[0].draw_item(screen, self.x + 200 , self.y + 60, 0)
             else:
-                self.shop_item_list[pos+1].draw_item(screen, self.x + 200 , self.y + 50, 0)
+                self.shop_item_list[pos+1].draw_item(screen, self.x + 200 , self.y + 60, 0)
 
     def add_shop_item(self, shop_item):
         self.shop_item_list.append(shop_item)
