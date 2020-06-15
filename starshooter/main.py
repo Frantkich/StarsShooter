@@ -18,6 +18,7 @@ from ressources.classes.label import Label
 from ressources.classes.explosion import Explosion
 from ressources.classes.soundbarre import Soundbarre
 from ressources.classes.shop_section import Shop_section
+from ressources.classes.shop_item import Shop_item
 
 def main():
     screen
@@ -160,6 +161,7 @@ def menu():
             stars[n].move()
 
     pg.time.delay(2500)
+    change_music("Space_Invaders_3.mp3")
     
     while run:
         for e in pg.event.get():
@@ -182,8 +184,7 @@ def menu():
                             # Récuperation de sauvegarde
                             print("sauvegarde")
                         elif label_active == 2:
-                            #Settings
-                            print("settings")
+                            settings()
                         else:
                             #quit
                             print("quit")
@@ -212,7 +213,6 @@ def menu():
 
 
 def settings():
-    change_music("Space_Invaders_3.mp3")
     run = True
     previousKey = None
     
@@ -261,32 +261,54 @@ def settings():
 
 def shop():
     #change_music("Space_Invaders_3.mp3")  ->music du shop
+    label_active = 0
+    item_active = 0
     run = True
     previousKey = None
     
-    labels = []  #Label(self, x, y, text, color, fontSize, font=main_font)
-    shop_sections = []  #Shop_section(self, x, y, width, height)
+    shop_section = []  #Shop_section(self, label_y, label_text, x, y, width, height)
 
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Power-ups", (255, 240, 200), 40)) #Power-ups
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 4/10 , "Weapons", (255, 240, 200), 40))  #Weapons
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Ships", (255, 240, 200), 40))  #Ships
-    
-    # shop_sections.append(Shop_section(int(screen.get_width()/6), int(screen.get_height()*0.2), int(screen.get_width()*0.66), int(screen.get_height*0.2)))
-    # shop_sections.append(Shop_section(int(screen.get_width()/6), int(screen.get_height()*0.5), int(screen.get_width()*0.66), int(screen.get_height*0.2)))
-    # shop_sections.append(Shop_section(int(screen.get_width()/6), int(screen.get_height()*0.8), int(screen.get_width()*0.66), int(screen.get_height*0.2)))
+    shop_section.append(Shop_section(screen.get_height()* 1/10, "Power-ups", screen.get_width()*1/3, screen.get_height()* 1.4/10))
+
+    shop_section.append(Shop_section(screen.get_height()* 4/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 4.4/10))
+
+    shop_section.append(Shop_section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7.4/10))
+
+    shop_section[0].add_shop_item(Shop_item("item lo", "999", "ship_blue.png"))
+    shop_section[0].add_shop_item(Shop_item("item lo", "999","ship_red.png"))
+    shop_section[1].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
+    shop_section[1].add_shop_item(Shop_item("item2", "999", "ship_red.png"))
+    shop_section[2].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
 
     while run:
-        for label in labels:
-            label.draw(screen)
+        for n in range(len(shop_section)):
+            if n == label_active:
+                shop_section[n].label.draw(screen, 1)  #Display label
+                shop_section[n].draw(screen, 1)
+            else:
+                shop_section[n].label.draw(screen, 0)
+                shop_section[n].draw(screen, 0)
 
-        for shop_s in shop_sections:
-            shop_s.draw(screen)
+        for e in pg.event.get():
+            try:
+                if previousKey != e.dict['unicode']:
+                    previousKey = e
+                    if keyPressed("s"):
+                        label_active += 1
+                    if keyPressed("z"):
+                        label_active -= 1
+                    if label_active < 0:
+                        label_active = len(shop_section)-1
+                    elif len(shop_section)-1 < label_active:
+                        label_active = 0
+            except KeyError:
+                pass
 
         pg.display.update()
         clock.tick(60)
         pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
-# menu()
-main()
-#settings()
+menu()
+# main()
+# settings()
 # shop()
