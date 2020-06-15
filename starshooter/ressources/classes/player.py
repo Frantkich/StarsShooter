@@ -39,7 +39,7 @@ class Player(Ship):
         if 0 <= key < len(self.weapons):
             self.slot_active = key
 
-    def healthbar(self, window):
+    def healthbar(self):
         height = 50
         width = 150
         thickness = 5
@@ -47,13 +47,13 @@ class Player(Ship):
         color = (255, 240, 200)
 
         ratio = self.health/self.health_max
-        pg.draw.rect(window, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
-        pg.draw.rect(window, (0, 255, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width*ratio, int(height/2)))
-        Label(screen.get_width() - (offset + width + thickness)/2, screen.get_height() - height, self.name, color, 20).draw(window)
-        pg.draw.rect(window, color, (screen.get_width() - offset - width, screen.get_height() - height - thickness - offset, width, height), thickness)
-        pg.draw.line(window, color, (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset), (screen.get_width() - offset, screen.get_height() - int(height/2) - thickness - offset), thickness)
+        pg.draw.rect(screen, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
+        pg.draw.rect(screen, (0, 255, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width*ratio, int(height/2)))
+        Label(screen.get_width() - (offset + width + thickness)/2, screen.get_height() - height, self.name, color, 20).draw()
+        pg.draw.rect(screen, color, (screen.get_width() - offset - width, screen.get_height() - height - thickness - offset, width, height), thickness)
+        pg.draw.line(screen, color, (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset), (screen.get_width() - offset, screen.get_height() - int(height/2) - thickness - offset), thickness)
 
-    def draw(self, window):
-        super().draw(window)
-        self.healthbar(window)
-        self.weapons[self.slot_active].draw(window) 
+    def draw(self):
+        super().draw()
+        self.healthbar()
+        self.weapons[self.slot_active].draw() 

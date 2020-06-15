@@ -3,7 +3,7 @@ import pygame as pg
 from ressources.ressources import *
 
 class Soundbarre():
-    def __init__(self, x, y, color, screen):
+    def __init__(self, x, y, color):
         self.x = x
         self.y = y
         self.color = color
@@ -14,7 +14,7 @@ class Soundbarre():
         self.volumeMixer = pg.Surface((10, 30))
         self.volumeLevel = 5
         
-    def draw(self, screen):
+    def draw(self):
         self.surface.fill(self.color)
         self.volumeMixer.fill(self.color)
         screen.blit(self.surface, (self.x, self.y))    

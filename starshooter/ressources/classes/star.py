@@ -30,13 +30,13 @@ class Star:
         self.x += self.vel[0]
         self.y += self.vel[1]
     
-    def draw(self, surface):
-        if 0 < self.x < surface.get_width() or 0 < self.y < surface.get_height():
-            pg.draw.line(surface, (255, 240, 200), (int(self.x - self.vel[0]), int(self.y - self.vel[1])), (int(self.x), int(self.y)), self.width)
+    def draw(self):
+        if 0 < self.x < screen.get_width() or 0 < self.y < screen.get_height():
+            pg.draw.line(screen, (255, 240, 200), (int(self.x - self.vel[0]), int(self.y - self.vel[1])), (int(self.x), int(self.y)), self.width)
             if self.width:
-                pg.draw.circle(surface, (255, 240, 200), (int(self.x), int(self.y)), self.width)
+                pg.draw.circle(screen, (255, 240, 200), (int(self.x), int(self.y)), self.width)
             else:
-                surface.set_at((int(self.x), int(self.y)), self.color)
+                screen.set_at((int(self.x), int(self.y)), self.color)
         else:
             return True
      

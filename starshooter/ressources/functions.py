@@ -74,9 +74,9 @@ def homingHead(shipX, shipY, targets):
     return closestTarget[1]
 
 def change_music(music_name):
-    if pygame.mixer.music.get_busy():
-        pygame.mixer.music.fadeout(3000)
-    
+    # if pygame.mixer.music.get_busy():
+    #     pygame.mixer.music.fadeout(1000)      #bug / freeze
+        
     pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name)
-    pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1, 0, 5000)
     

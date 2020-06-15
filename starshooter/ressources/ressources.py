@@ -42,7 +42,9 @@ powerup_list = {
 parallaxe_list = {
 #              (img, nbframe, speed)  
     'planet1': (os.path.join(dir_asset, 'planet1.png'), 1, 0.5),
-    'planet2': (os.path.join(dir_asset, 'planet2.png'), 1, 0.5)
+    'planet2': (os.path.join(dir_asset, 'planet2.png'), 1, 0.5),
+    'planet3': (os.path.join(dir_asset, 'planet3.png'), 1, 0.5),
+    'sun': (os.path.join(dir_asset, 'sun.png'), 4, 0.5)
 }
 
 
@@ -62,8 +64,9 @@ spaceship_list = {
 }
 
 sound_list = {
-    'test1' : os.path.join(dir_asset, "sound", "test1.wav"),
-    'test2' : os.path.join(dir_asset, "sound", "test2.wav")
+    'boss'  : os.path.join(dir_asset, "sound", "boss.wav"),
+    'end'   : os.path.join(dir_asset, "sound", "end.wav"),
+    'intro' : os.path.join(dir_asset, "sound", "intro.wav")
 }
 
 pg.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename="mixer", allowedchanges=0)

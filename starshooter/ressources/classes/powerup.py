@@ -76,5 +76,5 @@ class PowerUp:
             self.effect(obj, 1)
             return self
 
-    def draw(self, window):
-        pg.draw.circle(window, self.color, ((self.x + int(self.surface.get_width()/2), self.y + int(self.surface.get_height()/2))), int(self.surface.get_height()/2))
+    def draw(self):
+        pg.draw.circle(screen, self.color, ((self.x + int(self.surface.get_width()/2), self.y + int(self.surface.get_height()/2))), int(self.surface.get_height()/2))

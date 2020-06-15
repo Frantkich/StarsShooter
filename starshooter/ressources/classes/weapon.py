@@ -39,7 +39,7 @@ class Weapon:
                 else:
                     return [Laser(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1])]
                             
-    def cooldownbar(self, window):
+    def cooldownbar(self):
         height = 50
         width = 150
         thickness = 5
@@ -54,13 +54,13 @@ class Weapon:
                     ratio = self.cooldown/self.cooldown_max
             else:
                 ratio = 1
-            pg.draw.rect(window, (255, 0, 0), (offset, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
-            pg.draw.rect(window, (0, 255, 0), (offset, screen.get_height() - int(height/2) - thickness - offset, width*ratio, int(height/2)))
-            Label((offset + width + thickness)/2, screen.get_height() - height, self.weapon, color, 20).draw(window)
+            pg.draw.rect(screen, (255, 0, 0), (offset, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
+            pg.draw.rect(screen, (0, 255, 0), (offset, screen.get_height() - int(height/2) - thickness - offset, width*ratio, int(height/2)))
+            Label((offset + width + thickness)/2, screen.get_height() - height, self.weapon, color, 20).draw()
         else:
-            Label((offset + width + thickness)/2, screen.get_height() - height, "N/A", color, 20).draw(window)
-        pg.draw.rect(window, color, (offset, screen.get_height() - height - thickness - offset, width, height), thickness)
-        pg.draw.line(window, color, (offset, screen.get_height() - int(height/2) - thickness - offset), (offset + width, screen.get_height() - int(height/2) - thickness - offset), thickness)
+            Label((offset + width + thickness)/2, screen.get_height() - height, "N/A", color, 20).draw()
+        pg.draw.rect(screen, color, (offset, screen.get_height() - height - thickness - offset, width, height), thickness)
+        pg.draw.line(screen, color, (offset, screen.get_height() - int(height/2) - thickness - offset), (offset + width, screen.get_height() - int(height/2) - thickness - offset), thickness)
 
-    def draw(self, window):
-        self.cooldownbar(window)
+    def draw(self):
+        self.cooldownbar()

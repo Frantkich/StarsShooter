@@ -101,10 +101,10 @@ class Ship:
         self.update_projectiles(targets)
         self.update_powerups()
 
-    def draw(self, window):
+    def draw(self):
         for projectile in self.projectiles:
-            projectile.draw(window)
-        window.blit(self.sprite, (self.x, self.y))
+            projectile.draw()
+        screen.blit(self.sprite, (self.x, self.y))
         for explosion in self.explosions:
             explosion.draw()     
 

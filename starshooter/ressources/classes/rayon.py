@@ -15,7 +15,6 @@ class Rayon(Projectile):
 
     def move(self):
         pass
-
     
-    def draw(self, window):
-        pg.draw.rect(window, self.color, ((self.x - self.surface.get_width()/2, -5), (5, self.y)))
+    def draw(self):
+        pg.draw.rect(screen, self.color, ((self.x - self.surface.get_width()/2, -5), (5, self.y)))

@@ -22,8 +22,8 @@ class Projectile:
         else:
             self.dirY = 1
 
-    def draw(self, window):
-        pg.draw.rect(window, self.color, ((self.x - self.surface.get_width()/2, self.y), self.surface.get_size()))
+    def draw(self):
+        pg.draw.rect(screen, self.color, ((self.x - self.surface.get_width()/2, self.y), self.surface.get_size()))
 
     def off_screen(self, width, height):
       return self.x + self.surface.get_width() < 0 or width < self.x or self.y + self.surface.get_height() < 0 or height < self.y
