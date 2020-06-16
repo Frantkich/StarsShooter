@@ -31,7 +31,7 @@ def game(player):
     pg.mixer.Sound(sound_list['intro']).play()
     change_music("level.mp3")
 
-    DEBUG = False
+    DEBUG = True
 
     def redraw_window():
         screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), background_offset)
@@ -109,6 +109,7 @@ def game(player):
         if lost:
             lost_count += 1
             if lost_count > fps * 3:
+                change_music("transition.mp3")
                 save(player)
                 run = False
             else:
@@ -142,6 +143,9 @@ def game(player):
                 player.weapon_switch(event.dict['key']-49)
             except KeyError:
                 pass
+            if keyPressed("esc"):
+                change_music("transition.mp3")
+                run = False
             if event.type == pygame.MOUSEBUTTONUP:
                 x, y = pygame.mouse.get_pos()
                 
@@ -164,7 +168,7 @@ def game(player):
                 # for enemy in enemies:
                 #     enemy.health = 0
 
-                # load(player)
+                # save(player)
 
                 # player.health = 0
                 

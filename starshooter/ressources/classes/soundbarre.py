@@ -6,23 +6,17 @@ class Soundbarre():
     def __init__(self, x, y, color):
         self.x = x
         self.y = y
-        self.color = color
+        self.color = (255, 240, 200)
         self.width = screen.get_width()/2
         self.height = 10
-        self.surface = pg.Surface((self.width, self.height))
         self.logo = pg.image.load(dir_asset + "/speaker.png")
-        self.volumeMixer = pg.Surface((10, 30))
-        self.volumeLevel = 5
         
     def draw(self):
-        self.surface.fill(self.color)
-        self.volumeMixer.fill(self.color)
-        screen.blit(self.surface, (self.x, self.y))    
-        screen.blit(self.logo, (self.x - self.logo.get_width() - 10, self.y - self.logo.get_height()/2 + self.height/2))
-        screen.blit(self.volumeMixer, (int(self.x + self.width * self.volumeLevel / 10), self.y - self.volumeMixer.get_height()/2 + self.height/2))
+        pg.draw.rect(screen, self.color, (self.x, self.y - self.height/2, self.width, self.height))
+        pg.draw.rect(screen, self.color, (int(self.x + self.width * pg.mixer.music.get_volume()), self.y - self.height*1.5, self.height, self.height*3))
+        
+    def volumeUp(self):
+        pg.mixer.music.set_volume(pg.mixer.music.get_volume()+0.1)
     
-    def up_volumeLevel(self):
-        self.volumeLevel += 1
-    
-    def down_volumeLevel(self):
-        self.volumeLevel -= 1
+    def volumeDown(self):
+        pg.mixer.music.set_volume(pg.mixer.music.get_volume()-0.1)

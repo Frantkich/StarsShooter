@@ -7,61 +7,64 @@ from ressources.functions import *
 from ressources.classes.label import Label
 from ressources.classes.section import Section
 from ressources.classes.item import Item
+from ressources.classes.star import Star
 
-def shop():
 
-    label_active = 0
+def shop(player, stars):
     run = True
     previousKey = None
-    
-    shop_section = []  #Shop_section(self, label_y, label_text, x, y, width, height)
 
-    #shop_section.append(Shop_section(screen.get_height()* 0.6/10, "Power-ups", screen.get_width()*1/3, screen.get_height()* 0.6/10))
-    shop_section.append(Section(screen.get_height()* 3.8/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
-    shop_section.append(Section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
+    section_active = 0
+    section = []
+    section.append(Section(screen.get_height()* 3.8/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
+    section.append(Section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
 
     for weapon in weapon_list:
-        shop_section[0].add_item(Item(weapon, str(weapon_list[weapon][4]), weapon_list[weapon][3]))
-
+        section[0].add_item(Item(weapon, str(weapon_list[weapon][4]), weapon_list[weapon][3]))
     for ship in spaceship_list:
-        shop_section[1].add_item(Item(ship, str(spaceship_list[ship][3]), spaceship_list[ship][0]))
+        section[1].add_item(Item(ship, str(spaceship_list[ship][3]), spaceship_list[ship][0]))
+
+    def redraw_window():
+        pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
+        for star in stars:
+            star.move()
+            if star.draw():
+                stars.remove(star)
+                stars.append(Star((screen.get_width()/2, screen.get_height()/2), star.width, 1))
+
+        for n in range(len(section)):
+            if n == section_active:
+                section[n].draw(1)
+                section[n].label.draw(1)
+            else:
+                section[n].draw(0)
+                section[n].label.draw(0)
 
     while run:
-        for n in range(len(shop_section)):
-            if n == label_active:
-                shop_section[n].draw(1)
-                shop_section[n].label.draw(1)  #Display label
-            else:
-                shop_section[n].draw(0)
-                shop_section[n].label.draw(0)
-
         for e in pg.event.get():
             try:
                 if previousKey != e.dict['unicode']:
                     previousKey = e
+
                     if keyPressed("s"):
-                        label_active += 1
-
+                        section_active += 1
                     if keyPressed("z"):
-                        label_active -= 1
-
-                    if label_active < 0:
-                        label_active = len(shop_section)-1
-
-                    elif len(shop_section)-1 < label_active:
-                        label_active = 0
+                        section_active -= 1
+                    if section_active < 0:
+                        section_active = len(section)-1
+                    elif len(section)-1 < section_active:
+                        section_active = 0
 
                     if keyPressed("d"):
-                        shop_section[label_active].item_count += 1
-
+                        section[section_active].item_count += 1
                     if keyPressed("q"):
-                        shop_section[label_active].item_count -= 1
-
-
+                        section[section_active].item_count -= 1
+                    if keyPressed("esc"):
+                        run = False
             except KeyError:
                 pass
-
-        pg.display.update()
-        clock.tick(60)
-        pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))
-        pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height()) ))
+            
+        redraw_window()
+        end()
+        
+    return stars

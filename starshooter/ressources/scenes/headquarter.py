@@ -4,27 +4,25 @@ from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
 
-from ressources.classes.soundbarre import Soundbarre  
-from ressources.classes.label import Label
 from ressources.classes.star import Star
+from ressources.classes.label import Label
+from ressources.scenes.game import game
+from ressources.scenes.shop import shop
+from ressources.scenes.inventory import inventory
 
 
-def option(stars):
+def headquarter(player, stars):
     run = True
     previousKey = None
-    
+
     label_active = 0
     labels = []
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Sound", (255, 240, 200), 50))
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 3/10, "Done", (255, 240, 200), 50))
-
-    controls = []
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 6/10 , "Controls", (255, 240, 200), 50))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Z, Q, S, D : Move", (255, 240, 200), 30))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "1, 2, 3 ... : Switch weapons", (255, 240, 200), 30))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 9/10 , "space : Shoot", (255, 240, 200), 30))
+    labels.append(Label(screen.get_width()/2, 200, "Start", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, 400, "Inventory", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, 600, "Shop", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, 800, "Save & Exit", (255, 240, 200), 50))
     
-    soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 2/10 , (4, 195, 225))
+    change_music("transition.mp3")
 
     def redraw_window():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
@@ -41,11 +39,6 @@ def option(stars):
             else:
                 labels[n].draw()
 
-        for control in controls:
-            control.draw()
-
-        soundbarre.draw()
-
     while run:
         for e in pg.event.get():
             try:
@@ -61,18 +54,20 @@ def option(stars):
                     elif len(labels)-1 < label_active:
                         label_active = 0
 
-                    if label_active == 0:
-                        if keyPressed("d") and pg.mixer.music.get_volume() < 1:
-                            soundbarre.volumeUp()
-                        if keyPressed("q") and 0 < pg.mixer.music.get_volume():
-                            soundbarre.volumeDown()
-                    if keyPressed("space") and label_active == 1:
+                    if keyPressed("space"):
+                        if label_active == 0:
+                            game(player) #start the game
+                        elif label_active == 1:
+                            inventory(player) #open the inventory
+                        elif label_active == 2:
+                            stars = shop(player, stars)
+                        elif label_active == 3:
+                            save(player)
                             run = False
                             break
-
             except KeyError:
                 pass
-        
+
         redraw_window()
         end()
 

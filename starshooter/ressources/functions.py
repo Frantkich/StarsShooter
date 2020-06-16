@@ -1,4 +1,5 @@
 import pygame, math, sys, os
+from ressources.ressources import *
 
 keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "down": pygame.K_DOWN,
            "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "return": pygame.K_RETURN,
@@ -73,22 +74,20 @@ def homingHead(shipX, shipY, targets):
             closestTarget = (math.hypot(dx, dy), target)
     return closestTarget[1]
 
-def change_music(music_name):
-    # if pygame.mixer.music.get_busy():
-    #     pygame.mixer.music.fadeout(1000)      #bug / freeze
-        
+def change_music(music_name):        
     pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name)
     pygame.mixer.music.play(-1, 0, 5000)
 
 def save(player):
     with open('save', 'w') as file_write:
         file_write.write(player.name + '\n' + str(player.money) + '\n'+ str(player.max_score) + '\n')
+        print(player.inventory, file=file_write)
         for weapon in player.weapons:
             if weapon.weapon:
                 file_write.write(weapon.weapon + '\n')
             else:
                 file_write.write('None\n')
-
+            
 
 def load(player):
     with open('save', 'r') as file_read:
@@ -96,9 +95,15 @@ def load(player):
         player.name = lines[0][:-1]
         player.money = int(lines[1])
         player.max_score = int(lines[2])
+        exec('player.inventory = ' + lines[3])
         n = 0
-        for weapon in lines[3:]:
+        for weapon in lines[4:]:
             if not(weapon[:-1] == "None"):
                 player.weapons[n].change_weapon(weapon[:-1])
             n += 1
     return player
+
+def end():
+    pg.display.update()
+    clock.tick(60)
+    pg.display.set_caption("FPS: {}".format(int(clock.get_fps())))

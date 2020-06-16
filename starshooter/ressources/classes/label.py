@@ -9,7 +9,7 @@ class Label():
         self.text = text
         self.color = color
         self.fontSize = fontSize
-        self.font = font
+        self.font = main_font
        
     def draw(self, is_active = 0, center = 0):
         if is_active:

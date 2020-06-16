@@ -51,6 +51,8 @@ def inventory():
                     if keyPressed("q"):
                         shop_section[label_active].item_count -= 1
 
+                    if keyPressed("esc"):
+                        run = False
 
             except KeyError:
                 pass
