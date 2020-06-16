@@ -21,10 +21,10 @@ def shop():
     shop_section.append(Section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
 
     for weapon in weapon_list:
-        shop_section[0].add_item(Item(weapon, str(weapon_list[weapon][4]), weapon_list[weapon][3]))
+        shop_section[0].add_item(Item(weapon, weapon_list[weapon][3], item_price=str(weapon_list[weapon][4])))
 
     for ship in spaceship_list:
-        shop_section[1].add_item(Item(ship, str(spaceship_list[ship][3]), spaceship_list[ship][0]))
+        shop_section[1].add_item(Item(ship, spaceship_list[ship][0], item_price=str(spaceship_list[ship][3])))
 
     while run:
         for n in range(len(shop_section)):

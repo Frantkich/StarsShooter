@@ -4,31 +4,30 @@ from ressources.ressources import *
 from ressources.classes.label import Label
 from ressources.settings import screen
 
-<<<<<<< HEAD:starshooter/ressources/classes/shop_section.py
-class Shop_section():
-=======
 class Section():
 
->>>>>>> bdf6aed05f01d60b73aab6137d3a28423f36bc19:starshooter/ressources/classes/section.py
     def __init__(self, label_y, label_text, x, y):
         self.label = Label(screen.get_width()/2, label_y, label_text, (255, 240, 200), 40)  #Label(self, x, y, text, color, fontSize, font=main_font)
         self.x = x
         self.y = y
-        self.shop_item_list = []
+        self.item_list = []
+        self.equiped_list = []
         self.item_count = 0
 
     def draw(self, item_active):
-            pos = self.item_count % (len(self.shop_item_list))
-            self.shop_item_list[pos].draw_item(self.x , self.y + 50, item_active)
+            pos = self.item_count % (len(self.item_list))
+            self.item_list[pos].draw_item(self.x , self.y + 50, item_active)
             if pos-1 < 0:
-                self.shop_item_list[len(self.shop_item_list)-1].draw_item(self.x -200 , self.y + 60, 0)
+                self.item_list[len(self.item_list)-1].draw_item(self.x -200 , self.y + 60, 0)
             else:
-                self.shop_item_list[pos-1].draw_item(self.x -200 , self.y + 60, 0) 
-            if len(self.shop_item_list) == pos+1:
-                self.shop_item_list[0].draw_item(self.x + 200 , self.y + 60, 0)
+                self.item_list[pos-1].draw_item(self.x -200 , self.y + 60, 0) 
+            if len(self.item_list) == pos+1:
+                self.item_list[0].draw_item(self.x + 200 , self.y + 60, 0)
             else:
-                self.shop_item_list[pos+1].draw_item(self.x + 200 , self.y + 60, 0)
+                self.item_list[pos+1].draw_item(self.x + 200 , self.y + 60, 0)
 
-    def add_item(self, shop_item):
-        self.shop_item_list.append(shop_item)
+    def add_item(self, item):
+        self.item_list.append(item)
     
+    def add_equiped_item(self, item):
+        self.equiped_list.append(item)
