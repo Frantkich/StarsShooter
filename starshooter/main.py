@@ -15,3 +15,6 @@ from ressources.ressources import *
 game(load(Player(0, screen.get_height()-screen.get_height()/4)))
 #shop()
 #inventory()
+#game(load(Player(0, screen.get_height()-screen.get_height()/4)))
+#shop()
+# inventory()
