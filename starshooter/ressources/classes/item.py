@@ -5,7 +5,7 @@ from ressources.classes.label import Label
 from ressources.settings import screen, gif_speed
 from ressources.functions import spritesheet
 
-class Shop_item():
+class Item():
 
     def __init__(self, item_name, item_price, item_img):
         self.pos = [] #x and y
