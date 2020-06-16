@@ -4,7 +4,7 @@ from ressources.ressources import *
 from ressources.classes.label import Label
 from ressources.settings import screen
 
-class Oter():
+class Otter():
 
     def __init__(self, x, y):
         self.pos = (x, y) 
