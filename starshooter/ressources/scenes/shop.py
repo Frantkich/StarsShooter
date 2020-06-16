@@ -17,19 +17,14 @@ def shop():
     shop_section = []  #Shop_section(self, label_y, label_text, x, y, width, height)
 
     #shop_section.append(Shop_section(screen.get_height()* 0.6/10, "Power-ups", screen.get_width()*1/3, screen.get_height()* 0.6/10))
-    #shop_section.append(Shop_section(screen.get_height()* 3.8/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
+    shop_section.append(Shop_section(screen.get_height()* 3.8/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
     shop_section.append(Shop_section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
 
-    #for power_up in powerup_list:
-    #shop_section[0].add_shop_item(Shop_item("item lo", "999", "ship_blue.png"))
-    #shop_section[0].add_shop_item(Shop_item("item lo", "999","ship_red.png"))
-    #shop_section[0].add_shop_item(Shop_item("item lo", "999","ship_green.png"))
-    #shop_section[2].add_shop_item(Shop_item("item2", "999","ship_blue.png"))
-    #shop_section[2].add_shop_item(Shop_item("item2", "999","ship_red.png"))
-    #shop_section[2].add_shop_item(Shop_item("item2", "999","ship_green.png"))
+    for weapon in weapon_list:
+        shop_section[0].add_shop_item(Shop_item(weapon, "100", weapon_list[weapon][3]))
 
     for ship in spaceship_list:
-        shop_section[0].add_shop_item(Shop_item(ship, "100", spaceship_list[ship][0][0]))
+        shop_section[1].add_shop_item(Shop_item(ship, "100", spaceship_list[ship][0]))
 
     while run:
         for n in range(len(shop_section)):
