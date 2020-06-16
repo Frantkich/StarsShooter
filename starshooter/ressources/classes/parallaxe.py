@@ -40,7 +40,7 @@ class Parallaxe:
       self.nextFrame = gif_speed
     self.nextFrame -= 1
 
-  def update_all(self, targets):
+  def update(self):
     self.update_sprite()
     self.move()
 

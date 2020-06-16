@@ -12,6 +12,7 @@ from ressources.classes.soundbarre import Soundbarre
 from ressources.scenes.game import game
 from ressources.scenes.option import option
 
+from ressources.classes.player import Player
 
 def menu():
     label_active = 0
@@ -32,6 +33,7 @@ def menu():
 
     stars = []
     change_music("generic.mp3")
+    
     for n in range(1000):
         stars.append(Star((screen.get_width()/2, screen.get_height()/2), random.randint(0, 100)))
         for _ in range(500):
@@ -54,14 +56,13 @@ def menu():
                         label_active = 0
                     if keyPressed("space"):
                         if label_active == 0:
-                            game()
+                            game(Player(0, screen.get_height()-screen.get_height()/4))
                         elif label_active == 1:
-                            pass
-                            # Récuperation de sauvegarde
-                            print("sauvegarde")
+                            game(load(Player(0, screen.get_height()-screen.get_height()/4)))
                         elif label_active == 2:
                             option(soundbarre)
                         else:
+                            save(player)
                             run = False
                             break
             except KeyError:

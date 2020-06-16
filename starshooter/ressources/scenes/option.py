@@ -38,9 +38,9 @@ def option(soundbarre):
                     if keyPressed("q") and 0 < soundbarre.volumeLevel:
                         soundbarre.down_volumeLevel()
                         pg.mixer.music.set_volume(soundbarre.volumeLevel/10)
-                    if keyPressed("f"):  #Test son
+                    if keyPressed("f"):
                         pg.mixer.Sound(sound_list['boss']).play()
-                    if keyPressed("g"): #test son
+                    if keyPressed("g"):
                         pg.mixer.Sound(sound_list['end']).play()
                     if keyPressed('esc'):
                             run = False

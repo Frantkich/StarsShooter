@@ -12,7 +12,10 @@ class Player(Ship):
         super().__init__(x, y, 'player', 1)
         self.x = screen.get_width()/2 - self.get_width()/2
         self.screen_shake = 0
-
+        self.money = 0
+        self.score = 0
+        self.max_score = 0
+        
     def move(self):
         if keyPressed("q") and self.x - self.speed > 0:
             self.x -= self.speed
@@ -29,7 +32,10 @@ class Player(Ship):
 
     def update(self, targets):
         if self.health <= 0:
-            self.health = 0 
+            self.health = 0
+            if self.max_score < self.score:
+                self.max_score = self.score
+            self.score = 0
             return True
         self.move()
         self.check_shoot()

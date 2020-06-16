@@ -19,12 +19,13 @@ title_font = pg.font.Font(os.path.join(dir_asset, "fonts/MachineStd.otf"), 100)
 background = os.path.join(dir_asset, 'background-black.png') 
 
 weapon_list = {
-#              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion))
-    'BFG':     (10,   ((0,153,51),    (20, 40), 500, 2,  -1, 0)),
-    'rayon':   (0,    ((0,204,255),   (5, 1),   500, 0,  0,  0)),
-    'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0)),
-    'blaster': (0.15, ((255,255,102), (8, 10),  75,  10, 0,  0)),
-    'missile': (2,    ((205,133,63),  (5, 5),   25,  25, 0,  1))
+#              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion), nBullet)
+    'BFG':     (10,   ((0,153,51),    (20, 40), 500, 2,  -1, 0), 1),
+    'rayon':   (0,    ((0,204,255),   (5, 50),  5,   50, 0,  0), 1),
+    'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0), 1),
+    'shotgun': (1.5,  ((255,255,255), (2, 3),   25,  15, 0,  0.33), 20),
+    'blaster': (0.15, ((255,255,102), (5, 10),  75,  10, 0,  0), 1),
+    'missile': (2,    ((205,133,63) , (5, 5),   250, 25, 0,  1), 10)
 }
 
 
@@ -52,15 +53,15 @@ enemy_list = ['red', 'blue', 'green', 'round', 'sneaky']
 boss_list = ['boss_1', 'boss_2']
 
 spaceship_list = {
-#             ((img, nbframe), health, speed, (weapons1_pos, ....))
-    'player': ((os.path.join(dir_asset, 'ship_yellow.png'), 4), (500, 7.5),  [(0, 0), (-17, 0), (17, 0)]),
-    'red':    ((os.path.join(dir_asset, 'ship_red.png'),    4), (200, 1),    [(0, 0)]),
-    'green':  ((os.path.join(dir_asset, 'ship_green.png'),  4), (150, 2),    [(0, 0)]),
-    'blue':   ((os.path.join(dir_asset, 'ship_blue.png'),   4), (50,  3),    [(0, 0)]),
-    'round':  ((os.path.join(dir_asset, 'ship_round.png'),  4), (100,  2.5), [(0, 0)]),
-    'sneaky': ((os.path.join(dir_asset, 'ship_sneaky.png'), 4), (100,  2),   [(0, 0)]),
-    'boss_1': ((os.path.join(dir_asset, 'ship_boss1.png'),  4), (5000, 1),   [(-135, -100), (-55, 0), (0, 0), (55, 0), (135, -100)]),
-    'boss_2': ((os.path.join(dir_asset, 'ship_boss2.png'),  4), (2500, 3),   [(-100, -100), (100, -100)]),
+#             ((img, nbframe), health, explosionsize, speed, (weapons1_pos, ....))
+    'player': ((os.path.join(dir_asset, 'ship_yellow.png'), 4), (500,  70,  7.5), [(0, 0), (-17, 10), (17, 10)]),
+    'red':    ((os.path.join(dir_asset, 'ship_red.png'),    4), (200,  70,  1),   [(0, 0)]),
+    'green':  ((os.path.join(dir_asset, 'ship_green.png'),  4), (150,  70,  2),   [(0, 0)]),
+    'blue':   ((os.path.join(dir_asset, 'ship_blue.png'),   4), (50,   70,  3),   [(0, 0)]),
+    'round':  ((os.path.join(dir_asset, 'ship_round.png'),  4), (100,  70,  2.5), [(0, 0)]),
+    'sneaky': ((os.path.join(dir_asset, 'ship_sneaky.png'), 4), (100,  70,  2),   [(0, 0)]),
+    'boss_1': ((os.path.join(dir_asset, 'ship_boss1.png'),  4), (5000, 125, 1),   [(-135, -100), (-55, 0), (0, 0), (55, 0), (135, -100)]),
+    'boss_2': ((os.path.join(dir_asset, 'ship_boss2.png'),  4), (2500, 125, 3),   [(-100, -150), (100, -150)]),
 }
 
 sound_list = {
@@ -70,3 +71,4 @@ sound_list = {
 }
 
 pg.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename="mixer", allowedchanges=0)
+pg.mixer.music.set_volume(0.5)

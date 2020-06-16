@@ -17,7 +17,7 @@ class Ship:
         self.is_player = is_player
         self.name = spaceship
         # basic stats
-        self.health_max, self.speed = spaceship_list[spaceship][1]
+        self.health_max, self.boom, self.speed = spaceship_list[spaceship][1]
         self.health = self.health_max
         #prites
         self.path, self.nbframe = spaceship_list[spaceship][0]

@@ -7,7 +7,6 @@ from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
 
-from ressources.classes.player import Player
 from ressources.classes.enemy import Enemy
 from ressources.classes.boss import Boss
 from ressources.classes.weapon import Weapon
@@ -16,14 +15,8 @@ from ressources.classes.explosion import Explosion
 from ressources.classes.parallaxe import Parallaxe
 from ressources.classes.label import Label
 
-def game():
+def game(player):
     run = True
-
-    player = Player(0, screen.get_height()-screen.get_height()/4)
-    player.weapons[0].change_weapon('missile')
-    player.weapons[1].change_weapon('sniper')
-    player.weapons[2].change_weapon('blaster')
-
     enemies = []
     powerups = []
 
@@ -31,7 +24,7 @@ def game():
     parallaxes = []
 
     wave_length = 0
-    level = 3
+    level = 0
     lost = False
     lost_count = 0
     background_offset = (0, 0)
@@ -71,7 +64,7 @@ def game():
 
         if not(len(enemies)) and not(DEBUG):
             level += 1
-            wave_length += 1
+            wave_length += 5
 
             for _ in range(wave_length):
                 enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(list(enemy_list)))
@@ -81,6 +74,9 @@ def game():
             if not(level%5):
                 pg.mixer.Sound(sound_list['boss']).play()
                 change_music("boss.mp3")
+
+            if level%5 == 1 and level != 1:
+                change_music("level.mp3")
 
             if level == 5:
                 boss = Boss(0, -500, 'boss_2')
@@ -97,21 +93,21 @@ def game():
                 boss.weapons[4].change_weapon('blaster')
                 enemies.append(boss)
 
-            # for _ in range(level):
+            # for _ in range(random.randint(0, int(level/2))):
             #     powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
-
         
         if not(random.randint(0, fps*40)):
             parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
 
         for parallaxe in parallaxes:
-            parallaxe.move()
+            parallaxe.update()
 
         #update Player
         lost = player.update(enemies)
         if lost:
             lost_count += 1
             if lost_count > fps * 3:
+                save(player)
                 run = False
             else:
                 continue
@@ -120,7 +116,7 @@ def game():
         for enemy in enemies[:]:
             enemy_temp = enemy.update([player]) 
             if enemy_temp:
-                explosions.append(Explosion((int(enemy.x + enemy.get_width()/2), int(enemy.y + enemy.get_height()/2)), 70))
+                explosions.append(Explosion((int(enemy.x + enemy.get_width()/2), int(enemy.y + enemy.get_height()/2)), enemy.boom ))
                 enemies.remove(enemy_temp)
         
         #update Power-Up
@@ -144,13 +140,19 @@ def game():
                 player.weapon_switch(event.dict['key']-49)
             except KeyError:
                 pass
-            if event.type == pygame.MOUSEBUTTONUP and DEBUG:
-                x, y = pygame.mouse.get_pos()
-                enemy = Enemy(x, y, random.choice(list(enemy_list)))
-                enemy.weapons[0].change_weapon('blaster')
-                enemies.append(enemy)
-            if keyPressed("return"):
+            if event.type == pygame.MOUSEBUTTONUP:
+                # x, y = pygame.mouse.get_pos()
+                # enemy = Enemy(x, y, random.choice(list(enemy_list)))
+                # enemy.weapons[0].change_weapon('blaster')
+                # enemies.append(enemy)
+
+                # parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
+                
                 for enemy in enemies:
                     enemy.health = 0
-                    
+
+                # load(player)
+
+                # player.health = 0
+                
   

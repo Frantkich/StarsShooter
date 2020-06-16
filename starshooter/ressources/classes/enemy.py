@@ -1,6 +1,5 @@
 import random
 
-
 from ressources.ressources import *
 from ressources.settings import *
 from ressources.functions import *
@@ -19,7 +18,6 @@ class Enemy(Ship):
         if random.randrange(0, 2*fps) == 1:
             self.shoot()
 
-
     def update(self, targets):
         target = targets[0]
         if self.y + self.get_height() > screen.get_height():
@@ -29,6 +27,8 @@ class Enemy(Ship):
             target.health -= target.health_max/8
             return self
         if self.health <= 0:
+            target.money += 10
+            target.score += 10
             return self
         self.move()
         self.check_shoot()

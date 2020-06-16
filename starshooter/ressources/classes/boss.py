@@ -9,16 +9,22 @@ from ressources.classes.ship import Ship
 class Boss(Ship):
     def __init__(self, x, y, model):
         super().__init__(x, y, model)
-        self.x = screen.get_width()/2 - self.get_width()/2
-        self.maxY = random.randint(0, int(screen.get_height()/2))
+        self.destX = int(screen.get_width()/2 - self.get_width()/2)
+        self.destY = int(random.randint(0, int(screen.get_height()/2)))
 
     def move(self):
-        if self.y < self.maxY:
-            self.y += self.speed
-        elif self.maxY < self.y:
-            self.y -= self.speed
-        else:
-            self.maxY = random.randint(0, int(screen.get_height()/4))
+        self.distX = self.destX - self.x
+        self.distY = self.destY - self.y
+        dist = math.hypot(self.distX, self.distY)
+        self.dirX = self.distX / dist
+        self.dirY = self.distY / dist
+
+        self.x += self.dirX * self.speed
+        self.y += self.dirY * self.speed
+
+        if dist < self.speed: 
+            self.destX = random.randint(0, screen.get_width() - self.get_width())
+            self.destY = random.randint(0, int(screen.get_height()/4))
 
     def update(self, targets):
         target = targets[0]
@@ -28,9 +34,9 @@ class Boss(Ship):
             for self.slot_active in range(len(self.weapons)):
                 self.shoot()
         if collide(self, target):
-            target.health = 0
+            target.money += 1000
+            target.score += 1000
             return self
-
         self.move()
         self.update_all(targets)
     

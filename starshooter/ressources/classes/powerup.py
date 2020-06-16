@@ -55,12 +55,14 @@ class PowerUp:
                 obj.size = 1
         if self.name == "cooldown":
             if add:
-                self.save = (obj.weapons[obj.slot_active].cooldown_max, obj.slot_active)
-                obj.weapons[obj.slot_active].cooldown_max = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
-                obj.weapons[obj.slot_active].cooldown = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
+                if obj.weapons[obj.slot_active].weapon:
+                    self.save = (obj.weapons[obj.slot_active].cooldown_max, obj.slot_active)
+                    obj.weapons[obj.slot_active].cooldown_max = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
+                    obj.weapons[obj.slot_active].cooldown = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
             else:
-                obj.weapons[self.save[1]].cooldown_max = self.save[0]
-                obj.weapons[self.save[1]].cooldown *= 0
+                if obj.weapons[obj.slot_active].weapon:
+                    obj.weapons[self.save[1]].cooldown_max = self.save[0]
+                    obj.weapons[self.save[1]].cooldown *= 0
         
 
     def update(self, obj):

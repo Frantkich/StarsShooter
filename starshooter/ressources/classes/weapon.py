@@ -6,7 +6,6 @@ from ressources.functions import *
 
 from ressources.classes.laser import Laser
 from ressources.classes.missile import Missile
-from ressources.classes.rayon import Rayon
 from ressources.classes.label import Label
 
 class Weapon:
@@ -33,11 +32,9 @@ class Weapon:
                 x = int(self.x * sizeMod)
                 y = int(self.y * sizeMod)
                 if self.weapon == 'missile':
-                    return [Missile(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1]) for _ in range(10)] 
-                if self.weapon == 'rayon':
-                    return [Rayon(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1])] 
+                    return [Missile(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1]) for _ in range(weapon_list[self.weapon][2])]
                 else:
-                    return [Laser(shipX + x, shipY + y, self.is_player, weapon_list[self.weapon][1])]
+                    return [Laser(shipX + x, shipY + y - weapon_list[self.weapon][1][1][1] + weapon_list[self.weapon][1][3], self.is_player, weapon_list[self.weapon][1]) for _ in range(weapon_list[self.weapon][2])]
                             
     def cooldownbar(self):
         height = 50
