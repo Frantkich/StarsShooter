@@ -62,4 +62,10 @@ class Player(Ship):
     def draw(self):
         super().draw()
         self.healthbar()
-        self.weapons[self.slot_active].draw() 
+        self.weapons[self.slot_active].draw()
+        height = 125
+        color = (255, 240, 200)
+        offset = 25
+        for powerup in self.powerups:
+            Label((offset)/2, screen.get_height() - height, ' :'.join((powerup.name, str(int(powerup.time / fps)))), color, 20).draw(0, 0)
+            height += 25

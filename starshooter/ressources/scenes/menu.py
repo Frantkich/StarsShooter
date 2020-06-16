@@ -8,11 +8,10 @@ from ressources.functions import *
 from ressources.classes.star import Star
 from ressources.classes.label import Label
 from ressources.classes.soundbarre import Soundbarre
-
+from ressources.classes.player import Player
 from ressources.scenes.game import game
 from ressources.scenes.option import option
 
-from ressources.classes.player import Player
 
 def menu():
     label_active = 0

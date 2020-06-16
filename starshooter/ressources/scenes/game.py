@@ -30,7 +30,8 @@ def game(player):
     background_offset = (0, 0)
     pg.mixer.Sound(sound_list['intro']).play()
     change_music("level.mp3")
-    DEBUG = False
+
+    DEBUG = True
 
     def redraw_window():
         screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), background_offset)
@@ -66,11 +67,6 @@ def game(player):
             level += 1
             wave_length += 5
 
-            for _ in range(wave_length):
-                enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(list(enemy_list)))
-                enemy.weapons[0].change_weapon('blaster')
-                enemies.append(enemy)
-
             if not(level%5):
                 pg.mixer.Sound(sound_list['boss']).play()
                 change_music("boss.mp3")
@@ -78,13 +74,7 @@ def game(player):
             if level%5 == 1 and level != 1:
                 change_music("level.mp3")
 
-            if level == 5:
-                boss = Boss(0, -500, 'boss_2')
-                boss.weapons[0].change_weapon('sniper')
-                boss.weapons[1].change_weapon('sniper')
-                enemies.append(boss)
-
-            if level == 10:
+            if not(level%10):
                 boss = Boss(0, -500, 'boss_1')
                 boss.weapons[0].change_weapon('blaster')
                 boss.weapons[1].change_weapon('blaster')
@@ -92,6 +82,18 @@ def game(player):
                 boss.weapons[3].change_weapon('blaster')
                 boss.weapons[4].change_weapon('blaster')
                 enemies.append(boss)
+
+            elif not(level%5):
+                boss = Boss(0, -500, 'boss_2')
+                boss.weapons[0].change_weapon('sniper')
+                boss.weapons[1].change_weapon('sniper')
+                enemies.append(boss)
+
+            else:
+                for _ in range(wave_length):
+                    enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(list(enemy_list)))
+                    enemy.weapons[0].change_weapon('blaster')
+                    enemies.append(enemy)
 
             # for _ in range(random.randint(0, int(level/2))):
             #     powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
@@ -141,15 +143,16 @@ def game(player):
             except KeyError:
                 pass
             if event.type == pygame.MOUSEBUTTONUP:
-                # x, y = pygame.mouse.get_pos()
+                x, y = pygame.mouse.get_pos()
+                powerups.append(PowerUp(x, y, random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
                 # enemy = Enemy(x, y, random.choice(list(enemy_list)))
                 # enemy.weapons[0].change_weapon('blaster')
                 # enemies.append(enemy)
 
                 # parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
                 
-                for enemy in enemies:
-                    enemy.health = 0
+                # for enemy in enemies:
+                #     enemy.health = 0
 
                 # load(player)
 

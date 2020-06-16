@@ -19,7 +19,7 @@ title_font = pg.font.Font(os.path.join(dir_asset, "fonts/MachineStd.otf"), 100)
 background = os.path.join(dir_asset, 'background-black.png') 
 
 weapon_list = {
-#              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion), nBullet)
+#              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion), nbProjectile)
     'BFG':     (10,   ((0,153,51),    (20, 40), 500, 2,  -1, 0), 1),
     'rayon':   (0,    ((0,204,255),   (5, 50),  5,   50, 0,  0), 1),
     'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0), 1),
@@ -31,11 +31,11 @@ weapon_list = {
 
 powerup_list = {
 #               ((R, G, B), time, modifier)
-    'speed':    ((255, 255, 0),   10, 1.25),
-    'damage':   ((128, 255, 0),   10, 2),
+    'speed':    ((255, 255, 0),   3, 1.25),
+    'damage':   ((128, 255, 0),   3, 2),
     'heal':     ((255, 0,   0),   0,  0),
-    'size':     ((255, 128, 50),  10, 0.5),
-    'cooldown': ((0,   255, 255), 10, 0.25)
+    'size':     ((255, 128, 50),  3, 0.5),
+    'cooldown': ((0,   255, 255), 3, 0.25)
 }
 
 
