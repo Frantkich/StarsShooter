@@ -36,6 +36,7 @@ class Ship:
         self.powerups = []
         self.damage_mod = 1
         self.size_mod = 1
+        self.firerateMod = 1
 
     def init_sprites(self, img):
         self.sprites = spritesheet(img, self.nbframe)

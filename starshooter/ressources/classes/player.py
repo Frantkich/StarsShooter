@@ -6,6 +6,7 @@ from ressources.functions import *
 
 from ressources.classes.ship import Ship
 from ressources.classes.label import Label
+from ressources.classes.powerup import PowerUp
 
 class Player(Ship):
     def __init__(self, x, y):
@@ -15,6 +16,17 @@ class Player(Ship):
         self.money = 0
         self.score = 0
         self.max_score = 0
+        #items
+        self.items = []
+        self.item_cooldown = 30
+        self.inventory = {
+            'ships': ['player'],
+            'weapons': [(1, 'gatling'), (1, 'missile')],
+            'slow': 5,
+            'weak': 2,
+            'bigboi': 0,
+            'firerate': 11
+        }
         
     def move(self):
         if keyPressed("q") and self.x - self.speed > 0:
@@ -30,6 +42,33 @@ class Player(Ship):
         if keyPressed("space"):
             self.shoot()
 
+    def use_item(self, targets):
+        if not(self.item_cooldown):
+            if keyPressed("w") and 0 < self.inventory['slow']:
+                self.items.append(PowerUp(self.x, self.y, "slow"))
+                self.inventory['slow'] -=1
+                self.item_cooldown = 30
+            if keyPressed("x") and 0 < self.inventory['weak']:
+                self.items.append(PowerUp(self.x, self.y, "weak"))
+                self.inventory['weak'] -=1
+                self.item_cooldown = 30
+            if keyPressed("c") and 0 < self.inventory['bigboi']:
+                self.items.append(PowerUp(self.x, self.y, "bigboi"))
+                self.inventory['bigboi'] -=1
+                self.item_cooldown = 30
+            if keyPressed("v") and 0 < self.inventory['firerate']:
+                self.items.append(PowerUp(self.x, self.y, "firerate"))
+                self.inventory['firerate'] -=1
+                self.item_cooldown = 30
+        elif 0 < self.item_cooldown:
+            self.item_cooldown -= 1
+
+    def update_items(self, targets):
+        for item in self.items[:]:
+            item_temp = item.update(targets)
+            if item_temp:
+                self.items.remove(item_temp)
+
     def update(self, targets):
         if self.health <= 0:
             self.health = 0
@@ -39,6 +78,8 @@ class Player(Ship):
             return True
         self.move()
         self.check_shoot()
+        self.use_item(targets)
+        self.update_items(targets)
         self.update_all(targets)
 
     def weapon_switch(self, key):
@@ -69,3 +110,5 @@ class Player(Ship):
         for powerup in self.powerups:
             Label((offset)/2, screen.get_height() - height, ' :'.join((powerup.name, str(int(powerup.time / fps)))), color, 20).draw(0, 0)
             height += 25
+        for item in self.items:
+            item.draw()

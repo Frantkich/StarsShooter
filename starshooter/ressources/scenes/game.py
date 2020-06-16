@@ -76,11 +76,11 @@ def game(player):
 
             if not(level%10):
                 boss = Boss(0, -500, 'boss_1')
-                boss.weapons[0].change_weapon('blaster')
-                boss.weapons[1].change_weapon('blaster')
+                boss.weapons[0].change_weapon('gatling')
+                boss.weapons[1].change_weapon('gatling')
                 boss.weapons[2].change_weapon('BFG')
-                boss.weapons[3].change_weapon('blaster')
-                boss.weapons[4].change_weapon('blaster')
+                boss.weapons[3].change_weapon('gatling')
+                boss.weapons[4].change_weapon('gatling')
                 enemies.append(boss)
 
             elif not(level%5):
@@ -92,7 +92,7 @@ def game(player):
             else:
                 for _ in range(wave_length):
                     enemy = Enemy(random.randrange(50, screen.get_width()-100), random.randrange(-500*level, -100), random.choice(list(enemy_list)))
-                    enemy.weapons[0].change_weapon('blaster')
+                    enemy.weapons[0].change_weapon('gatling')
                     enemies.append(enemy)
 
             for _ in range(random.randint(0, int(level/2))):
@@ -123,7 +123,7 @@ def game(player):
         
         #update Power-Up
         for powerup in powerups[:]:
-            powerup_temp = powerup.update(player)
+            powerup_temp = powerup.update([player])
             if powerup_temp:
                 powerups.remove(powerup_temp)
                 
@@ -144,9 +144,19 @@ def game(player):
                 pass
             if event.type == pygame.MOUSEBUTTONUP:
                 x, y = pygame.mouse.get_pos()
-                powerups.append(PowerUp(x, y, 'cooldown'))
+                
+                boss = Boss(0, -500, 'boss_1')
+                boss.weapons[0].change_weapon('gatling')
+                boss.weapons[1].change_weapon('gatling')
+                boss.weapons[2].change_weapon('BFG')
+                boss.weapons[3].change_weapon('gatling')
+                boss.weapons[4].change_weapon('gatling')
+                enemies.append(boss)
+                
+                # powerups.append(PowerUp(x, y, 'cooldown'))
+                
                 # enemy = Enemy(x, y, random.choice(list(enemy_list)))
-                # enemy.weapons[0].change_weapon('blaster')
+                # enemy.weapons[0].change_weapon('gatling')
                 # enemies.append(enemy)
 
                 # parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))

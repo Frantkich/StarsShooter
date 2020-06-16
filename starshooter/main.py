@@ -7,6 +7,6 @@ from ressources.functions import *
 from ressources.classes.player import Player
 from ressources.ressources import *
 
-# menu(game(Player(0, screen.get_height()-screen.get_height()/4)))
+# menu()
 game(load(Player(0, screen.get_height()-screen.get_height()/4)))
 # shop()

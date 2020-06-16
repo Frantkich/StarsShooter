@@ -17,8 +17,14 @@ class PowerUp:
         self.surface = pg.Surface((50, 50))
         self.mask = pg.mask.from_surface(self.surface)
 
-    def move(self):
-        self.y += self.speed
+    def move(self, objs):
+        if objs:
+            if objs[0].is_player:
+                self.y += self.speed
+            else:
+                self.y -= self.speed
+        else:
+            self.y -= self.speed
 
     def check_time(self, obj):
         if 0 < self.time:
@@ -28,7 +34,7 @@ class PowerUp:
             obj.powerups.remove(self)
             
     def effect(self, obj, add):
-        if self.name == "speed":
+        if self.name == "speed" or self.name == "slow":
             if add:
                 self.save = (obj.speed)
                 obj.speed *= self.mod
@@ -36,12 +42,18 @@ class PowerUp:
                 obj.speed = self.save
         if self.name == "heal":
             obj.health = obj.health_max
-        if self.name == "damage":
+        if self.name == "damage" or self.name == "weak":
             if add:
                 obj.damage_mod = self.mod
             else:
                 obj.damage_mod = 1
-        if self.name == "size":
+        if self.name == "firerate":
+            if add:
+                obj.firerateMod = self.mod
+            else:
+                obj.firerateMod = 1
+
+        if self.name == "size" or self.name == "bigboi":
             if add:
                 self.save = (obj.img)
                 obj.init_sprites(pg.transform.scale(obj.img, (int(obj.img.get_width() * self.mod), int(obj.img.get_height() * self.mod))))
@@ -67,18 +79,19 @@ class PowerUp:
                 else:
                     obj.firerateMod = 1
 
-    def update(self, obj):
-        self.move()
+    def update(self, objs):
+        self.move(objs)
         if screen.get_height() < self.y:
             return self
-        if collide(self, obj):
-            for powerup in obj.powerups:
-                if powerup.name == self.name:
-                    powerup.time += self.time
-                    return self
-            obj.powerups.append(self)
-            self.effect(obj, 1)
-            return self
+        for obj in objs:
+            if collide(self, obj):
+                for powerup in obj.powerups:
+                    if powerup.name == self.name:
+                        powerup.time += self.time
+                        return self
+                obj.powerups.append(self)
+                self.effect(obj, 1)
+                return self
 
     def draw(self):
         pg.draw.circle(screen, self.color, ((self.x + int(self.surface.get_width()/2), self.y + int(self.surface.get_height()/2))), int(self.surface.get_height()/2))
