@@ -29,17 +29,16 @@ def shop():
     #shop_section[2].add_shop_item(Shop_item("item2", "999","ship_green.png"))
 
     for ship in spaceship_list:
-        print(spaceship_list[ship][0][0])
         shop_section[0].add_shop_item(Shop_item(ship, "100", spaceship_list[ship][0][0]))
 
     while run:
         for n in range(len(shop_section)):
             if n == label_active:
-                shop_section[n].draw(screen, 1)
-                shop_section[n].label.draw(screen, 1)  #Display label
+                shop_section[n].draw(1)
+                shop_section[n].label.draw(1)  #Display label
             else:
-                shop_section[n].draw(screen, 0)
-                shop_section[n].label.draw(screen, 0)
+                shop_section[n].draw(0)
+                shop_section[n].label.draw(0)
 
         for e in pg.event.get():
             try:
