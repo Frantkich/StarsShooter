@@ -95,8 +95,8 @@ def game(player):
                     enemy.weapons[0].change_weapon('blaster')
                     enemies.append(enemy)
 
-            # for _ in range(random.randint(0, int(level/2))):
-            #     powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
+            for _ in range(random.randint(0, int(level/2))):
+                powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(list(powerup_list))))
         
         if not(random.randint(0, fps*40)):
             parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
@@ -144,7 +144,7 @@ def game(player):
                 pass
             if event.type == pygame.MOUSEBUTTONUP:
                 x, y = pygame.mouse.get_pos()
-                powerups.append(PowerUp(x, y, random.choice(['size', 'speed', 'damage', 'heal', 'cooldown'])))
+                powerups.append(PowerUp(x, y, 'cooldown'))
                 # enemy = Enemy(x, y, random.choice(list(enemy_list)))
                 # enemy.weapons[0].change_weapon('blaster')
                 # enemies.append(enemy)

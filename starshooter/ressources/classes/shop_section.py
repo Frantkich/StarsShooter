@@ -5,7 +5,6 @@ from ressources.classes.label import Label
 from ressources.settings import screen
 
 class Shop_section():
-
     def __init__(self, label_y, label_text, x, y):
         self.label = Label(screen.get_width()/2, label_y, label_text, (255, 240, 200), 40)  #Label(self, x, y, text, color, fontSize, font=main_font)
         self.x = x

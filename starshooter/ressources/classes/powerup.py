@@ -17,10 +17,8 @@ class PowerUp:
         self.surface = pg.Surface((50, 50))
         self.mask = pg.mask.from_surface(self.surface)
 
-
     def move(self):
         self.y += self.speed
-
 
     def check_time(self, obj):
         if 0 < self.time:
@@ -29,7 +27,6 @@ class PowerUp:
             self.effect(obj, 0)
             obj.powerups.remove(self)
             
-
     def effect(self, obj, add):
         if self.name == "speed":
             if add:
@@ -52,18 +49,23 @@ class PowerUp:
             else:
                 obj.img = self.save
                 obj.init_sprites(obj.img)
-                obj.size = 1
+                obj.size_mod = 1
         if self.name == "cooldown":
-            if add:
-                if obj.weapons[obj.slot_active].weapon:
-                    self.save = (obj.weapons[obj.slot_active].cooldown_max, obj.slot_active)
-                    obj.weapons[obj.slot_active].cooldown_max = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
-                    obj.weapons[obj.slot_active].cooldown = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
+            if obj.is_player:
+                if add:
+                    if obj.weapons[obj.slot_active].weapon:
+                        self.save = (obj.weapons[obj.slot_active].cooldown_max, obj.slot_active)
+                        obj.weapons[obj.slot_active].cooldown_max = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
+                        obj.weapons[obj.slot_active].cooldown = int(obj.weapons[obj.slot_active].cooldown_max * self.mod)
+                else:
+                    if self.save:
+                        obj.weapons[self.save[1]].cooldown_max = self.save[0]
+                        obj.weapons[self.save[1]].cooldown *= 0
             else:
-                if obj.weapons[obj.slot_active].weapon:
-                    obj.weapons[self.save[1]].cooldown_max = self.save[0]
-                    obj.weapons[self.save[1]].cooldown *= 0
-        
+                if add:
+                    obj.firerateMod = self.mod
+                else:
+                    obj.firerateMod = 1
 
     def update(self, obj):
         self.move()

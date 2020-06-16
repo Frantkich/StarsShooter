@@ -11,6 +11,7 @@ class Boss(Ship):
         super().__init__(x, y, model)
         self.destX = int(screen.get_width()/2 - self.get_width()/2)
         self.destY = int(random.randint(0, int(screen.get_height()/2)))
+        self.firerateMod = 1
 
     def move(self):
         self.distX = self.destX - self.x
@@ -30,7 +31,7 @@ class Boss(Ship):
         target = targets[0]
         if self.health <= 0:
             return self
-        if random.randrange(0, fps) == 1:
+        if random.randrange(0, fps*firerateMod) == 1:
             for self.slot_active in range(len(self.weapons)):
                 self.shoot()
         if collide(self, target):
