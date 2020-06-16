@@ -18,8 +18,8 @@ def menu():
 
     label_active = 0
     labels = []
-    labels.append(Label(screen.get_width()/2, 200, "New game", (255, 240, 200), 50))
-    labels.append(Label(screen.get_width()/2, 400, "Load game", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, 200, "Continue", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, 400, "New game", (255, 240, 200), 50))
     labels.append(Label(screen.get_width()/2, 600, "Settings", (255, 240, 200), 50))
     labels.append(Label(screen.get_width()/2, 800, "Exit", (255, 240, 200), 50))
 
@@ -69,10 +69,10 @@ def menu():
                         label_active = 0
 
                     if keyPressed("space"):
-                        if label_active == 0: #start a new game 
-                            stars = headquarter(Player(0, screen.get_height()-screen.get_height()/4), stars)
-                        elif label_active == 1: #load a game
+                        if label_active == 0: #load game 
                             stars= headquarter(load(Player(0, screen.get_height()-screen.get_height()/4)), stars)
+                        elif label_active == 1: #start a game
+                            stars = headquarter(Player(0, screen.get_height()-screen.get_height()/4), stars)
                         elif label_active == 2: # open settings
                             stars =  option(stars)
                         elif label_active == 3:

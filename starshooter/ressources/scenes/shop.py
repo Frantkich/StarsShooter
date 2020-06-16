@@ -20,9 +20,10 @@ def shop(player, stars):
     section.append(Section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
 
     for weapon in weapon_list:
-        section[0].add_item(Item(weapon, str(weapon_list[weapon][4]), weapon_list[weapon][3]))
+        section[0].add_item(Item(weapon, weapon_list[weapon][3], item_price=str(weapon_list[weapon][4])))
+
     for ship in spaceship_list:
-        section[1].add_item(Item(ship, str(spaceship_list[ship][3]), spaceship_list[ship][0]))
+        section[1].add_item(Item(ship, spaceship_list[ship][0], item_price=str(spaceship_list[ship][3])))
 
     def redraw_window():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
@@ -63,7 +64,7 @@ def shop(player, stars):
                         run = False
             except KeyError:
                 pass
-            
+
         redraw_window()
         end()
         

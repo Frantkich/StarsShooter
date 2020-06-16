@@ -7,13 +7,13 @@ from ressources.functions import spritesheet
 
 class Item():
 
-    def __init__(self, item_name, item_price, item_img):
+    def __init__(self, item_name, item_img, item_price=0, item_quantity=0):
         self.pos = [] #x and y
         self.path, self.nbframe = item_img[0], item_img[1]
         self.item_stat = [item_name, item_price]
         self.labels = []
         self.img = pg.transform.scale(pg.image.load(self.path), (120, 120))
-
+        self.quantity = item_quantity
         self.init_sprites(self.img)
 
     def init_sprites(self, img):
