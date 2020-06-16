@@ -4,12 +4,7 @@ from ressources.ressources import *
 from ressources.classes.label import Label
 from ressources.settings import screen
 
-<<<<<<< HEAD:starshooter/ressources/classes/shop_section.py
-class Shop_section():
-=======
 class Section():
-
->>>>>>> bdf6aed05f01d60b73aab6137d3a28423f36bc19:starshooter/ressources/classes/section.py
     def __init__(self, label_y, label_text, x, y):
         self.label = Label(screen.get_width()/2, label_y, label_text, (255, 240, 200), 40)  #Label(self, x, y, text, color, fontSize, font=main_font)
         self.x = x

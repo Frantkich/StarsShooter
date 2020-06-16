@@ -8,13 +8,7 @@ from ressources.functions import *
 from ressources.classes.player import Player
 from ressources.ressources import *
 
-<<<<<<< HEAD
 # menu()
 game(load(Player(0, screen.get_height()-screen.get_height()/4)))
-# shop()
-=======
-# menu(game(Player(0, screen.get_height()-screen.get_height()/4)))
-#game(load(Player(0, screen.get_height()-screen.get_height()/4)))
 #shop()
-inventory()
->>>>>>> bdf6aed05f01d60b73aab6137d3a28423f36bc19
+# inventory()
