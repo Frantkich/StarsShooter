@@ -31,7 +31,7 @@ def game(player):
     pg.mixer.Sound(sound_list['intro']).play()
     change_music("level.mp3")
 
-    DEBUG = True
+    DEBUG = False
 
     def redraw_window():
         screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), background_offset)
@@ -96,7 +96,7 @@ def game(player):
                     enemies.append(enemy)
 
             for _ in range(random.randint(0, int(level/2))):
-                powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(list(powerup_list))))
+                powerups.append(PowerUp(random.randrange(50, screen.get_width()-100), random.randrange(-1500, -100), random.choice(bonus)))
         
         if not(random.randint(0, fps*40)):
             parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
@@ -145,13 +145,13 @@ def game(player):
             if event.type == pygame.MOUSEBUTTONUP:
                 x, y = pygame.mouse.get_pos()
                 
-                boss = Boss(0, -500, 'boss_1')
-                boss.weapons[0].change_weapon('gatling')
-                boss.weapons[1].change_weapon('gatling')
-                boss.weapons[2].change_weapon('BFG')
-                boss.weapons[3].change_weapon('gatling')
-                boss.weapons[4].change_weapon('gatling')
-                enemies.append(boss)
+                # boss = Boss(0, -500, 'boss_1')
+                # boss.weapons[0].change_weapon('gatling')
+                # boss.weapons[1].change_weapon('gatling')
+                # boss.weapons[2].change_weapon('BFG')
+                # boss.weapons[3].change_weapon('gatling')
+                # boss.weapons[4].change_weapon('gatling')
+                # enemies.append(boss)
                 
                 # powerups.append(PowerUp(x, y, 'cooldown'))
                 

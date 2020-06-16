@@ -29,6 +29,8 @@ weapon_list = {
 }
 
 
+bonus = ['speed', 'damage', 'heal', 'size', 'cooldown'] 
+
 powerup_list = {
 #               ((R, G, B), time, modifier)
     'speed':    ((255, 255, 0),   3, 1.25),

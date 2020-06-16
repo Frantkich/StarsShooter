@@ -104,11 +104,16 @@ class Player(Ship):
         super().draw()
         self.healthbar()
         self.weapons[self.slot_active].draw()
-        height = 125
         color = (255, 240, 200)
         offset = 25
-        for powerup in self.powerups:
-            Label((offset)/2, screen.get_height() - height, ' :'.join((powerup.name, str(int(powerup.time / fps)))), color, 20).draw(0, 0)
-            height += 25
         for item in self.items:
             item.draw()
+        height = 125
+        for powerup in self.powerups:
+            Label((offset)/2, screen.get_height() - height, ' :'.join((powerup.name, str(int(powerup.time / fps)))), color, 20).draw(0, 1)
+            height += 25
+        height = 125
+        for item in list(self.inventory.keys())[2:]:
+            Label(screen.get_width() - offset, screen.get_height() - height, ' :'.join((item, str(self.inventory[item]))), color, 20).draw(0, 2)
+            height += 25
+        # print(self.inventory.keys())

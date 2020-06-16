@@ -15,7 +15,7 @@ class Enemy(Ship):
         self.y += self.speed
 
     def check_shoot(self):
-        if random.randrange(0, (2*fps) * firerateMod) == 1:
+        if random.randrange(0, (2*fps) * self.firerateMod) == 1:
             self.shoot()
 
     def update(self, targets):
