@@ -9,7 +9,7 @@ from app.scenes.shop import shop
 
 from app.classes.player import Player
 
-# menu()
+menu()
 #game(load(Player(screen.get_width()/2, screen.get_height()-screen.get_height()/4)))
 #shop()
-inventory(Player(screen.get_width()/2, screen.get_height()-screen.get_height()/4))
+#inventory(Player(screen.get_width()/2, screen.get_height()-screen.get_height()/4))

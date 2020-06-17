@@ -32,9 +32,9 @@ class Item():
     def draw_item(self, x, y, width, heigth, is_active=0):
         self.update_sprite()
         self.sprite = pg.transform.scale(self.sprite, (width, heigth))
-        screen.blit(self.sprite, (x+ 50, y))
+        screen.blit(self.sprite, (x, y))
 
-        Label(x + screen.get_width()/4, y + self.img.get_height()*5/4, self.item_name, self.color, 20).draw(is_active)
+        Label(x + width, y + 1.1* heigth, self.item_name, self.color, 20).draw(is_active)
         if self.price_or_qt:
             Label(x + 65, y -10, self.price_or_qt, self.color, 20).draw(is_active)
         

@@ -12,9 +12,9 @@ def shop(player, stars):
 
     section_active = 0
     section = []
-    section.append(Section("Power-up", screen.get_width()*1/3, screen.get_height()* 1/10))
-    section.append(Section("Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
-    section.append(Section("Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
+    section.append(Section("Power-up", 0, screen.get_height()* 1/10))
+    section.append(Section("Weapons", 0, screen.get_height()* 3.8/10))
+    section.append(Section("Ships", 0, screen.get_height()* 7/10))
 
     for bonus in item_list:
         section[0].add_item(Item(bonus, powerup_list[bonus][0], str(powerup_list[bonus][3])))
@@ -35,10 +35,10 @@ def shop(player, stars):
 
         for n in range(len(section)):
             if n == section_active:
-                section[n].draw(150, 150, 1)
+                section[n].draw(150, 150, 50, 1)
                 section[n].label.draw(1)
             else:
-                section[n].draw(120, 120)
+                section[n].draw(120, 120, 60)
                 section[n].label.draw()
 
         Label(screen.get_width()*0.85, 30, '$ : {}'.format(player.money), (255, 240, 200), 30).draw()

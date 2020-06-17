@@ -12,25 +12,29 @@ class Section():
         self.equipped_list = []
         self.item_count = 0
 
-    def draw(self, width, heigth, is_active=0):
-        pos = self.item_count % (len(self.item_list))
-        self.item_list[pos].draw_item(self.x , self.y + 50, width, heigth, is_active)
-        if pos-1 < 0:
-            self.item_list[len(self.item_list)-1].draw_item(self.x -200 , self.y + 60, width, heigth, is_active)
-        else:
-            self.item_list[pos-1].draw_item(self.x -200 , self.y + 60, width, heigth, is_active) 
-        if len(self.item_list) == pos+1:
-            self.item_list[0].draw_item(self.x + 200 , self.y + 60, width, heigth, is_active)
-        else:
-            self.item_list[pos+1].draw_item(self.x + 200 , self.y + 60, width, heigth, is_active)
+    def draw(self, width, heigth, bias, is_active=0): #Ajouter un y
+        centerX = screen.get_width()*0.5
+        offsetX = screen.get_width()*0.8 / 3
+        print(offsetX)
+        if len(self.item_list) > 0:
+            pos = self.item_count % (len(self.item_list))
+            self.item_list[pos].draw_item(centerX - width/2 , self.y + bias, width, heigth, is_active)
+            if pos-1 < 0:
+                self.item_list[len(self.item_list)-1].draw_item(centerX - offsetX - width/2, self.y + bias, width, heigth, is_active)
+            else:
+                self.item_list[pos-1].draw_item(centerX - offsetX - width/2, self.y + bias, width, heigth, is_active) 
+            if len(self.item_list) == pos+1:
+                self.item_list[0].draw_item(centerX + offsetX - width/2, self.y + bias, width, heigth, is_active)
+            else:
+                self.item_list[pos+1].draw_item(centerX + offsetX - width/2, self.y + bias, width, heigth, is_active)
 
     def draw_equipped(self, width, heigth, is_active=0):
         offsetX = 0
         centerX = screen.get_width()*0.5 / len(self.equipped_list)
         for item in self.equipped_list:
-            item.draw_item(offsetX + centerX - width/2, self.y + 60, width, heigth, is_active)
-            offsetX += screen.get_width()*0.8 / len(self.equipped_list)
-            
+                item.draw_item(offsetX + centerX - width/2, self.y + 60, width, heigth, is_active)
+                offsetX += screen.get_width()*0.8 / len(self.equipped_list)
+
     def add_item(self, item):
         self.item_list.append(item)
     
