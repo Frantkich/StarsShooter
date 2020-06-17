@@ -4,8 +4,12 @@ from app.classes.label import *
 
 
 class Item():
-    def __init__(self, item_name, item_img, price_or_qt):  #price_or_qt can be a price for shop and a quantity for inventory
-        self.path, self.nbframe = item_img
+    def __init__(self, item_name, item_img=None, price_or_qt=None):
+        if item_img:
+            self.path, self.nbframe = item_img
+        else:
+            self.path, self.nbframe = empty_sprite
+            
         self.item_name = item_name
         self.price_or_qt = price_or_qt
         self.color = (255, 240, 200)
@@ -31,6 +35,7 @@ class Item():
         screen.blit(self.sprite, (x+ 50, y))
 
         Label(x + screen.get_width()/4, y + self.img.get_height()*5/4, self.item_name, self.color, 20).draw(is_active)
-        Label(x + 65, y -10, self.price_or_qt, self.color, 20).draw(is_active)
+        if self.price_or_qt:
+            Label(x + 65, y -10, self.price_or_qt, self.color, 20).draw(is_active)
         
     
