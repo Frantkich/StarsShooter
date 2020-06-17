@@ -11,8 +11,8 @@ def inventory(player):
 
     section_active = 0
     section = []
-    section.append(Section("Power-ups", 0, screen.get_height()* 0.5/10))
-    section.append(Section("Weapons", 0, screen.get_height()* 3/10))
+    section.append(Section("Power-ups", 0, screen.get_height()* 0.3/10))
+    section.append(Section("Weapons", 0, screen.get_height()* 2.8/10))
     section.append(Section("Ships", 0, screen.get_height()* 6.5/10))
 
     for name in item_list:  #Gestion des bonus
@@ -40,8 +40,8 @@ def inventory(player):
                 section[n].draw(100, 100, 200, 1)
                 section[n].label.draw(1)
             else:
-                section[n].draw_equipped(80, 80)
-                section[n].draw(80, 80, 180, 1)
+                section[n].draw_equipped(80, 80, 0)
+                section[n].draw(80, 80, 180, 0)
                 section[n].label.draw(0)
         pg.display.update()
 
