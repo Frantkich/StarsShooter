@@ -3,6 +3,7 @@ import os
 
 dir_asset = os.path.join(os.path.dirname(__file__), 'assets')
 
+main_color = (255, 240, 200)
 main_font = os.path.join(dir_asset, "fonts/MachineStd.otf")
 
 background = os.path.join(dir_asset, 'background-black.png') 
@@ -32,6 +33,7 @@ weapon_list = {
 }
 
 bonus_list = ['speed', 'damage', 'heal', 'size', 'cooldown']
+item_list = ['slow', 'weak', 'bigboi', 'firerate']
 powerup_list = {
 #               (img, nbframe, time, modifier)
     'speed':    ((os.path.join(dir_asset, 'speed.png'),  4), 3, 1.25, 250),

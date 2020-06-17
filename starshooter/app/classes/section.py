@@ -12,17 +12,17 @@ class Section():
         self.equiped_list = []
         self.item_count = 0
 
-    def draw(self, width, heigth):
+    def draw(self, width, heigth, is_active=0):
         pos = self.item_count % (len(self.item_list))
-        self.item_list[pos].draw_item(self.x , self.y + 50, width, heigth)
+        self.item_list[pos].draw_item(self.x , self.y + 50, width, heigth, is_active)
         if pos-1 < 0:
-            self.item_list[len(self.item_list)-1].draw_item(self.x -200 , self.y + 60, width, heigth)
+            self.item_list[len(self.item_list)-1].draw_item(self.x -200 , self.y + 60, width, heigth, is_active)
         else:
-            self.item_list[pos-1].draw_item(self.x -200 , self.y + 60, width, heigth) 
+            self.item_list[pos-1].draw_item(self.x -200 , self.y + 60, width, heigth, is_active) 
         if len(self.item_list) == pos+1:
-            self.item_list[0].draw_item(self.x + 200 , self.y + 60, width, heigth)
+            self.item_list[0].draw_item(self.x + 200 , self.y + 60, width, heigth, is_active)
         else:
-            self.item_list[pos+1].draw_item(self.x + 200 , self.y + 60, width, heigth)
+            self.item_list[pos+1].draw_item(self.x + 200 , self.y + 60, width, heigth, is_active)
 
     def draw_equiped(self, width, heigth):
         self.equiped_list[0].draw_item(self.x , self.y + 50, width, heigth)

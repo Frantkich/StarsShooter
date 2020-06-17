@@ -17,7 +17,7 @@ class Player(Ship):
         self.item_cooldown = 30
         self.inventory = {
             'ships': ['player'],
-            'weapons': [(1, 'gatling'), (1, 'missile')],
+            'weapons': [[1, 'gatling'], [1, 'missile']],
             'slow': 5,
             'weak': 2,
             'bigboi': 0,

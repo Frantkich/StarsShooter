@@ -11,14 +11,14 @@ def option(stars):
     
     label_active = 0
     labels = []
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Sound", (255, 240, 200), 50))
-    labels.append(Label(screen.get_width()/2, screen.get_height()* 3/10, "Done", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 1/10, "Sound", main_color, 50))
+    labels.append(Label(screen.get_width()/2, screen.get_height()* 3/10, "Done", main_color, 50))
 
     controls = []
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 6/10 , "Controls", (255, 240, 200), 50))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Z, Q, S, D : Move", (255, 240, 200), 30))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "1, 2, 3 ... : Switch weapons", (255, 240, 200), 30))
-    controls.append(Label(screen.get_width()/2, screen.get_height()* 9/10 , "space : Shoot", (255, 240, 200), 30))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 6/10 , "Controls", main_color, 50))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 7/10 , "Z, Q, S, D : Move", main_color, 30))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 8/10 , "1, 2, 3 ... : Switch weapons", main_color, 30))
+    controls.append(Label(screen.get_width()/2, screen.get_height()* 9/10 , "space : Shoot", main_color, 30))
     
     soundbarre = Soundbarre(screen.get_width()/4, screen.get_height()* 2/10 , (4, 195, 225))
 

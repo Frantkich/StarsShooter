@@ -16,7 +16,7 @@ def shop(player, stars):
     section.append(Section("Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
     section.append(Section("Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
 
-    for bonus in bonus_list:
+    for bonus in item_list:
         section[0].add_item(Item(bonus, powerup_list[bonus][0], str(powerup_list[bonus][3])))
 
     for weapon in weapon_list:
@@ -35,18 +35,36 @@ def shop(player, stars):
 
         for n in range(len(section)):
             if n == section_active:
-                section[n].draw(150, 150)
+                section[n].draw(150, 150, 1)
                 section[n].label.draw(1)
             else:
                 section[n].draw(120, 120)
-                section[n].label.draw(0)
+                section[n].label.draw()
+
+        Label(screen.get_width()*0.85, 30, '$ : {}'.format(player.money), (255, 240, 200), 30).draw()
+
+    def buy(item, price):
+        if price <= player.money:
+            player.money -= price
+            if item in item_list:
+                player.inventory[item] += 1
+            if item in spaceship_list:
+                player.inventory['ships'].append(item)
+            if item in weapon_list:
+                for el in player.inventory['weapons']:
+                    if item == el[1]:
+                        el[0] += 1
+                        return
+                player.inventory['weapons'].append([1, item])
+        else:
+            print('u r broke...')
+
 
     while run:
         for e in pg.event.get():
             try:
                 if previousKey != e.dict['unicode']:
                     previousKey = e
-
                     if keyPressed("s"):
                         section_active += 1
                     if keyPressed("z"):
@@ -60,6 +78,11 @@ def shop(player, stars):
                         section[section_active].item_count += 1
                     if keyPressed("q"):
                         section[section_active].item_count -= 1
+                    if keyPressed("space"):
+                        for n in range(3):
+                            if section_active == n:
+                                item = section[n].item_list[section[n].item_count % (len(section[n].item_list))]
+                                buy(item.item_name, int(item.price_or_qt))
                     if keyPressed("esc"):
                         run = False
             except KeyError:

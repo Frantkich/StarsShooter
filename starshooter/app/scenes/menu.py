@@ -13,14 +13,14 @@ def menu():
 
     label_active = 0
     labels = []
-    labels.append(Label(screen.get_width()/2, 200, "Continue", (255, 240, 200), 50))
-    labels.append(Label(screen.get_width()/2, 400, "New game", (255, 240, 200), 50))
-    labels.append(Label(screen.get_width()/2, 600, "Settings", (255, 240, 200), 50))
-    labels.append(Label(screen.get_width()/2, 800, "Exit", (255, 240, 200), 50))
+    labels.append(Label(screen.get_width()/2, 200, "Continue", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 400, "New game", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 600, "Settings", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 800, "Exit", main_color, 50))
 
-    Label(180, 495, "S", (255, 240, 200), 200).draw()
-    Label(300, 445, "TAR", (255, 240, 200), 100).draw()
-    Label(380, 520, "H.Otter", (255, 240, 200), 100).draw()
+    Label(180, 495, "S", main_color, 200).draw()
+    Label(300, 445, "TAR", main_color, 100).draw()
+    Label(380, 520, "H.Otter", main_color, 100).draw()
     pg.display.update()
     
     change_music("credits")
