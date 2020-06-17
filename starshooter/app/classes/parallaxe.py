@@ -17,7 +17,6 @@ class Parallaxe:
 
     self.x = random.randint(0 - self.sprites[0].get_width(), screen.get_width())
     self.y = -self.sprites[0].get_height()
-    # self.y = random.randint(-screen.get_height(),-self.sprites[0].get_height())
     self.speed *= self.dist 
 
   def init_sprites(self, img):

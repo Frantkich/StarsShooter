@@ -6,11 +6,11 @@ from app.classes.item import Item
 
 
 def inventory(player):
-    label_active = 0
+    section_active = 0
     run = True
     previousKey = None
-    
-    inventory_section = [] #Section
+        
+    inventory_section = [] #Sectiona
     bonus_names = ['slow', 'weak', 'bigboi', 'firerate']
 
     inventory_section.append(Section("power-ups", screen.get_width()*1/3, screen.get_height()* 0.6/10))
@@ -18,20 +18,24 @@ def inventory(player):
     inventory_section.append(Section("Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
 
     for name in bonus_names:  #Gestion des bonus
-        inventory_section[0].add_item(Item(name, powerup_list[name][image], item_quantity=player.inventory[name])) #Récuperer nom image
+        inventory_section[0].add_item(Item(name, powerup_list[name][0], str(player.inventory[name]))) 
     
-    inventory_section[2].add_equipped_item(Item(str(player.name) + ": equiped", spaceship_list[player.name][0], str(player.inventory['ships'].count(player.name))))  #Item(self, item_name, item_img, price_or_qt)
-    
-    #print(type(player.weapons[0].weapon))
-
     for weapon in player.weapons:  #Armes équipées
         if weapon.weapon:
             inventory_section[1].add_equipped_item(Item(weapon.weapon, weapon_list[weapon.weapon][3], str(player.inventory['weapons'].count(weapon.weapon))))
+    
+    inventory_section[2].add_equipped_item(Item(player.name, spaceship_list[player.name][0], str(player.inventory['ships'].count(player.name))))  #Item(self, item_name, item_img, price_or_qt)
 
     while run:
-
-        for item in inventory_section[1].equipped_list:
-            item.draw_item(100, 100, 100, 100)
+        for n in range(len(inventory_section)):
+            print(n)
+            if n > 0:
+                inventory_section[n].label.draw(1)
+                for item in inventory_section[n].equipped_list:
+                    item.draw_item(100, 100, 100, 100)
+            else:
+                inventory_section[n].label.draw(0)
+                inventory_section[n].draw(120, 120)
            
 
         for e in pg.event.get():

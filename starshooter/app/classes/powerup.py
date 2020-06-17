@@ -6,12 +6,30 @@ class PowerUp:
         self.x = x
         self.y = y
         self.name = name
-        self.color, self.time, self.mod = powerup_list[name]
+        self.img, self.time, self.mod = powerup_list[name]
+        self.path, self.nbframe = self.img
+        self.img = pg.image.load(self.path)
+        self.init_sprites(self.img)
+
         self.speed = 5
         self.time *= fps
         self.save = ()
-        self.surface = pg.Surface((50, 50))
-        self.mask = pg.mask.from_surface(self.surface)
+
+    def init_sprites(self, img):
+        self.sprites = spritesheet(img, self.nbframe)
+        self.sprite = self.sprites[0]
+        self.mask = pg.mask.from_surface(self.sprite)
+        self.frame = 0
+        self.nextFrame = 0
+
+    def update_sprite(self):
+        if self.nextFrame == 0:
+            self.frame = (self.frame + 1) % self.nbframe
+            self.sprite = self.sprites[self.frame]
+            self.mask = pg.mask.from_surface(self.sprite)
+            self.nextFrame = gif_speed
+            self.nextFrame -= 1
+        self.nextFrame -= 1
 
     def move(self, objs):
         if objs:
@@ -38,6 +56,8 @@ class PowerUp:
                 obj.speed = self.save
         if self.name == "heal":
             obj.health = obj.health_max
+        if self.name == "money":
+            obj.money += 2500
         if self.name == "damage" or self.name == "weak":
             if add:
                 obj.damage_mod = self.mod
@@ -76,6 +96,7 @@ class PowerUp:
                     obj.firerateMod = 1
 
     def update(self, objs):
+        self.update_sprite()
         self.move(objs)
         if screen.get_height() < self.y:
             return self
@@ -90,4 +111,4 @@ class PowerUp:
                 return self
 
     def draw(self):
-        pg.draw.circle(screen, self.color, ((self.x + int(self.surface.get_width()/2), self.y + int(self.surface.get_height()/2))), int(self.surface.get_height()/2))
+        screen.blit(self.sprite, (self.x, int(self.y)))

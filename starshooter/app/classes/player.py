@@ -96,10 +96,7 @@ class Player(Ship):
         pg.draw.rect(screen, color, (screen.get_width() - offset - width, screen.get_height() - height - thickness - offset, width, height), thickness)
         pg.draw.line(screen, color, (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset), (screen.get_width() - offset, screen.get_height() - int(height/2) - thickness - offset), thickness)
 
-    def draw(self):
-        super().draw()
-        self.healthbar()
-        self.weapons[self.slot_active].draw()
+    def inventory_hud(self):
         color = (255, 240, 200)
         offset = 25
         for item in self.items:
@@ -112,4 +109,9 @@ class Player(Ship):
         for item in list(self.inventory.keys())[2:]:
             Label(screen.get_width() - offset, screen.get_height() - height, ' :'.join((item, str(self.inventory[item]))), color, 20).draw(0, 2)
             height += 25
-        # print(self.inventory.keys())
+
+    def draw(self):
+        super().draw()
+        self.healthbar()
+        self.weapons[self.slot_active].draw()
+        self.inventory_hud()

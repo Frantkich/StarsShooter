@@ -14,7 +14,7 @@ class Label():
        
     def draw(self, is_active = 0, center = 0):
         if is_active:
-            label = pg.font.Font(self.font, self.fontSize+25).render(self.text, False, self.color)
+            label = pg.font.Font(self.font, self.fontSize+20).render(self.text, False, self.color)
         else:
             label = pg.font.Font(self.font, self.fontSize).render(self.text, False, self.color)
         if center == 0:
