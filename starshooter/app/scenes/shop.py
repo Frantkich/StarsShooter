@@ -12,14 +12,18 @@ def shop(player, stars):
 
     section_active = 0
     section = []
-    section.append(Section(screen.get_height()* 3.8/10 , "Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
-    section.append(Section(screen.get_height()* 7/10 , "Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
+    section.append(Section("Power-up", screen.get_width()*1/3, screen.get_height()* 1/10))
+    section.append(Section("Weapons", screen.get_width()*1/3, screen.get_height()* 3.8/10))
+    section.append(Section("Ships", screen.get_width()*1/3, screen.get_height()* 7/10))
+
+    for bonus in bonus_list:
+        section[0].add_item(Item(bonus, powerup_list[bonus][0], str(powerup_list[bonus][3])))
 
     for weapon in weapon_list:
-        section[0].add_item(Item(weapon, weapon_list[weapon][3], str(weapon_list[weapon][4])))
+        section[1].add_item(Item(weapon, weapon_list[weapon][3], str(weapon_list[weapon][4])))
 
     for ship in spaceship_list:
-        section[1].add_item(Item(ship, spaceship_list[ship][0], str(spaceship_list[ship][3])))
+        section[2].add_item(Item(ship, spaceship_list[ship][0], str(spaceship_list[ship][3])))
 
     def redraw_window():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))

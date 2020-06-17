@@ -7,7 +7,6 @@ class Soundbarre():
         self.color = (255, 240, 200)
         self.width = screen.get_width()/2
         self.height = 10
-        self.logo = pg.image.load(dir_asset + "/speaker.png")
         
     def draw(self):
         pg.draw.rect(screen, self.color, (self.x, self.y - self.height/2, self.width, self.height))

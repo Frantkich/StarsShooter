@@ -27,22 +27,22 @@ weapon_list = {
     'laser':   (0,    ((0,204,255),   (5, 50),  5,   50, 0,  0),    1,  (os.path.join(dir_asset, 'laser.png'),       4), 800), 
     'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0),    1,  (os.path.join(dir_asset, 'ship_yellow.png'), 4), 400),
     'shotgun': (1.5,  ((255,255,255), (2, 3),   25,  15, 0,  0.33), 20, (os.path.join(dir_asset, 'shotgun.png'),     4), 400), 
-    'gatling': (0.15, ((255,255,102), (5, 10),  75,  10, 0,  0.1),    1,  (os.path.join(dir_asset, 'gatling.png'),     4), 800), 
+    'gatling': (0.15, ((255,255,102), (5, 10),  75,  10, 0,  0.1),  1,  (os.path.join(dir_asset, 'gatling.png'),     4), 800), 
     'missile': (2,    ((205,133,63) , (5, 5),   250, 25, 0,  1),    10, (os.path.join(dir_asset, 'missile.png'),     4), 650) 
 }
 
-bonus = ['speed', 'damage', 'heal', 'size', 'cooldown']
+bonus_list = ['speed', 'damage', 'heal', 'size', 'cooldown']
 powerup_list = {
-#               ((R, G, B), time, modifier)
-    'speed':    ((255, 255, 0),   3, 1.25),
-    'damage':   ((128, 255, 0),   3, 1.5),
-    'heal':     ((255, 0,   0),   0, 0),
-    'size':     ((255, 128, 50),  3, 0.5),
-    'cooldown': ((0,   255, 255), 3, 0.5),
-    'slow':     ((255, 255, 0),   3, 0.5),
-    'weak':     ((128, 255, 0),   3, 0.5),
-    'bigboi':   ((255, 128, 50),  3, 1.25),
-    'firerate': ((0,   255, 255), 3, 2)
+#               (img, nbframe, time, modifier)
+    'speed':    ((os.path.join(dir_asset, 'speed.png'),  4), 3, 1.25, 250),
+    'damage':   ((os.path.join(dir_asset, 'money.png'),  4), 3, 1.5 , 250),
+    'heal':     ((os.path.join(dir_asset, 'health.png'), 4), 0, 0   , 250),
+    'size':     ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
+    'cooldown': ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
+    'slow':     ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
+    'weak':     ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
+    'bigboi':   ((os.path.join(dir_asset, 'money.png'),  4), 3, 1.25, 250),
+    'firerate': ((os.path.join(dir_asset, 'money.png'),  4), 3, 2   , 250)
 }
 
 
