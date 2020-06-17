@@ -4,13 +4,13 @@ from app.classes.label import *
 
 
 class Item():
-    def __init__(self, item_name, item_img, item_price=0, item_quantity=0):
+
+    def __init__(self, item_name, item_img, price_or_qt):  #price_or_qt can be a price for shop and a quantity for inventory
         self.pos = [] #x and y
         self.path, self.nbframe = item_img[0], item_img[1]
-        self.item_stat = [item_name, item_price]
+        self.item_stat = [item_name, price_or_qt]
         self.labels = []
         self.img = pg.transform.scale(pg.image.load(self.path), (120, 120))
-        self.quantity = item_quantity
         self.init_sprites(self.img)
 
     def init_sprites(self, img):
@@ -26,24 +26,18 @@ class Item():
             self.nextFrame = gif_speed
         self.nextFrame -= 1
 
-    def draw_item(self, x, y, item_active):
+    def draw_item(self, x, y, width, heigth):
         self.pos = [x, y]
         self.labels.clear()
         self.labels.append(Label(self.pos[0] + screen.get_width()/4, self.pos[1] + self.img.get_height()*5/4, self.item_stat[0], (255, 240, 200), 30))
         self.labels.append(Label(self.pos[0] + 65, self.pos[1] -10, self.item_stat[1], (255, 240, 200), 25))
-
-        if item_active:
-            self.update_sprite()
-            self.sprite = pg.transform.scale(self.sprite, (150, 150))
-            screen.blit(self.sprite, (self.pos[0]+ 50, self.pos[1]))
-
-        else:
-            self.update_sprite()
-            self.sprite = pg.transform.scale(self.sprite, (120, 120))
-            screen.blit(self.sprite, (self.pos[0]+ 50, self.pos[1]))
         
+        self.update_sprite()
+        self.sprite = pg.transform.scale(self.sprite, (width, heigth))
+        screen.blit(self.sprite, (self.pos[0]+ 50, self.pos[1]))
+        #pg.draw.rect(self.sprite, (255, 240, 200), [self.pos[0], self.pos[1], 10, 10])
+
         self.labels[0].draw()
         self.labels[1].draw()
-        
         
     
