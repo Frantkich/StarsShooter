@@ -56,8 +56,6 @@ def shop(player, stars):
                         el[0] += 1
                         return
                 player.inventory['weapons'].append([1, item])
-        else:
-            print('u r broke...')
 
 
     while run:

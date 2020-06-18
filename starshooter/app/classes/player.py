@@ -9,7 +9,7 @@ class Player(Ship):
     def __init__(self, x, y):
         super().__init__(x, y, 'player', 1)
         self.screen_shake = 0
-        self.money = 0
+        self.money = 500
         self.score = 0
         self.max_score = 0
         #items
@@ -17,11 +17,11 @@ class Player(Ship):
         self.item_cooldown = 30
         self.inventory = {
             'ships': ['player'],
-            'weapons': [[1, 'gatling'], [1, 'missile']],
-            'slow': 5,
-            'weak': 2,
+            'weapons': [],
+            'slow': 0,
+            'weak': 0,
             'bigboi': 0,
-            'firerate': 11
+            'firerate': 0
         }
         #Rect((screen, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
         self.healthbar_component = [

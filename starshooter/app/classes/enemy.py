@@ -17,11 +17,11 @@ class Enemy(Ship):
 
     def update(self, targets):
         target = targets[0]
-        if self.y + self.get_height() > screen.get_height():
-            target.health -= target.health_max/4
-            return self
-        if collide(self, target):
-            target.health -= target.health_max/8
+        if collide(self, target) or self.y + self.get_height() > screen.get_height():
+            if target.is_player:
+                target.loose_health(target.health_max/8)
+            else:
+                target.health -= target.health_max/8
             return self
         if self.health <= 0:
             target.money += 10

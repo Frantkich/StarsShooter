@@ -137,6 +137,8 @@ def game(player):
         if not(pause):
             lost = player.update(enemies)
             if lost:
+                if not(lost_count):
+                    pg.mixer.Sound(sound_list['end']).play()
                 lost_count += 1
                 if lost_count > fps * 3:
                     save(player)
@@ -175,8 +177,8 @@ def game(player):
                             if label_active == 0:
                                 pause = False
                             if label_active == 1:
-                                pg.mixer.Sound(sound_list['end']).play()
-                                run = False
+                                pause = False
+                                player.health = 0
                                 break
                 except KeyError:
                     pass

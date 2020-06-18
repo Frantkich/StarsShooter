@@ -83,7 +83,7 @@ def inventory(player, stars):
                     if section_active == 1:
                         try :
                             pos = e.dict['key']-49
-                            if 0 <= pos < len(player.weapons):
+                            if 0 <= pos < len(player.weapons) and 0 < len(player.inventory['weapons']):
                                 player.weapons[pos].change_weapon(section[1].item_list[section[1].item_count % (len(section[1].item_list))].item_name)
                                 weapon_equipped()
                         except KeyError:
