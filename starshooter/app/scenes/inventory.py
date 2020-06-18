@@ -36,7 +36,7 @@ def inventory(player):
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
         for n in range(len(section)):
             if n == section_active:
-                section[n].draw_equipped(100, 100, 1)
+                section[n].draw_equipped(110, 110, 1)
                 section[n].draw(100, 100, 200, 1)
                 section[n].label.draw(1)
             else:

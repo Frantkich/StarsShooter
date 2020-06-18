@@ -3,6 +3,7 @@ from app.ressources import *
 from app.scenes.headquarter import headquarter
 from app.classes.player import Player
 from app.scenes.option import option
+from app.scenes.credits import credits
 from app.classes.label import Label
 from app.classes.star import Star
 
@@ -13,10 +14,11 @@ def menu():
 
     label_active = 0
     labels = []
-    labels.append(Label(screen.get_width()/2, 200, "Continue", main_color, 50))
-    labels.append(Label(screen.get_width()/2, 400, "New game", main_color, 50))
-    labels.append(Label(screen.get_width()/2, 600, "Settings", main_color, 50))
-    labels.append(Label(screen.get_width()/2, 800, "Exit", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 150, "Continue", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 300, "New game", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 450, "Settings", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 600, "Credits", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 750, "Exit", main_color, 50))
 
     Label(180, 495, "S", main_color, 200).draw()
     Label(300, 445, "TAR", main_color, 100).draw()
@@ -70,7 +72,9 @@ def menu():
                             stars = headquarter(Player(screen.get_width()/2, screen.get_height()-screen.get_height()/4), stars)
                         elif label_active == 2: # open settings
                             stars =  option(stars)
-                        elif label_active == 3:
+                        elif label_active == 3: # open credits
+                            stars =  credits(stars)
+                        elif label_active == 4:
                             run = False
                             break
             except KeyError:

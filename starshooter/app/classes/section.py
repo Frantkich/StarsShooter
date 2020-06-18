@@ -15,7 +15,7 @@ class Section():
     def draw(self, width, heigth, bias, is_active=0): 
         centerX = screen.get_width()*0.5
         offsetX = screen.get_width()*0.8 / 3
-        print(offsetX)
+    
         if len(self.item_list) > 0:
             pos = self.item_count % (len(self.item_list))
             self.item_list[pos].draw_item(centerX - width/2 , self.y + bias, width, heigth, is_active)
