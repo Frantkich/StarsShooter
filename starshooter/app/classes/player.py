@@ -23,7 +23,12 @@ class Player(Ship):
             'bigboi': 0,
             'firerate': 11
         }
-        
+        #Rect((screen, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
+        self.healthbar_component = [
+            pg.Rect((screen.get_width() - 160, screen.get_height() - 40, 150, 25)),
+            Label(screen.get_width() - (10 + 150 + 5)/2, screen.get_height() - 50, self.name, (255, 240, 200), 20),
+            pg.Rect((screen.get_width() - 160, screen.get_height() - 65, 150, 50))
+        ]
     def move(self):
         if keyPressed("q") and self.x - self.speed > 0:
             self.x -= self.speed
@@ -83,18 +88,17 @@ class Player(Ship):
             self.slot_active = key
 
     def healthbar(self):
-        height = 50
-        width = 150
-        thickness = 5
-        offset = 10
-        color = (255, 240, 200)
-
-        ratio = self.health/self.health_max
-        pg.draw.rect(screen, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
-        pg.draw.rect(screen, (0, 255, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width*ratio, int(height/2)))
-        Label(screen.get_width() - (offset + width + thickness)/2, screen.get_height() - height, self.name, color, 20).draw()
-        pg.draw.rect(screen, color, (screen.get_width() - offset - width, screen.get_height() - height - thickness - offset, width, height), thickness)
-        pg.draw.line(screen, color, (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset), (screen.get_width() - offset, screen.get_height() - int(height/2) - thickness - offset), thickness)
+        #height = 50
+        #width = 150
+        #thickness = 5
+        #offset = 10
+        #color = (255, 240, 200)
+        pg.draw.rect(screen, (255, 0, 0), self.healthbar_component[0])
+        pg.draw.rect(screen, (0, 255, 0), (screen.get_width() - 160, screen.get_height() - 40, 150*(self.health/self.health_max), 25))
+        self.healthbar_component[1].update_text(self.name)
+        self.healthbar_component[1].draw()
+        pg.draw.rect(screen, (255, 240, 200), self.healthbar_component[2] , 5)
+        pg.draw.line(screen, (255, 240, 200), (screen.get_width() - 160, screen.get_height() - 40), (screen.get_width() - 10, screen.get_height() - 40), 5)
 
     def inventory_hud(self):
         color = (255, 240, 200)

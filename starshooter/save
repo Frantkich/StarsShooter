@@ -1,5 +1,7 @@
-blue
-22177932
+player
+22172092
 1990
-{'ships': ['player', 'green', 'boss_2', 'boss_1', 'blue'], 'weapons': [[4, 'gatling'], [1, 'missile'], [1, 'shotgun'], [1, 'laser']], 'slow': 9, 'weak': 9, 'bigboi': 9, 'firerate': 19}
+{'ships': ['player', 'green', 'boss_2', 'boss_1', 'blue', 'player', 'player', 'player', 'player', 'player'], 'weapons': [[4, 'gatling'], [1, 'missile'], [1, 'shotgun'], [1, 'laser']], 'slow': 9, 'weak': 9, 'bigboi': 9, 'firerate': 19}
+missile
+shotgun
 laser
