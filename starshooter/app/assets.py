@@ -41,7 +41,7 @@ powerup_list = {
     'speed':    ((os.path.join(dir_asset, 'speed.png'),  4), 3, 1.25, 250),
     'damage':   ((os.path.join(dir_asset, 'damage.png'),  4), 3, 1.5 , 250),
     'money':   ((os.path.join(dir_asset, 'money.png'),  4), 3, 1.5 , 250),
-    'heal':     ((os.path.join(dir_asset, 'health.png'), 4), 0, 0   , 250),
+    'heal':     ((os.path.join(dir_asset, 'heal.png'), 4), 0, 0   , 250),
     'size':     ((os.path.join(dir_asset, 'size.png'),  4), 3, 0.5 , 250),
     'cooldown': ((os.path.join(dir_asset, 'cooldown.png'),  4), 3, 0.5 , 250),
     'slow':     ((os.path.join(dir_asset, 'slow.png'),  4), 3, 0.5 , 250),

@@ -76,7 +76,10 @@ class Ship:
                 if collide(projectile, target) and not(target in projectile.hit):
                     if projectile.name == 'missile':
                         self.explosions.append(Explosion((int(target.x + target.get_width()/2), int(target.y + target.get_height()/2)), 40))
-                    target.health -= projectile.damage * self.damage_mod
+                    if target.is_player:
+                        target.loose_health(projectile.damage * self.damage_mod)
+                    else:
+                        target.health -= projectile.damage * self.damage_mod
                     if target.is_player:
                         target.screen_shake = 30
                     if projectile in self.projectiles:

@@ -26,8 +26,12 @@ class Player(Ship):
         #Rect((screen, (255, 0, 0), (screen.get_width() - offset - width, screen.get_height() - int(height/2) - thickness - offset, width, int(height/2)))
         self.healthbar_component = [
             pg.Rect((screen.get_width() - 160, screen.get_height() - 40, 150, 25)),
-            Label(screen.get_width() - (10 + 150 + 5)/2, screen.get_height() - 50, self.name, (255, 240, 200), 20),
+            pg.Rect((screen.get_width() - 160, screen.get_height() - 40, 150*(self.health/self.health_max), 25)),
+            Label(screen.get_width() - 87, screen.get_height() - 50, self.name, (255, 240, 200), 20),
             pg.Rect((screen.get_width() - 160, screen.get_height() - 65, 150, 50))
+        ]
+        self.inventory_componenet = [
+            
         ]
     def move(self):
         if keyPressed("q") and self.x - self.speed > 0:
@@ -87,35 +91,34 @@ class Player(Ship):
         if 0 <= key < len(self.weapons):
             self.slot_active = key
 
+    def loose_health(self, damage):
+        self.health -= damage
+        if self.health < 0:
+            self.health = 0
+        self.healthbar_component[1] = (screen.get_width() - 160, screen.get_height() - 40, 150*(self.health/self.health_max), 25)
+
     def healthbar(self):
-        #height = 50
-        #width = 150
-        #thickness = 5
-        #offset = 10
-        #color = (255, 240, 200)
         pg.draw.rect(screen, (255, 0, 0), self.healthbar_component[0])
-        pg.draw.rect(screen, (0, 255, 0), (screen.get_width() - 160, screen.get_height() - 40, 150*(self.health/self.health_max), 25))
-        self.healthbar_component[1].update_text(self.name)
-        self.healthbar_component[1].draw()
-        pg.draw.rect(screen, (255, 240, 200), self.healthbar_component[2] , 5)
+        pg.draw.rect(screen, (0, 255, 0), self.healthbar_component[1])
+        self.healthbar_component[2].draw()
+        pg.draw.rect(screen, (255, 240, 200), self.healthbar_component[3], 5)
         pg.draw.line(screen, (255, 240, 200), (screen.get_width() - 160, screen.get_height() - 40), (screen.get_width() - 10, screen.get_height() - 40), 5)
 
     def inventory_hud(self):
         color = (255, 240, 200)
-        offset = 25
         for item in self.items:
             item.draw()
         height = 125
         for powerup in self.powerups:
-            Label((offset)/2, screen.get_height() - height, ' :'.join((powerup.name, str(int(powerup.time / fps)))), color, 20).draw(0, 1)
+            Label(12, screen.get_height() - height, ' :'.join((powerup.name, str(int(powerup.time / fps)))), color, 20).draw(0, 1)
             height += 25
         height = 125
         for item in list(self.inventory.keys())[2:]:
-            Label(screen.get_width() - offset, screen.get_height() - height, ' :'.join((item, str(self.inventory[item]))), color, 20).draw(0, 2)
+            Label(screen.get_width() - 25, screen.get_height() - height, ' :'.join((item, str(self.inventory[item]))), color, 20).draw(0, 2)
             height += 25
 
     def draw(self):
         super().draw()
-        self.healthbar() #####################################
-        self.weapons[self.slot_active].draw() ################
-        self.inventory_hud()#############################
+        self.healthbar()
+        self.weapons[self.slot_active].draw() 
+        self.inventory_hud()
