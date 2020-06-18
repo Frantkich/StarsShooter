@@ -42,19 +42,12 @@ def credits(stars):
     
     while run:
         for e in pg.event.get():
-            try:
-                if previousKey != e.dict['unicode']:
-                    previousKey = e
-
-                    if keyPressed("esc"):
-                        run = False
-
-            except KeyError:
-                pass
+            if keyPressed("esc"):
+                run = False
         if labels[-1].y <= 200:
-            change_music("intro")
             run = False
         redraw_window()
         end()
     
+    change_music("intro")
     return stars

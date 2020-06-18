@@ -37,16 +37,16 @@ def homingHead(shipX, shipY, targets):
     return closestTarget[1]
 
 def change_music(music_name):        
-    pg.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets') + "/music/" + music_name + ".mp3")
+    pg.mixer.music.load(os.path.join(os.path.dirname(__file__), 'assets/music/{}.mp3'.format(music_name)))
     pg.mixer.music.play(-1, 0, 5000)
 
 def save(player):
     with open('save', 'w') as file_write:
-        file_write.write(player.name + '\n' + str(player.money) + '\n'+ str(player.max_score) + '\n')
+        file_write.write('{}\n{}\n{}\n'.format(player.name, str(player.money), str(player.max_score))) 
         print(player.inventory, file=file_write)
         for weapon in player.weapons:
             if weapon.weapon:
-                file_write.write(weapon.weapon + '\n')
+                file_write.write('{}\n'.format(weapon.weapon))
             else:
                 file_write.write('None\n')
             
@@ -56,7 +56,7 @@ def load(player):
         player.init_ship(lines[0][:-1])
         player.money = int(lines[1])
         player.max_score = int(lines[2])
-        exec('player.inventory = ' + lines[3])
+        exec('player.inventory = {}'.format(lines[3]))
         n = 0
         for weapon in lines[4:]:
             if not(weapon[:-1] == "None"):

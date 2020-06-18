@@ -139,7 +139,6 @@ def game(player):
             if lost:
                 lost_count += 1
                 if lost_count > fps * 3:
-                    change_music("transition")
                     save(player)
                     run = False
                 else:
@@ -177,7 +176,6 @@ def game(player):
                                 pause = False
                             if label_active == 1:
                                 pg.mixer.Sound(sound_list['end']).play()
-                                change_music("transition")
                                 run = False
                                 break
                 except KeyError:
@@ -202,12 +200,13 @@ def game(player):
 
                 # parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
                 
-                for enemy in enemies:
-                    enemy.health = 0
+                # for enemy in enemies:
+                #     enemy.health = 0
 
                 # save(player)
 
                 # player.health = 0
-
+    
+    change_music("transition")
                 
   

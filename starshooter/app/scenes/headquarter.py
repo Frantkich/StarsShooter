@@ -11,6 +11,8 @@ def headquarter(player, stars):
     run = True
     previousKey = None
 
+    change_music("transition")
+
     label_active = 0
     labels = []
     labels.append(Label(screen.get_width()/2, 200, "Start", (255, 240, 200), 50))
@@ -18,8 +20,6 @@ def headquarter(player, stars):
     labels.append(Label(screen.get_width()/2, 600, "Shop", (255, 240, 200), 50))
     labels.append(Label(screen.get_width()/2, 800, "Save & Exit", (255, 240, 200), 50))
     
-    change_music("transition")
-
     def redraw_window():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
 
@@ -59,13 +59,11 @@ def headquarter(player, stars):
                             stars = shop(player, stars)
                         elif label_active == 3:
                             save(player)
-                            change_music("intro")
                             run = False
                             break
             except KeyError:
                 pass
-
         redraw_window()
         end()
-
+    change_music("intro")
     return stars
