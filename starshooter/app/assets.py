@@ -20,12 +20,13 @@ parallaxe_list = {
     'planet1': (os.path.join(dir_asset, 'planet1.png'), 1, 0.5),
     'planet2': (os.path.join(dir_asset, 'planet2.png'), 1, 0.5),
     'planet3': (os.path.join(dir_asset, 'planet3.png'), 1, 0.5),
-    'sun':     (os.path.join(dir_asset, 'sun.png'),     4, 0.5)
+    'sun':     (os.path.join(dir_asset, 'sun.png'),     4, 0.5),
+    'earth':   (os.path.join(dir_asset, 'earth.png'),   4, 0.5)
 }
 
 weapon_list = {
 #              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion), nBullet, (img, nbframe), price)
-    'BFG':     (10,   ((0,153,51),    (20, 40), 500, 2,  -1, 0),    1,  (os.path.join(dir_asset, 'ship_yellow.png'), 4), 650),
+    'BFG':     (10,   ((179, 27, 7),    (20, 40), 500, 2,  -1, 0),    1,  (os.path.join(dir_asset, 'bfg.png'), 4), 650),
     'laser':   (0,    ((0,204,255),   (5, 50),  5,   50, 0,  0),    1,  (os.path.join(dir_asset, 'laser.png'),       4), 800), 
     'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0),    1,  (os.path.join(dir_asset, 'ship_yellow.png'), 4), 400),
     'shotgun': (1.5,  ((255,255,255), (2, 3),   25,  15, 0,  0.33), 20, (os.path.join(dir_asset, 'shotgun.png'),     4), 400), 
@@ -33,19 +34,20 @@ weapon_list = {
     'missile': (2,    ((205,133,63) , (5, 5),   250, 25, 0,  1),    10, (os.path.join(dir_asset, 'missile.png'),     4), 650)
 }
 
-bonus_list = ['speed', 'damage', 'heal', 'size', 'cooldown']
+bonus_list = ['speed', 'damage', 'heal', 'size', 'cooldown', 'money']
 item_list = ['slow', 'weak', 'bigboi', 'firerate']
 powerup_list = {
 #               (img, nbframe, time, modifier)
     'speed':    ((os.path.join(dir_asset, 'speed.png'),  4), 3, 1.25, 250),
-    'damage':   ((os.path.join(dir_asset, 'money.png'),  4), 3, 1.5 , 250),
+    'damage':   ((os.path.join(dir_asset, 'damage.png'),  4), 3, 1.5 , 250),
+    'money':   ((os.path.join(dir_asset, 'money.png'),  4), 3, 1.5 , 250),
     'heal':     ((os.path.join(dir_asset, 'health.png'), 4), 0, 0   , 250),
-    'size':     ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
-    'cooldown': ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
-    'slow':     ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
-    'weak':     ((os.path.join(dir_asset, 'money.png'),  4), 3, 0.5 , 250),
-    'bigboi':   ((os.path.join(dir_asset, 'money.png'),  4), 3, 1.25, 250),
-    'firerate': ((os.path.join(dir_asset, 'money.png'),  4), 3, 2   , 250)
+    'size':     ((os.path.join(dir_asset, 'size.png'),  4), 3, 0.5 , 250),
+    'cooldown': ((os.path.join(dir_asset, 'cooldown.png'),  4), 3, 0.5 , 250),
+    'slow':     ((os.path.join(dir_asset, 'slow.png'),  4), 3, 0.5 , 250),
+    'weak':     ((os.path.join(dir_asset, 'weak.png'),  4), 3, 0.5 , 250),
+    'bigboi':   ((os.path.join(dir_asset, 'bigboi.png'),  4), 3, 1.25, 250),
+    'firerate': ((os.path.join(dir_asset, 'firerate.png'),  4), 3, 2   , 250)
 }
 
 

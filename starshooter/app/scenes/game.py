@@ -181,9 +181,9 @@ def game(player):
                 except KeyError:
                     pass
 
-            if keyPressed('m'):
-                pass
-                 #     x, y = pg.mouse.get_pos()
+            # if e.type == pg.MOUSEBUTTONUP:
+                # pass
+                # x, y = pg.mouse.get_pos()
 
                 # boss = Boss(0, -500, 'boss_1')
                 # boss.weapons[0].change_weapon('gatling')
@@ -193,7 +193,7 @@ def game(player):
                 # boss.weapons[4].change_weapon('gatling')
                 # enemies.append(boss)
                 
-                # powerups.append(PowerUp(x, y, 'cooldown'))
+                # powerups.append(PowerUp(x, y, random.choice(powerup_list)))
                 
                 # enemy = Enemy(x, y, random.choice(list(enemy_list)))
                 # enemy.weapons[0].change_weapon('gatling')
