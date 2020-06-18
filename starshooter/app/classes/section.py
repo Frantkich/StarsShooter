@@ -5,14 +5,14 @@ from app.classes.label import Label
 
 class Section():
     def __init__(self, label_text, x, y):
-        self.label = Label(screen.get_width()/2, y, label_text, (255, 240, 200), 30)  #Label(self, x, y, text, color, fontSize, font=main_font)
+        self.label = Label(screen.get_width()/2, y, label_text, (255, 240, 200), 20)  #Label(self, x, y, text, color, fontSize, font=main_font)
         self.x = x
         self.y = y
         self.item_list = []
         self.equipped_list = []
         self.item_count = 0
 
-    def draw(self, width, heigth, bias, is_active=0): #Ajouter un y
+    def draw(self, width, heigth, bias, is_active=0): 
         centerX = screen.get_width()*0.5
         offsetX = screen.get_width()*0.8 / 3
         if len(self.item_list) > 0:
