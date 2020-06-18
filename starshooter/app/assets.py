@@ -26,12 +26,12 @@ parallaxe_list = {
 
 weapon_list = {
 #              (cooldown, ((R, G, B), (size_x, size_y), damage, speed, penetration, dispertion), nBullet, (img, nbframe), price)
-    'BFG':     (10,   ((179, 27, 7),    (20, 40), 500, 2,  -1, 0),    1,  (os.path.join(dir_asset, 'bfg.png'), 4), 650),
-    'laser':   (0,    ((0,204,255),   (5, 50),  5,   50, 0,  0),    1,  (os.path.join(dir_asset, 'laser.png'),       4), 800), 
-    'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0),    1,  (os.path.join(dir_asset, 'ship_yellow.png'), 4), 400),
-    'shotgun': (1.5,  ((255,255,255), (2, 3),   25,  15, 0,  0.33), 20, (os.path.join(dir_asset, 'shotgun.png'),     4), 400), 
-    'gatling': (0.15, ((255,255,102), (5, 10),  75,  10, 0,  0.1),  1,  (os.path.join(dir_asset, 'gatling.png'),     4), 800), 
-    'missile': (2,    ((205,133,63) , (5, 5),   250, 25, 0,  1),    10, (os.path.join(dir_asset, 'missile.png'),     4), 650)
+    'BFG':     (10,   ((179, 27, 7),    (20, 40), 500, 2,  -1, 0),    1,  (os.path.join(dir_asset, 'bfg.png'),   4), 650),
+    'laser':   (0,    ((0,204,255),   (5, 50),  5,   50, 0,  0),    1,  (os.path.join(dir_asset, 'laser.png'),   4), 800), 
+    'sniper':  (1.5,  ((255,20,147),  (8, 20),  150, 15, 2,  0),    1,  (os.path.join(dir_asset, 'sniper.png'),  8), 400),
+    'shotgun': (1.5,  ((255,255,255), (2, 3),   25,  15, 0,  0.33), 20, (os.path.join(dir_asset, 'shotgun.png'), 4), 400), 
+    'gatling': (0.15, ((255,255,102), (5, 10),  75,  10, 0,  0.1),  1,  (os.path.join(dir_asset, 'gatling.png'), 4), 800), 
+    'missile': (2,    ((205,133,63) , (5, 5),   250, 25, 0,  1),    10, (os.path.join(dir_asset, 'missile.png'), 4), 650)
 }
 
 bonus_list = ['speed', 'damage', 'heal', 'size', 'cooldown', 'money']

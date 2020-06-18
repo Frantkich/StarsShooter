@@ -1,5 +1,5 @@
 blue
-22178072
+22178102
 1990
 {'ships': ['player', 'green', 'boss_2', 'boss_1', 'blue'], 'weapons': [[4, 'gatling'], [1, 'missile'], [1, 'shotgun'], [1, 'laser']], 'slow': 6, 'weak': 8, 'bigboi': 8, 'firerate': 18}
 laser
