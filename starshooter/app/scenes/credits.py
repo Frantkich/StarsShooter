@@ -9,6 +9,8 @@ def credits(stars):
     run = True
     previousKey = None
 
+    change_music("credits")
+    
     labels= []
     labels.append(Label(screen.get_width()/2, screen.get_height(), "Credits", main_color, 70))  #self, x, y, text, color, fontSize, font=main_font
     labels.append(Label(screen.get_width()/2, screen.get_height()* 1.2, "STAR H.Otter", main_color, 70))
@@ -22,6 +24,7 @@ def credits(stars):
     labels.append(Label(screen.get_width()/2, screen.get_height()* 2.8, "BarbeRousse,  Fess,", main_color, 40))
     labels.append(Label(screen.get_width()/2, screen.get_height()* 2.85, "F.Guern  &  Pomz.er", main_color, 40))
 
+    
     def redraw_window():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
         
@@ -49,6 +52,7 @@ def credits(stars):
             except KeyError:
                 pass
         if labels[-1].y <= 200:
+            change_music("intro")
             run = False
         redraw_window()
         end()

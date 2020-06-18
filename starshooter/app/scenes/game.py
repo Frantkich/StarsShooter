@@ -13,6 +13,10 @@ def game(player):
     run = True
     DEBUG = False
     previousKey = None
+    
+    pg.mixer.Sound(sound_list['intro']).play()
+
+    player.health = player.health_max
 
     enemies = []
     powerups = []
@@ -26,7 +30,6 @@ def game(player):
 
     pause = False
 
-    pg.mixer.Sound(sound_list['intro']).play()
     
     label_active = 0
     labels = []
@@ -101,6 +104,9 @@ def game(player):
 
             if level%5 == 1:
                 change_music("level")
+
+            if level%5 == 4:
+                change_music("pre_boss")
 
             if not(level%10):
                 boss = Boss(0, -500, 'boss_1')
@@ -196,12 +202,12 @@ def game(player):
 
                 # parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
                 
-                # for enemy in enemies:
-                #     enemy.health = 0
+                for enemy in enemies:
+                    enemy.health = 0
 
                 # save(player)
 
-                player.health = 0
+                # player.health = 0
 
                 
   

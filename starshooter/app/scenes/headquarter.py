@@ -59,6 +59,7 @@ def headquarter(player, stars):
                             stars = shop(player, stars)
                         elif label_active == 3:
                             save(player)
+                            change_music("intro")
                             run = False
                             break
             except KeyError:

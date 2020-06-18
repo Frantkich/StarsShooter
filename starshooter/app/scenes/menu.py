@@ -12,6 +12,8 @@ def menu():
     run = True
     previousKey = None
 
+    change_music("intro")
+
     label_active = 0
     labels = []
     labels.append(Label(screen.get_width()/2, 160, "Continue", main_color, 50))
@@ -24,7 +26,6 @@ def menu():
     Label(300, 445, "TAR", main_color, 100).draw()
     Label(380, 520, "H.Otter", main_color, 100).draw()
     
-    change_music("generic")
     
     stars = []
     for n in range(1000):
