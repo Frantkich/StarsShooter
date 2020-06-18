@@ -112,6 +112,6 @@ class Player(Ship):
 
     def draw(self):
         super().draw()
-        self.healthbar()
-        self.weapons[self.slot_active].draw()
-        self.inventory_hud()
+        self.healthbar() #####################################
+        self.weapons[self.slot_active].draw() ################
+        self.inventory_hud()#############################

@@ -59,7 +59,7 @@ def game(player):
         player.draw()
 
         if lost:
-            Label(screen.get_width()/2, screen.get_height()*0.25, 'YOU DIED', (255, 240, 200), 100).draw()
+            Label(screen.get_width()/2, screen.get_height()*0.25, 'YOU DIED', (255, 240, 200), 100).draw() ###############################
             Label(screen.get_width()/2, screen.get_height()*0.6, 'score : {}'.format(player.score), (255, 240, 200), 50).draw()
             Label(screen.get_width()/2, screen.get_height()*0.7, 'max score : {}'.format(player.max_score), (255, 240, 200), 50).draw()
 
@@ -70,7 +70,7 @@ def game(player):
                 else:
                     labels[n].draw()
 
-        Label(screen.get_width()*0.85, 30, 'Level: {}'.format(level), (255, 240, 200), 30).draw()
+        Label(screen.get_width()*0.85, 30, 'Level: {}'.format(level), (255, 240, 200), 30).draw() #########################""
         Label(screen.get_width()*0.2, 30, 'Enemies remain : {}'.format(len(enemies)), (255, 240, 200), 30).draw()
 
     def update():
@@ -182,6 +182,7 @@ def game(player):
                     pass
 
             if keyPressed('m'):
+                pass
                  #     x, y = pg.mouse.get_pos()
 
                 # boss = Boss(0, -500, 'boss_1')
@@ -206,7 +207,6 @@ def game(player):
                 # save(player)
 
                 # player.health = 0
-    
     change_music("transition")
                 
   
