@@ -54,7 +54,7 @@ def headquarter(player, stars):
                         if label_active == 0:
                             game(player) #start the game
                         elif label_active == 1:
-                            inventory(player) #open the inventory
+                            stars = inventory(player, stars) #open the inventory
                         elif label_active == 2:
                             stars = shop(player, stars)
                         elif label_active == 3:

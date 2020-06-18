@@ -2,10 +2,11 @@ from app.ressources import *
 
 from app.classes.section import Section
 from app.classes.label import Label
+from app.classes.star import Star
 from app.classes.item import Item
 
 
-def inventory(player):
+def inventory(player, stars):
     run = True
     previousKey = None
 
@@ -34,6 +35,15 @@ def inventory(player):
 
     def redraw_window():
         pg.draw.rect(screen, (0,0,0), ((0,0), (screen.get_width(), screen.get_height())))
+
+        
+        for star in stars:
+            star.move()
+            if star.draw():
+                stars.remove(star)
+                stars.append(Star((screen.get_width()/2, screen.get_height()/2), star.width, 1))
+
+
         for n in range(len(section)):
             if n == section_active:
                 section[n].draw_equipped(100, 100, 1)
@@ -77,3 +87,4 @@ def inventory(player):
         redraw_window()
         end()
         
+    return stars
