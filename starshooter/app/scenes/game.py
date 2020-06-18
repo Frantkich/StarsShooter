@@ -56,7 +56,9 @@ def game(player):
         player.draw()
 
         if lost:
-            Label(screen.get_width()/2, screen.get_height()/2, 'YOU DIED', (255, 240, 200), 100).draw()
+            Label(screen.get_width()/2, screen.get_height()*0.25, 'YOU DIED', (255, 240, 200), 100).draw()
+            Label(screen.get_width()/2, screen.get_height()*0.6, 'score : {}'.format(player.score), (255, 240, 200), 50).draw()
+            Label(screen.get_width()/2, screen.get_height()*0.7, 'max score : {}'.format(player.max_score), (255, 240, 200), 50).draw()
 
         if pause:
             for n in range(len(labels)):
@@ -175,16 +177,16 @@ def game(player):
                 except KeyError:
                     pass
 
-            if e.type == pg.MOUSEBUTTONUP and not(DEBUG):
+            if keyPressed('m'):
                  #     x, y = pg.mouse.get_pos()
 
-                boss = Boss(0, -500, 'boss_1')
-                boss.weapons[0].change_weapon('gatling')
-                boss.weapons[1].change_weapon('gatling')
-                boss.weapons[2].change_weapon('BFG')
-                boss.weapons[3].change_weapon('gatling')
-                boss.weapons[4].change_weapon('gatling')
-                enemies.append(boss)
+                # boss = Boss(0, -500, 'boss_1')
+                # boss.weapons[0].change_weapon('gatling')
+                # boss.weapons[1].change_weapon('gatling')
+                # boss.weapons[2].change_weapon('BFG')
+                # boss.weapons[3].change_weapon('gatling')
+                # boss.weapons[4].change_weapon('gatling')
+                # enemies.append(boss)
                 
                 # powerups.append(PowerUp(x, y, 'cooldown'))
                 
@@ -199,7 +201,7 @@ def game(player):
 
                 # save(player)
 
-                # player.health = 0
+                player.health = 0
 
                 
   

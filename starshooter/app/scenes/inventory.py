@@ -55,7 +55,7 @@ def inventory(player, stars):
 
         for n in range(len(section)):
             if n == section_active:
-                section[n].draw_equipped(100, 100, 1)
+                section[n].draw_equipped(110, 110, 1)
                 section[n].draw(100, 100, 200, 1)
             else:
                 section[n].draw_equipped(80, 80, 0)

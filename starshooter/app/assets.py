@@ -20,7 +20,7 @@ parallaxe_list = {
     'planet1': (os.path.join(dir_asset, 'planet1.png'), 1, 0.5),
     'planet2': (os.path.join(dir_asset, 'planet2.png'), 1, 0.5),
     'planet3': (os.path.join(dir_asset, 'planet3.png'), 1, 0.5),
-    'sun': (os.path.join(dir_asset, 'sun.png'),         4, 0.5)
+    'sun':     (os.path.join(dir_asset, 'sun.png'),     4, 0.5)
 }
 
 weapon_list = {

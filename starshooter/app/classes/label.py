@@ -23,3 +23,9 @@ class Label():
             screen.blit(label, (self.x, self.y))
         elif center == 2:
             screen.blit(label, (self.x - label.get_width(), self.y - label.get_height()))
+
+    def move(self, x=None, y=None):
+        if x:
+            self.x += x
+        if y:
+            self.y += y

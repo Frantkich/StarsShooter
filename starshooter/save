@@ -1,6 +1,5 @@
-boss_2
-22200312
+blue
+22175162
 90
-{'ships': ['player', 'green', 'boss_2'], 'weapons': [[4, 'gatling'], [1, 'missile'], [1, 'shotgun']], 'slow': 10, 'weak': 6, 'bigboi': 8, 'firerate': 19}
-gatling
-gatling
+{'ships': ['player', 'green', 'boss_2', 'boss_1', 'blue'], 'weapons': [[4, 'gatling'], [1, 'missile'], [1, 'shotgun'], [1, 'laser']], 'slow': 9, 'weak': 9, 'bigboi': 9, 'firerate': 19}
+laser
