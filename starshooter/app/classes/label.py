@@ -29,3 +29,6 @@ class Label():
             self.x += x
         if y:
             self.y += y
+
+    def update_text(self, new_text):
+        self.text = new_text
