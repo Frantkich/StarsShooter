@@ -6,25 +6,12 @@ from app.classes.explosion import Explosion
 
 class Ship:
     def __init__(self, x, y, spaceship, is_player=0):
-        #basic
         self.is_player = is_player
-        self.name = spaceship
-        # basic stats
-        self.health_max, self.boom, self.speed = spaceship_list[spaceship][1]
-        self.health = self.health_max
-        #prites
-        self.path, self.nbframe = spaceship_list[spaceship][0]
-        if not(is_player):
-            self.img= pg.transform.flip(pg.image.load(self.path), 0, 1)
-        else:
-            self.img = pg.image.load(self.path)
-        self.init_sprites(self.img)
+        #new ship
+        self.init_ship(spaceship)
         #position
         self.x = x - self.get_width()/2
         self.y = y - self.get_height()/2
-        #weapons
-        self.weapons = [Weapon(pos, is_player) for pos in spaceship_list[spaceship][2]]
-        self.slot_active = 0
         #projectiles
         self.projectiles = []
         self.explosions = []
@@ -33,6 +20,23 @@ class Ship:
         self.damage_mod = 1
         self.size_mod = 1
         self.firerateMod = 1
+
+    def init_ship(self, spaceship):
+        # basic stats
+        self.name = spaceship
+        self.health_max, self.boom, self.speed = spaceship_list[spaceship][1]
+        self.health = self.health_max
+        #prites
+        self.path, self.nbframe = spaceship_list[spaceship][0]
+        if not(self.is_player):
+            self.img= pg.transform.flip(pg.image.load(self.path), 0, 1)
+        else:
+            self.img = pg.image.load(self.path)
+        self.init_sprites(self.img)
+        #weapons
+        self.weapons = [Weapon(pos, self.is_player) for pos in spaceship_list[spaceship][2]]
+        self.slot_active = 0
+
 
     def init_sprites(self, img):
         self.sprites = spritesheet(img, self.nbframe)

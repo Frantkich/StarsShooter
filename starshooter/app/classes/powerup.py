@@ -6,7 +6,7 @@ class PowerUp:
         self.x = x
         self.y = y
         self.name = name
-        self.img, self.time, self.mod = powerup_list[name]
+        self.img, self.time, self.mod, self.price = powerup_list[name]
         self.path, self.nbframe = self.img
         self.img = pg.image.load(self.path)
         self.init_sprites(self.img)

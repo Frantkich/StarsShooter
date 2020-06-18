@@ -21,9 +21,8 @@ def menu():
     Label(180, 495, "S", main_color, 200).draw()
     Label(300, 445, "TAR", main_color, 100).draw()
     Label(380, 520, "H.Otter", main_color, 100).draw()
-    pg.display.update()
     
-    change_music("credits")
+    change_music("generic")
     
     stars = []
     for n in range(1000):

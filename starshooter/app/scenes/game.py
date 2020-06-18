@@ -12,6 +12,7 @@ from app.classes.boss import Boss
 def game(player):
     run = True
     DEBUG = False
+    previousKey = None
 
     enemies = []
     powerups = []
@@ -23,7 +24,14 @@ def game(player):
     lost = False
     lost_count = 0
 
+    pause = False
+
     pg.mixer.Sound(sound_list['intro']).play()
+    
+    label_active = 0
+    labels = []
+    labels.append(Label(screen.get_width()/2, 200, "Continue", main_color, 50))
+    labels.append(Label(screen.get_width()/2, 400, "Headquarter", main_color, 50))
 
     def redraw_window():
         if player.screen_shake:
@@ -49,11 +57,16 @@ def game(player):
 
         if lost:
             Label(screen.get_width()/2, screen.get_height()/2, 'YOU DIED', (255, 240, 200), 100).draw()
-        
+
+        if pause:
+            for n in range(len(labels)):
+                if n == label_active:
+                    labels[n].draw(1)
+                else:
+                    labels[n].draw()
+
         Label(screen.get_width()*0.85, 30, 'Level: {}'.format(level), (255, 240, 200), 30).draw()
         Label(screen.get_width()*0.2, 30, 'Enemies remain : {}'.format(len(enemies)), (255, 240, 200), 30).draw()
-
-        pg.display.update()
 
     def update():
         for parallaxe in parallaxes:
@@ -74,6 +87,8 @@ def game(player):
             parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
 
     while run:
+        end()
+
         if not(len(enemies)) and not(DEBUG):
             level += 1
             wave_length += 5
@@ -107,35 +122,61 @@ def game(player):
                     enemies.append(enemy)
 
             for _ in range(random.randint(0, int(level/2))):
-                powerups.append(PowerUp(random.randrange(25, screen.get_width()-50), random.randrange(-1000*level, -100), random.choice(bonus)))
+                powerups.append(PowerUp(random.randrange(25, screen.get_width()-50), random.randrange(-1000*level, -100), random.choice(bonus_list)))
 
         redraw_window()
 
-        lost = player.update(enemies)
-        if lost:
-            lost_count += 1
-            if lost_count > fps * 3:
-                change_music("transition")
-                save(player)
-                run = False
-            else:
-                continue
-        update()
-        end()
+        if not(pause):
+            lost = player.update(enemies)
+            if lost:
+                lost_count += 1
+                if lost_count > fps * 3:
+                    change_music("transition")
+                    save(player)
+                    run = False
+                else:
+                    continue
+            
+            update()
+
 
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 quit()
             if keyPressed("esc"):
-                change_music("transition")
-                run = False
+                pause = True
             try :
                 player.weapon_switch(e.dict['key']-49)
             except KeyError:
                 pass
+            
+            if pause:
+                try:
+                    if previousKey != e.dict['unicode']:
+                        previousKey = e
 
-            if e.type == pg.MOUSEBUTTONUP:
-            #     x, y = pg.mouse.get_pos()
+                        if keyPressed("s"):
+                            label_active += 1
+                        if keyPressed("z"):
+                            label_active -= 1
+                        if label_active < 0:
+                            label_active = len(labels)-1
+                        elif len(labels)-1 < label_active:
+                            label_active = 0
+
+                        if keyPressed("space"):
+                            if label_active == 0:
+                                pause = False
+                            if label_active == 1:
+                                pg.mixer.Sound(sound_list['end']).play()
+                                change_music("transition")
+                                run = False
+                                break
+                except KeyError:
+                    pass
+
+            if e.type == pg.MOUSEBUTTONUP and not(DEBUG):
+                 #     x, y = pg.mouse.get_pos()
 
                 boss = Boss(0, -500, 'boss_1')
                 boss.weapons[0].change_weapon('gatling')

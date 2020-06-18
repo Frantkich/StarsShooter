@@ -78,6 +78,7 @@ def shop(player, stars):
                         section[section_active].item_count += 1
                     if keyPressed("q"):
                         section[section_active].item_count -= 1
+                        
                     if keyPressed("space"):
                         for n in range(3):
                             if section_active == n:

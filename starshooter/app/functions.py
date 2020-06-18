@@ -53,7 +53,7 @@ def save(player):
 def load(player):
     with open('save', 'r') as file_read:
         lines = file_read.readlines()
-        player.name = lines[0][:-1]
+        player.init_ship(lines[0][:-1])
         player.money = int(lines[1])
         player.max_score = int(lines[2])
         exec('player.inventory = ' + lines[3])

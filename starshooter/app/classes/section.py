@@ -12,7 +12,7 @@ class Section():
         self.equipped_list = []
         self.item_count = 0
 
-    def draw(self, width, heigth, bias, is_active=0): 
+    def draw(self, width, heigth, bias, is_active=0):
         centerX = screen.get_width()*0.5
         offsetX = screen.get_width()*0.8 / 3
         if len(self.item_list) > 0:
@@ -26,6 +26,7 @@ class Section():
                 self.item_list[0].draw_item(centerX + offsetX - width/2, self.y + bias, width, heigth, is_active)
             else:
                 self.item_list[pos+1].draw_item(centerX + offsetX - width/2, self.y + bias, width, heigth, is_active)
+        self.label.draw(is_active)
 
     def draw_equipped(self, width, heigth, is_active=0):
         offsetX = 0
