@@ -79,7 +79,6 @@ class Player(Ship):
             self.health = 0
             if self.max_score < self.score:
                 self.max_score = self.score
-            self.score = 0
             return True
         self.move()
         self.check_shoot()

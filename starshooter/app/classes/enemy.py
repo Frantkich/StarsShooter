@@ -25,6 +25,7 @@ class Enemy(Ship):
             return self
         if self.health <= 0:
             target.money += 10
+            print(target.score)
             target.score += 10
             return self
         self.move()

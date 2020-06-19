@@ -1,7 +1,7 @@
 player
-500
-0
-{'ships': ['player'], 'weapons': [], 'slow': 0, 'weak': 0, 'bigboi': 0, 'firerate': 0}
-None
-None
-None
+220
+50
+{'ships': ['player'], 'weapons': [[1, 'gatling']], 'slow': 0, 'weak': 0, 'bigboi': 0, 'firerate': 0}
+gatling
+gatling
+gatling

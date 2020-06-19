@@ -16,7 +16,9 @@ def game(player):
     
     pg.mixer.Sound(sound_list['intro']).play()
 
+    player.score = 0
     player.health = player.health_max
+    player.loose_health(0)
 
     enemies = []
     powerups = []
@@ -40,9 +42,9 @@ def game(player):
         if player.screen_shake:
             player.screen_shake -= 1
             intensity = 10
-            screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), (random.randint(-intensity, intensity), random.randint(-intensity, intensity)))
+            screen.blit(pg.image.load(background), (random.randint(-intensity, intensity), random.randint(-intensity, intensity)))
         else:
-            screen.blit(pg.transform.scale(pg.image.load(background), screen.get_size()), (0, 0))        
+            screen.blit(pg.image.load(background), (0, 0))        
 
         for parallaxe in parallaxes:
             parallaxe.draw()
@@ -59,6 +61,7 @@ def game(player):
         player.draw()
 
         if lost:
+            print(player.score)
             Label(screen.get_width()/2, screen.get_height()*0.25, 'YOU DIED', (255, 240, 200), 100).draw() ###############################
             Label(screen.get_width()/2, screen.get_height()*0.6, 'score : {}'.format(player.score), (255, 240, 200), 50).draw()
             Label(screen.get_width()/2, screen.get_height()*0.7, 'max score : {}'.format(player.max_score), (255, 240, 200), 50).draw()
@@ -92,6 +95,7 @@ def game(player):
             parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
 
     while run:
+        
         end()
 
         if not(len(enemies)) and not(DEBUG):
@@ -109,18 +113,18 @@ def game(player):
                 change_music("pre_boss")
 
             if not(level%10):
+                boss = Boss(0, -500, 'boss_2')
+                boss.weapons[0].change_weapon('sniper')
+                boss.weapons[1].change_weapon('sniper')
+                enemies.append(boss)
+
+            elif not(level%5):
                 boss = Boss(0, -500, 'boss_1')
                 boss.weapons[0].change_weapon('gatling')
                 boss.weapons[1].change_weapon('gatling')
                 boss.weapons[2].change_weapon('BFG')
                 boss.weapons[3].change_weapon('gatling')
                 boss.weapons[4].change_weapon('gatling')
-                enemies.append(boss)
-
-            elif not(level%5):
-                boss = Boss(0, -500, 'boss_2')
-                boss.weapons[0].change_weapon('sniper')
-                boss.weapons[1].change_weapon('sniper')
                 enemies.append(boss)
 
             else:
@@ -182,33 +186,6 @@ def game(player):
                                 break
                 except KeyError:
                     pass
-
-            # if e.type == pg.MOUSEBUTTONUP:
-                # pass
-                # x, y = pg.mouse.get_pos()
-
-                # boss = Boss(0, -500, 'boss_1')
-                # boss.weapons[0].change_weapon('gatling')
-                # boss.weapons[1].change_weapon('gatling')
-                # boss.weapons[2].change_weapon('BFG')
-                # boss.weapons[3].change_weapon('gatling')
-                # boss.weapons[4].change_weapon('gatling')
-                # enemies.append(boss)
-                
-                # powerups.append(PowerUp(x, y, random.choice(powerup_list)))
-                
-                # enemy = Enemy(x, y, random.choice(list(enemy_list)))
-                # enemy.weapons[0].change_weapon('gatling')
-                # enemies.append(enemy)
-
-                # parallaxes.append(Parallaxe(random.choice(list(parallaxe_list))))
-                
-                # for enemy in enemies:
-                #     enemy.health = 0
-
-                # save(player)
-
-                # player.health = 0
     change_music("transition")
                 
   
